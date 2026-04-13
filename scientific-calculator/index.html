@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <nav class="desktop-nav">
+            <a href="../index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="../index.html">Home</a> &rsaquo; <a href="#">Math</a> &rsaquo; Scientific Calculator
+            </div>
+
+            <h1>Scientific Calculator</h1>
+
+            <div class="tool-card" style="display: flex; justify-content: center;">
+                <div class="calc-wrapper">
+                    <input type="text" id="calc-display" readonly placeholder="0">
+                    <div class="calc-keys">
+                        <button onclick="appendFunc('Math.sin(')">sin</button>
+                        <button onclick="appendFunc('Math.cos(')">cos</button>
+                        <button onclick="appendFunc('Math.tan(')">tan</button>
+                        <button class="clear-btn" onclick="clearDisplay()">AC</button>
+                        <button class="del-btn" onclick="deleteLast()">DEL</button>
+                        
+                        <button onclick="appendVal('**')">x^y</button>
+                        <button onclick="appendFunc('Math.sqrt(')">√</button>
+                        <button onclick="appendVal('7')">7</button>
+                        <button onclick="appendVal('8')">8</button>
+                        <button onclick="appendVal('9')">9</button>
+                        
+                        <button onclick="appendVal('(')">(</button>
+                        <button onclick="appendVal(')')">)</button>
+                        <button onclick="appendVal('4')">4</button>
+                        <button onclick="appendVal('5')">5</button>
+                        <button onclick="appendVal('6')">6</button>
+                        
+                        <button class="op-btn" onclick="appendVal('/')">÷</button>
+                        <button class="op-btn" onclick="appendVal('*')">×</button>
+                        <button onclick="appendVal('1')">1</button>
+                        <button onclick="appendVal('2')">2</button>
+                        <button onclick="appendVal('3')">3</button>
+                        
+                        <button class="op-btn" onclick="appendVal('-')">−</button>
+                        <button class="op-btn" onclick="appendVal('+')">+</button>
+                        <button onclick="appendVal('0')">0</button>
+                        <button onclick="appendVal('.')">.</button>
+                        <button class="equal-btn" onclick="calculate()">=</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h2 style="margin-top: 0; color: var(--primary-red); font-size: 22px;">How to Use the Scientific Calculator</h2>
+                <p>This web-based scientific calculator provides advanced mathematical functions for engineering, science, and higher-level mathematics.</p>
+                <ol style="line-height: 1.8; margin-bottom: 0;">
+                    <li><strong>Basic Arithmetic:</strong> Use the number pad and standard operators (+, -, ×, ÷) just like a standard calculator.</li>
+                    <li><strong>Trigonometry:</strong> Click <code>sin</code>, <code>cos</code>, or <code>tan</code> to calculate trigonometric functions. Make sure to close your parentheses!</li>
+                    <li><strong>Exponents & Roots:</strong> Use the <code>x^y</code> button to raise a number to a specific power, or the <code>√</code> button to find the square root.</li>
+                    <li><strong>Order of Operations:</strong> Use the parentheses <code>( )</code> buttons to group equations and force the calculator to solve specific parts of your formula first.</li>
+                </ol>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is a Scientific Calculator?</h2>
+                <p>A scientific calculator is an advanced electronic tool designed to calculate problems in science, engineering, and mathematics. Unlike a standard calculator that only handles basic arithmetic (addition, subtraction, multiplication, and division), scientific calculators give you access to trigonometric functions, logarithms, probability, and exponential operations.</p>
+                
+                <h3>Understanding Key Functions</h3>
+                <p>If you are transitioning from a standard calculator to a scientific one, the extra buttons can look intimidating. Here is a breakdown of the most common advanced functions:</p>
+
+                <h4>Trigonometric Functions (Sin, Cos, Tan)</h4>
+                <p>These functions are essential in geometry and physics. They calculate the relationship between the angles and sides of a right-angled triangle. <strong>Sine (sin)</strong>, <strong>Cosine (cos)</strong>, and <strong>Tangent (tan)</strong> are commonly used in architecture, engineering, and navigating coordinates.</p>
+
+                <h4>Exponents and Powers (x^y)</h4>
+                <p>An exponent tells you how many times a number (the base) is multiplied by itself. For example, 5^3 means 5 × 5 × 5. This function is vital for calculating compound interest in finance, population growth in biology, and distance in astronomy.</p>
+
+                <h4>Square Roots (√)</h4>
+                <p>The square root function does the exact opposite of squaring a number. It finds the value that, when multiplied by itself, gives the original number. For instance, the square root of 64 is 8, because 8 × 8 = 64.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Does this calculator follow PEMDAS?</h4>
+                <p style="margin-bottom: 25px;">Yes. This scientific calculator adheres strictly to the mathematical order of operations (Parentheses, Exponents, Multiplication and Division, Addition and Subtraction). Always use parentheses to ensure your complex equations are processed in the exact order you intend.</p>
+
+                <h4 style="color: var(--text-color);">2. Are trigonometric results in degrees or radians?</h4>
+                <p style="margin-bottom: 25px;">By default, standard web-based JavaScript math functions calculate trigonometry using radians, not degrees. If you are doing schoolwork that requires degrees, you may need to convert the radian result.</p>
+
+                <h4 style="color: var(--text-color);">3. What is the difference between AC and DEL?</h4>
+                <p>The <strong>AC (All Clear)</strong> button will completely wipe your current formula and reset the display to zero. The <strong>DEL (Delete)</strong> button acts like a backspace key, removing only the very last character or number you typed, allowing you to fix a typo without restarting the whole problem.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/bmi-calculator"><i class="fas fa-heartbeat"></i> BMI Calculator</a></li>
+                    <li><a href="/fraction-calculator"><i class="fas fa-divide"></i> Fraction Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers. LooLabs is built on strict testing and continuous improvement. We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="#">About Us</a> | 
+            <a href="#">Sitemap</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026 <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
