@@ -39,18 +39,27 @@ a:hover { color: var(--primary-red); }
 /* HEADER */
 header {
     background-color: var(--primary-red);
-    padding: 15px 5%;
+    padding: 8px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    position: relative; /* ADD THIS LINE */
 }
 
 .logo {
     color: white;
-    font-size: 28px;
+    font-size: 24px; 
     font-weight: 700;
     text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.4); 
+}
+
+/* The new .xyz styling */
+.domain-ext {
+    color: #ffb703; /* Premium Tech Gold */
+    font-size: 24px; /* Slightly smaller than the main text */
+    font-weight: 600;
+    margin-left: 2px; /* Adds a tiny breathing room */
 }
 
 .desktop-nav a, .desktop-nav button {
@@ -244,7 +253,30 @@ footer { text-align: center; padding: 40px 20px; background: var(--surface-color
 
 /* 2. Adjusts Navigation, Calculator, and Text for mobile phones */
 @media (max-width: 768px) {
-    .desktop-nav { display: none; }
+    /* MOBILE MENU STYLING */
+    .desktop-nav { 
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%; /* Pushes it directly below the header */
+        left: 0;
+        width: 100%;
+        background-color: var(--primary-red);
+        padding: 20px 0;
+        box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+        z-index: 1000;
+    }
+    
+    /* This is the class JavaScript triggers when clicked */
+    .desktop-nav.active {
+        display: flex;
+    }
+
+    .desktop-nav a, .desktop-nav button {
+        margin: 15px 0;
+        text-align: center;
+        width: 100%;
+    }
     .mobile-menu-btn { display: block; }
     
     /* Shrink the main header text so it doesn't break the layout */
