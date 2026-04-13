@@ -324,3 +324,142 @@ html, body {
     padding-left: 2px;
     padding-right: 2px;
 }
+
+
+/* =========================================
+   TOOL PAGES MASTER TEMPLATE STYLES
+   ========================================= */
+
+/* Grid Layout for Tool Pages */
+.tool-layout {
+    display: grid;
+    grid-template-columns: 2.5fr 1fr; /* 70% Content / 30% Sidebar */
+    gap: 40px;
+    margin-top: 20px;
+    margin-bottom: 60px;
+}
+
+.breadcrumbs {
+    font-size: 14px;
+    margin-bottom: 20px;
+    color: #888;
+}
+
+.breadcrumbs a { 
+    color: var(--primary-red); 
+    font-weight: 600; 
+}
+
+.tool-main h1 {
+    font-size: 32px;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* Reusing your neumorphic shadow variables for the tool card */
+.tool-card {
+    background: var(--surface-color);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+/* Tool Input Neumorphic Styling */
+.input-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.tool-input {
+    background: var(--bg-color);
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    box-shadow: var(--inset-shadow);
+    outline: none;
+    width: 120px;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.tool-input:focus {
+    box-shadow: inset 2px 2px 5px rgba(230, 57, 70, 0.2), inset -2px -2px 5px rgba(255,255,255,0.5);
+}
+
+.result-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 30px 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.result-input {
+    flex: 1;
+    text-align: left;
+    color: var(--primary-red);
+    font-size: 24px;
+    width: auto;
+}
+
+/* Primary Action Button */
+.calc-action-btn {
+    background: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 8px 15px rgba(230, 57, 70, 0.3);
+    transition: all 0.2s;
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.calc-action-btn:hover {
+    background: var(--primary-red-hover);
+    transform: translateY(-2px);
+}
+
+.calc-action-btn:active {
+    transform: scale(0.98);
+}
+
+/* SEO & Sidebar Elements */
+.tool-seo h2, .tool-seo h3 {
+    color: var(--primary-red);
+    margin-top: 30px;
+}
+
+.formula-box {
+    background: var(--bg-color);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--inset-shadow);
+    text-align: center;
+    font-size: 24px;
+    margin: 20px 0;
+    color: var(--primary-red);
+}
+
+.related-tools ul { list-style: none; padding: 0; }
+.related-tools li { margin-bottom: 15px; }
+.related-tools li a { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.related-tools i { color: var(--primary-red); width: 20px; }
+
+/* Mobile Formatting for the Grid */
+@media (max-width: 900px) {
+    .tool-layout { grid-template-columns: 1fr; }
+    .tool-input { width: 80px; }
+    .input-row h3 { font-size: 16px; }
+}
