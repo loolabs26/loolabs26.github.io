@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fraction Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <nav class="desktop-nav">
+            <a href="../index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="../index.html">Home</a> &rsaquo; <a href="#">Math</a> &rsaquo; Fraction Calculator
+            </div>
+
+            <h1>Fraction Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="fraction-container">
+                    <div class="fraction-col">
+                        <input type="number" id="num1" class="tool-input" placeholder="Top">
+                        <div class="fraction-line"></div>
+                        <input type="number" id="den1" class="tool-input" placeholder="Bot">
+                    </div>
+
+                    <select id="operator" class="tool-input operator-select">
+                        <option value="+">+</option>
+                        <option value="-">−</option>
+                        <option value="*">×</option>
+                        <option value="/">÷</option>
+                    </select>
+
+                    <div class="fraction-col">
+                        <input type="number" id="num2" class="tool-input" placeholder="Top">
+                        <div class="fraction-line"></div>
+                        <input type="number" id="den2" class="tool-input" placeholder="Bot">
+                    </div>
+
+                    <h2 style="margin: 0 10px;">=</h2>
+
+                    <div class="fraction-col">
+                        <input type="text" id="resNum" class="tool-input result-input" readonly placeholder="Result">
+                        <div class="fraction-line" id="resLine"></div>
+                        <input type="text" id="resDen" class="tool-input result-input" readonly placeholder="Simplified">
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-bottom: 20px; font-weight: 600; color: #888;" id="decimalOutput">
+                    Decimal format: 0
+                </div>
+
+                <button onclick="calculateFraction()" class="calc-action-btn">Calculate Fraction <i class="fas fa-calculator"></i></button>
+            </div>
+
+            <div class="tool-card">
+                <h2 style="margin-top: 0; color: var(--primary-red); font-size: 22px;">How to Use the Fraction Calculator</h2>
+                <p>This tool automatically adds, subtracts, multiplies, or divides fractions and returns the answer in its simplest, reduced form.</p>
+                <ol style="line-height: 1.8; margin-bottom: 0;">
+                    <li><strong>Enter Fraction 1:</strong> Type the numerator (top number) and denominator (bottom number) into the first stack of boxes.</li>
+                    <li><strong>Select Operation:</strong> Choose to add (+), subtract (−), multiply (×), or divide (÷) using the center dropdown menu.</li>
+                    <li><strong>Enter Fraction 2:</strong> Type the values into the second stack of boxes.</li>
+                    <li><strong>Calculate:</strong> Click the calculate button to see the simplified fraction and its decimal equivalent instantly.</li>
+                </ol>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How Fraction Math Works</h2>
+                <p>A fraction represents a part of a whole or, more generally, any number of equal parts. Working with fractions can be tricky because the mathematical rules change entirely depending on whether you are adding, multiplying, or dividing.</p>
+
+                <h3>1. Adding and Subtracting Fractions</h3>
+                <p>To add or subtract fractions, you must first find a <strong>Common Denominator</strong>. The bottom numbers must match before you can combine the top numbers.</p>
+                <div class="formula-box">
+                    <strong><sup>a</sup>&frasl;<sub>b</sub> + <sup>c</sup>&frasl;<sub>d</sub> = <sup>(ad + bc)</sup>&frasl;<sub>bd</sub></strong>
+                </div>
+                <p><em>Example:</em> To add 1/2 and 1/3, you find a common denominator of 6. You convert them to 3/6 and 2/6. Then you add the numerators (3 + 2) to get 5/6.</p>
+
+                <h3>2. Multiplying Fractions</h3>
+                <p>Multiplying fractions is much more straightforward than adding them. You do not need a common denominator. You simply multiply the top numbers straight across, and then multiply the bottom numbers straight across.</p>
+                <div class="formula-box">
+                    <strong><sup>a</sup>&frasl;<sub>b</sub> × <sup>c</sup>&frasl;<sub>d</sub> = <sup>(a × c)</sup>&frasl;<sub>(b × d)</sub></strong>
+                </div>
+
+                <h3>3. Dividing Fractions</h3>
+                <p>To divide fractions, you use a method often taught as "Keep, Change, Flip." You <em>keep</em> the first fraction the same, <em>change</em> the division sign to multiplication, and <em>flip</em> the second fraction upside down (creating its reciprocal). Then, you multiply straight across.</p>
+                <div class="formula-box">
+                    <strong><sup>a</sup>&frasl;<sub>b</sub> ÷ <sup>c</sup>&frasl;<sub>d</sub> = <sup>a</sup>&frasl;<sub>b</sub> × <sup>d</sup>&frasl;<sub>c</sub></strong>
+                </div>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. What is a simplified fraction?</h4>
+                <p style="margin-bottom: 25px;">A fraction is in its simplest form when the top and bottom numbers can no longer be divided evenly by the same whole number. For example, 4/8 simplifies down to 1/2 because both the 4 and the 8 can be divided by 4.</p>
+
+                <h4 style="color: var(--text-color);">2. What is an improper fraction?</h4>
+                <p style="margin-bottom: 25px;">An improper fraction is a fraction where the numerator (top number) is larger than the denominator (bottom number), such as 5/4. This means the value is greater than 1. It can also be written as a mixed number (e.g., 1 ¼).</p>
+
+                <h4 style="color: var(--text-color);">3. Can a denominator be zero?</h4>
+                <p>No. In mathematics, dividing by zero is undefined. If you attempt to enter a zero in the bottom box of our calculator, it will return an error to protect the calculation.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/bmi-calculator"><i class="fas fa-heartbeat"></i> BMI Calculator</a></li>
+                    <li><a href="/scientific-calculator"><i class="fas fa-square-root-variable"></i> Scientific Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers. LooLabs is built on strict testing and continuous improvement. We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="#">About Us</a> | 
+            <a href="#">Sitemap</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026 <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
