@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard Deviation Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <nav class="desktop-nav">
+            <a href="../index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="../index.html">Home</a> &rsaquo; <a href="#">Math</a> &rsaquo; Standard Deviation
+            </div>
+
+            <h1>Standard Deviation Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="data-input-area">
+                    <label style="font-weight: 600;">Enter Data Values (comma or space separated):</label>
+                    <input type="text" id="dataInput" class="tool-input" placeholder="e.g., 10, 15, 23, 42, 55">
+                    
+                    <label style="font-weight: 600; margin-top: 10px;">Calculation Type:</label>
+                    <select id="calcType" class="tool-input" style="width: 100%; text-align: left; cursor: pointer;">
+                        <option value="sample">Sample (Used for a subset of data)</option>
+                        <option value="population">Population (Used for entire datasets)</option>
+                    </select>
+                </div>
+
+                <button onclick="calculateStats()" class="calc-action-btn">Calculate Statistics <i class="fas fa-chart-line"></i></button>
+
+                <div class="results-grid">
+                    <div class="stat-box">
+                        <div class="stat-label">Standard Deviation</div>
+                        <div class="stat-value" id="resStdDev">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Variance</div>
+                        <div class="stat-value" id="resVariance">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Mean (Average)</div>
+                        <div class="stat-value" id="resMean">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Count (N)</div>
+                        <div class="stat-value" id="resCount">0</div>
+                    </div>
+                </div>
+                
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; display: none;"></div>
+            </div>
+
+            <div class="tool-card">
+                <h2 style="margin-top: 0; color: var(--primary-red); font-size: 22px;">How to Use This Calculator</h2>
+                <p>This tool quickly computes the standard deviation, variance, and mean for any dataset.</p>
+                <ol style="line-height: 1.8; margin-bottom: 0;">
+                    <li><strong>Enter your data:</strong> Type or paste your numbers into the large input box. You can separate them using commas or spaces (e.g., <code>12, 14, 16</code> or <code>12 14 16</code>).</li>
+                    <li><strong>Choose the type:</strong> Select <em>Sample</em> if your numbers represent a small group taken from a larger population. Select <em>Population</em> if your numbers represent every single member of the group you are studying.</li>
+                    <li><strong>Calculate:</strong> Click the button to instantly generate your statistical spread.</li>
+                </ol>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is Standard Deviation?</h2>
+                <p>In statistics, standard deviation is a measure of the amount of variation or dispersion within a set of values. A low standard deviation indicates that the values tend to be grouped very close to the mean (the average). A high standard deviation indicates that the values are spread out over a much wider range.</p>
+                <p>For example, if the average height of students in a class is 170cm, a low standard deviation means almost everyone is around 170cm. A high standard deviation means you have some very short students and some very tall students.</p>
+
+                <h3>Sample vs. Population Standard Deviation</h3>
+                <p>It is crucial to know whether you are working with a sample or a population, as the mathematical formulas are slightly different.</p>
+                <ul>
+                    <li><strong>Population Standard Deviation (σ):</strong> Used when you have data for the entire population you are analyzing (e.g., the exact grades of every single student in a specific classroom). You divide by <em>N</em>.</li>
+                    <li><strong>Sample Standard Deviation (s):</strong> Used when your data represents only a fraction of a larger population (e.g., asking 100 people a survey question to predict how an entire country feels). You divide by <em>N - 1</em>. This is called Bessel's correction, and it provides a more unbiased estimate.</li>
+                </ul>
+
+                <h3>The Formulas</h3>
+                <p>If you are calculating this by hand, you first find the Mean, subtract the Mean from every individual number, square those results, add them together to find the Variance, and then take the square root.</p>
+                <div class="formula-box" style="font-size: 20px;">
+                    <strong>Population:</strong> σ = √ [ Σ ( x<sub>i</sub> - μ )<sup>2</sup> / N ]<br><br>
+                    <strong>Sample:</strong> s = √ [ Σ ( x<sub>i</sub> - x̄ )<sup>2</sup> / (N - 1) ]
+                </div>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. What is Variance?</h4>
+                <p style="margin-bottom: 25px;">Variance is simply the standard deviation squared. While standard deviation is expressed in the same units as the original data (like "centimeters" or "dollars"), variance is expressed in squared units. Standard deviation is much easier to interpret in real-world scenarios.</p>
+
+                <h4 style="color: var(--text-color);">2. Can standard deviation be negative?</h4>
+                <p style="margin-bottom: 25px;">No. Because the formula requires squaring the differences from the mean (which removes all negative signs) and then taking the principal square root, standard deviation is always a positive number or exactly zero.</p>
+
+                <h4 style="color: var(--text-color);">3. What does a standard deviation of 0 mean?</h4>
+                <p>A standard deviation of exactly zero means there is absolutely no variation in your dataset. Every single number you entered is exactly the same (e.g., 5, 5, 5, 5, 5).</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/scientific-calculator"><i class="fas fa-square-root-variable"></i> Scientific Calculator</a></li>
+                    <li><a href="/fraction-calculator"><i class="fas fa-divide"></i> Fraction Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="#">About Us</a> | 
+            <a href="#">Sitemap</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
