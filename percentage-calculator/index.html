@@ -1,22 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-FRTPM5S88N');
-</script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Percentage Calculator | LooLabs</title>
+    <title>Percentage Calculator | LooLabs.xyz</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
+    
+    <link rel="stylesheet" href="style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
 </head>
 <body>
 
@@ -36,7 +37,7 @@
         
         <div class="tool-main">
             <div class="breadcrumbs">
-                <a href="../index.html">Home</a> &rsaquo; Math &rsaquo; Percentage Calculator
+                <a href="../index.html">Home</a> &rsaquo; <a href="#">Math</a> &rsaquo; Percentage Calculator
             </div>
 
             <h1>Percentage Calculator</h1>
@@ -58,16 +59,58 @@
                 <button onclick="calculatePercentage()" class="calc-action-btn">Calculate <i class="fas fa-calculator"></i></button>
             </div>
 
+            <div class="tool-card">
+                <h2 style="margin-top: 0; color: var(--primary-red); font-size: 22px;">How to Use This Calculator</h2>
+                <p>Using our free percentage calculator is quick and straightforward. Follow these simple steps to get your answer instantly:</p>
+                <ol style="line-height: 1.8; margin-bottom: 0;">
+                    <li><strong>Enter the Percentage:</strong> Type the percentage value you want to find into the first input box.</li>
+                    <li><strong>Enter the Base Value:</strong> Type the total number (the "whole") into the second input box.</li>
+                    <li><strong>Click Calculate:</strong> Hit the calculate button to instantly generate the precise mathematical result in the read-only box below.</li>
+                </ol>
+            </div>
+
             <article class="tool-seo">
-                <h2>How to Calculate Percentages</h2>
-                <p>In mathematics, a percentage is a number or ratio that represents a fraction of 100. It is heavily used in finance, science, and everyday problem-solving. The term comes from the Latin <em>per centum</em>, meaning "by a hundred".</p>
-                
-                <h3>The Core Formula</h3>
-                <p>To find the percentage of a specific number, you can use the standard algebraic equation:</p>
+                <h2>Comprehensive Guide to Percentages</h2>
+                <p>In mathematics, a percentage is a number or ratio expressed as a fraction of 100. It is a universal way to represent proportions and is heavily used in finance, science, shopping, and everyday problem-solving. The term itself originates from the Latin phrase <em>per centum</em>, which literally translates to "by a hundred".</p>
+                <p>Whether you are calculating sales tax on a purchase, determining the discount on a clearance item, or analyzing statistical data, percentages are the fundamental math that makes comparisons easy to understand.</p>
+
+                <h3>Various Percentage Calculation Methods</h3>
+                <p>Percentages can be calculated in several different ways depending on what information you are trying to find. Here are the three most common methods used in real-world scenarios:</p>
+
+                <h4>1. Finding X% of Y (The Standard Method)</h4>
+                <p>This is the most common use case and the primary function of the calculator above. It answers questions like, "What is 20% of 50?"</p>
                 <div class="formula-box">
-                    <strong>P × V<sub>1</sub> = V<sub>2</sub></strong>
+                    <strong>(P ÷ 100) × V = Result</strong>
                 </div>
-                <p>Where <strong>P</strong> is the percentage (converted to a decimal by dividing by 100), <strong>V<sub>1</sub></strong> is the base value, and <strong>V<sub>2</sub></strong> is the final result.</p>
+                <p><em>Example:</em> To find 20% of 50, you divide 20 by 100 (which equals 0.20) and multiply it by 50 to get 10.</p>
+
+                <h4>2. Finding What Percentage X is of Y</h4>
+                <p>This method is used when you have two numbers and want to find the percentage ratio between them. It answers questions like, "10 is what percentage of 50?"</p>
+                <div class="formula-box">
+                    <strong>(V<sub>1</sub> ÷ V<sub>2</sub>) × 100 = P%</strong>
+                </div>
+                <p><em>Example:</em> If you scored 45 out of 60 on a test, you divide 45 by 60 (which equals 0.75) and multiply by 100 to get a score of 75%.</p>
+
+                <h4>3. Calculating Percentage Increase or Decrease</h4>
+                <p>This formula is vital for tracking growth, calculating inflation, or seeing how much a price has dropped. It measures the change between an old value and a new value.</p>
+                <div class="formula-box">
+                    <strong>((New - Old) ÷ Old) × 100 = Change%</strong>
+                </div>
+                <p><em>Example:</em> If a stock goes from $40 to $50, the math is ((50 - 40) ÷ 40) × 100. This results in a 25% increase.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. How do I easily calculate a 20% discount?</h4>
+                <p style="margin-bottom: 25px;">To calculate a 20% discount on an item, multiply the original price by 0.20 to find the discount amount. Then, subtract that amount from the original price. Alternatively, you can multiply the original price by 0.80 to instantly find the final price you will pay.</p>
+
+                <h4 style="color: var(--text-color);">2. Is a percentage the same thing as a percentile?</h4>
+                <p style="margin-bottom: 25px;">No, they are different mathematical concepts. A percentage represents a fraction out of 100 (e.g., scoring 80% on a test means you got 80 out of 100 points). A percentile compares your score to others (e.g., being in the 80th percentile means you scored higher than 80% of the other people who took the test).</p>
+
+                <h4 style="color: var(--text-color);">3. Can a percentage be greater than 100%?</h4>
+                <p style="margin-bottom: 25px;">Yes. While 100% represents a complete whole, percentages can exceed 100% to represent growth or amounts larger than the original base. For example, if your business profits double, you have experienced a 100% increase, resulting in 200% of your original profit.</p>
+
+                <h4 style="color: var(--text-color);">4. How do I add a 15% tax or tip to a bill?</h4>
+                <p>The fastest way to add a 15% increase to any number is to multiply the original amount by 1.15. The "1" keeps the original total, and the ".15" adds the extra fifteen percent in a single calculation.</p>
             </article>
         </div>
 
@@ -91,17 +134,17 @@
 
     <footer>
         <div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div>
-        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple...</p>
-        <p class="footer-thanks">Built with passion for students and developers...</p>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers. LooLabs is built on strict testing and continuous improvement. We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
         <div class="footer-links">
             <a href="#">About Us</a> | 
             <a href="#">Sitemap</a> | 
             <a href="#">Terms of Use</a> | 
             <a href="#">Privacy Policy</a>
         </div>
-        <p class="copyright">&copy; 2026 <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+        <p class="copyright">&copy; 2026 - 2026 <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
     </footer>
 
-    <script src="js/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
