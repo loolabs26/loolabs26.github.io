@@ -242,11 +242,20 @@ footer { text-align: center; padding: 40px 20px; background: var(--surface-color
     .home-calculator { display: flex; justify-content: center; }
 }
 
-/* 2. Adjusts Navigation and Calculator buttons for mobile phones */
+/* 2. Adjusts Navigation, Calculator, and Text for mobile phones */
 @media (max-width: 768px) {
     .desktop-nav { display: none; }
     .mobile-menu-btn { display: block; }
-    /* Keeps the 5-column layout for your new landscape design so the math buttons don't break */
-    .calc-keys { grid-template-columns: repeat(5, 1fr); } 
-    .calc-keys button { padding: 8px 0; font-size: 14px; }
+    
+    /* Shrink the main header text so it doesn't break the layout */
+    .search-section h1 { font-size: 24px !important; }
+    
+    /* Make the calculator fit snugly on narrow screens */
+    .calc-wrapper { padding: 10px; }
+    #calc-display { font-size: 24px; padding: 10px; }
+    
+    /* Tighter 5-column grid for the buttons */
+    .calc-keys { gap: 5px; } 
+    .calc-keys button { padding: 10px 0; font-size: 13px; }
 }
+
