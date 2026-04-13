@@ -465,3 +465,44 @@ html, body {
     .tool-input { width: 80px; }
     .input-row h3 { font-size: 16px; }
 }
+
+/* =========================================
+   FRACTION CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.fraction-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.fraction-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 90px;
+}
+
+.fraction-col .tool-input {
+    width: 100%;
+    padding: 10px;
+}
+
+.fraction-line {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-color);
+    border-radius: 2px;
+}
+
+.operator-select {
+    cursor: pointer;
+    font-size: 24px;
+    padding: 10px 15px;
+    width: auto;
+    text-align: center;
+    appearance: none; /* Removes default browser dropdown arrow */
+}
