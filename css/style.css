@@ -259,3 +259,36 @@ footer { text-align: center; padding: 40px 20px; background: var(--surface-color
     .calc-keys button { padding: 10px 0; font-size: 13px; }
 }
 
+/* =========================================
+   THE NUCLEAR MOBILE OVERFLOW FIX 
+   ========================================= */
+
+/* 1. Physically prevents the browser from allowing horizontal scroll */
+html, body {
+    max-width: 100vw;
+    overflow-x: hidden; 
+}
+
+/* 2. Forces all major containers to strictly obey the screen width */
+.container, .hero-section, .home-calculator, .calc-wrapper, .search-section {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* 3. The "Magic Fix" for Flexbox text inputs on mobile */
+.search-bar {
+    width: 100%;
+    max-width: 100%;
+}
+.search-bar input {
+    min-width: 0; /* Forces the input to shrink rather than push the screen wider */
+    width: 100%;
+}
+
+/* 4. Ensures calculator buttons don't force the grid wider than the screen */
+.calc-keys button {
+    min-width: 0;
+    overflow: hidden;
+    padding-left: 2px;
+    padding-right: 2px;
+}
