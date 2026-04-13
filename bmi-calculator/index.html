@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <nav class="desktop-nav">
+            <a href="../index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="../index.html">Home</a> &rsaquo; <a href="#">Health</a> &rsaquo; BMI Calculator
+            </div>
+
+            <h1>BMI Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="unit-toggle">
+                    <button class="unit-btn active" id="btnMetric" onclick="switchUnit('metric')">Metric Units</button>
+                    <button class="unit-btn" id="btnUS" onclick="switchUnit('us')">US Units</button>
+                </div>
+
+                <div id="metricInputs" class="input-group-stack">
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Height</label>
+                        <input type="number" id="heightCm" class="tool-input" placeholder="Centimeters (cm)">
+                    </div>
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Weight</label>
+                        <input type="number" id="weightKg" class="tool-input" placeholder="Kilograms (kg)">
+                    </div>
+                </div>
+
+                <div id="usInputs" class="input-group-stack" style="display: none;">
+                    <div style="display: flex; gap: 15px;">
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Height (Feet)</label>
+                            <input type="number" id="heightFt" class="tool-input" placeholder="Feet">
+                        </div>
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Height (Inches)</label>
+                            <input type="number" id="heightIn" class="tool-input" placeholder="Inches">
+                        </div>
+                    </div>
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Weight</label>
+                        <input type="number" id="weightLbs" class="tool-input" placeholder="Pounds (lbs)">
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateBMI()" class="calc-action-btn">Calculate BMI <i class="fas fa-heartbeat"></i></button>
+
+                <div class="bmi-result-box" id="resultBox">
+                    <div style="font-size: 16px; color: #888; font-weight: 600; margin-bottom: 5px;">Your BMI is:</div>
+                    <div class="bmi-value" id="bmiValue">0</div>
+                    <div class="bmi-category" id="bmiCategory">Normal Weight</div>
+                    
+                    <div class="bmi-scale-container">
+                        <div class="bmi-marker" id="bmiMarker"></div>
+                        <div class="bmi-scale">
+                            <div class="scale-under"></div>
+                            <div class="scale-normal"></div>
+                            <div class="scale-over"></div>
+                            <div class="scale-obese"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 12px; color: #888; margin-top: 5px;">
+                            <span>15</span>
+                            <span>18.5</span>
+                            <span>25</span>
+                            <span>30</span>
+                            <span>40+</span>
+                        </div>
+                    </div>
+
+                    <ul class="bmi-extra-stats">
+                        <li>Healthy BMI range: <strong>18.5 kg/m² - 25 kg/m²</strong></li>
+                        <li id="healthyWeightText">Healthy weight for your height: <strong>-</strong></li>
+                        <li id="bmiPrimeText">BMI Prime: <strong>-</strong></li>
+                        <li id="ponderalIndexText">Ponderal Index: <strong>-</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>BMI Introduction</h2>
+                <p>BMI is a measurement of a person's leanness or corpulence based on their height and weight, and is intended to quantify tissue mass. It is widely used as a general indicator of whether a person has a healthy body weight for their height. Specifically, the value obtained from the calculation of BMI is used to categorize whether a person is underweight, normal weight, overweight, or obese depending on what range the value falls between.</p>
+
+                <h3>BMI Table for Adults</h3>
+                <p>This is the World Health Organization's (WHO) recommended body weight based on BMI values for adults. It is used for both men and women, age 20 or older.</p>
+                <table class="seo-table">
+                    <thead>
+                        <tr>
+                            <th>Classification</th>
+                            <th>BMI range - kg/m<sup>2</sup></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Severe Thinness</td><td>< 16</td></tr>
+                        <tr><td>Moderate Thinness</td><td>16 - 17</td></tr>
+                        <tr><td>Mild Thinness</td><td>17 - 18.5</td></tr>
+                        <tr><td>Normal</td><td>18.5 - 25</td></tr>
+                        <tr><td>Overweight</td><td>25 - 30</td></tr>
+                        <tr><td>Obese Class I</td><td>30 - 35</td></tr>
+                        <tr><td>Obese Class II</td><td>35 - 40</td></tr>
+                        <tr><td>Obese Class III</td><td>> 40</td></tr>
+                    </tbody>
+                </table>
+
+                <h3>Risks Associated with Being Overweight</h3>
+                <p>Being overweight increases the risk of a number of serious diseases and health conditions. Below is a list of said risks, according to the Centers for Disease Control and Prevention (CDC):</p>
+                <ul>
+                    <li>High blood pressure</li>
+                    <li>Higher levels of LDL cholesterol, lower levels of HDL cholesterol</li>
+                    <li>Type II diabetes</li>
+                    <li>Coronary heart disease</li>
+                    <li>Stroke</li>
+                    <li>Gallbladder disease</li>
+                    <li>Osteoarthritis (a breakdown of cartilage and bone within a joint)</li>
+                    <li>Sleep apnea and breathing problems</li>
+                    <li>Clinical depression, anxiety, and other mental disorders</li>
+                </ul>
+
+                <h3>Limitations of BMI</h3>
+                <p>Although BMI is a widely used and useful indicator of healthy body weight, it does have its limitations. BMI is an estimate that cannot take body composition into account. Due to a wide variety of body types as well as distribution of muscle, bone mass, and fat, BMI should be considered along with other measurements rather than being used as the sole method for determining a person's healthy body weight.</p>
+                <p>For example, highly fit athletes often have a high BMI because muscle is denser than fat and weighs more by volume. According to their BMI alone, they may be classified as "overweight" or even "obese," despite being in peak physical condition.</p>
+
+                <h3>BMI Formula</h3>
+                <p>Below are the equations used for calculating BMI in the International System of Units (SI) and the US customary system (USC):</p>
+                <div class="formula-box">
+                    <strong>Metric System:</strong> BMI = weight(kg) / height(m)<sup>2</sup><br><br>
+                    <strong>US Units:</strong> BMI = 703 × weight(lbs) / height(in)<sup>2</sup>
+                </div>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/scientific-calculator"><i class="fas fa-square-root-variable"></i> Scientific Calculator</a></li>
+                    <li><a href="/fraction-calculator"><i class="fas fa-divide"></i> Fraction Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="#">About Us</a> | 
+            <a href="#">Sitemap</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
