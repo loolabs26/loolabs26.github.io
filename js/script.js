@@ -73,3 +73,14 @@ if (mobileMenuBtn) {
         navMenu.classList.toggle('active');
     });
 }
+
+// --- GLOBAL LOGO HOME BUTTON LINK ---
+// This finds the logo on any page and makes it click back to the homepage
+const siteLogos = document.querySelectorAll('.logo');
+
+siteLogos.forEach(logo => {
+    logo.style.cursor = 'pointer'; // Makes it look clickable
+    logo.addEventListener('click', () => {
+        window.location.href = '/'; // Sends the user home
+    });
+});
