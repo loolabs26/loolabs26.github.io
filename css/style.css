@@ -1,4 +1,4 @@
-/* Apply Box Sizing to everything so padding doesn't break widths */
+
 *, *::before, *::after {
     box-sizing: border-box;
 }
