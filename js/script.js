@@ -63,7 +63,6 @@ function calculate() {
         currentExpression = "";
     }
 }
-
 // --- MOBILE MENU TOGGLE ---
 const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navMenu = document.querySelector('.desktop-nav');
