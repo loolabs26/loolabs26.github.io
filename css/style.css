@@ -1,4 +1,4 @@
-
+/* Apply Box Sizing to everything so padding doesn't break widths */
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -325,7 +325,6 @@ html, body {
     padding-right: 2px;
 }
 
-
 /* =========================================
    TOOL PAGES MASTER TEMPLATE STYLES
    ========================================= */
@@ -375,22 +374,24 @@ html, body {
 
 .tool-input {
     background: var(--bg-color);
-    border: none;
+    border: 2px solid rgba(150, 150, 150, 0.3); /* Standard solid border */
     padding: 15px;
-    border-radius: 12px;
+    border-radius: 12px; /* Nice rounded corners */
     color: var(--text-color);
     font-family: 'Poppins', sans-serif;
     font-size: 18px;
     font-weight: 600;
-    box-shadow: var(--inset-shadow);
+    /* box-shadow removed */
     outline: none;
     width: 120px;
     text-align: center;
     transition: all 0.3s ease;
 }
 
+/* Red highlight when the user clicks the box */
 .tool-input:focus {
-    box-shadow: inset 2px 2px 5px rgba(230, 57, 70, 0.2), inset -2px -2px 5px rgba(255,255,255,0.5);
+    border-color: var(--primary-red);
+    background: var(--surface-color);
 }
 
 .result-row {
@@ -408,6 +409,7 @@ html, body {
     color: var(--primary-red);
     font-size: 24px;
     width: auto;
+    border-color: transparent; /* Makes the read-only result box look a bit cleaner */
 }
 
 /* Primary Action Button */
