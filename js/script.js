@@ -23,44 +23,58 @@ themeToggleBtn.addEventListener('click', () => {
     }
 });
 
-// --- SCIENTIFIC CALCULATOR LOGIC ---
+/* =========================================
+   HOMEPAGE SCIENTIFIC CALCULATOR LOGIC
+   ========================================= */
 const display = document.getElementById('calc-display');
-let currentExpression = "";
 
+// Adds numbers and basic operators (+, -, *, /) to the screen
 function appendVal(val) {
-    currentExpression += val;
-    display.value = currentExpression;
+    if (!display) return;
+    if (display.value === 'Error') display.value = '';
+    display.value += val;
 }
 
-function appendFunc(funcName) {
-    currentExpression += funcName;
-    display.value = currentExpression.replace(/Math./g, ''); // Hide 'Math.' from user
+// Adds advanced math functions like sin(, cos(, tan(, sqrt(
+function appendFunc(func) {
+    if (!display) return;
+    if (display.value === 'Error') display.value = '';
+    display.value += func;
 }
 
+// Clears the entire screen (AC button)
 function clearDisplay() {
-    currentExpression = "";
-    display.value = "";
+    if (!display) return;
+    display.value = '';
 }
 
+// Deletes just the last character typed (DEL button)
 function deleteLast() {
-    currentExpression = currentExpression.slice(0, -1);
-    display.value = currentExpression.replace(/Math./g, '');
+    if (!display) return;
+    if (display.value === 'Error') {
+        display.value = '';
+    } else {
+        display.value = display.value.toString().slice(0, -1);
+    }
 }
 
+// Runs the actual calculation when '=' is pressed
 function calculate() {
+    if (!display || display.value === '') return;
+    
     try {
-        // Evaluate the expression safely. 
-        // Note: For a production math app, you might later upgrade this to Math.js library for complex parsing.
-        let result = eval(currentExpression);
+        // eval() reads the string on the screen and does the math
+        let result = eval(display.value);
         
-        // Handle floating point weirdness (e.g., 0.1 + 0.2 = 0.30000000000000004)
-        result = Math.round(result * 100000000) / 100000000; 
+        // This prevents super long, ugly decimals (like 0.30000000000000004)
+        if (result % 1 !== 0) {
+            result = parseFloat(result.toFixed(8)); 
+        }
         
         display.value = result;
-        currentExpression = result.toString();
     } catch (error) {
-        display.value = "Error";
-        currentExpression = "";
+        // If the user types bad math like "5 ++ 5" or "Math.sin(90" without closing it
+        display.value = 'Error';
     }
 }
 // --- MOBILE MENU TOGGLE ---
