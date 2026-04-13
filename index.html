@@ -3,18 +3,165 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loo Labs | Developer Tools & Calculators</title>
-    <style>
-        body { background-color: #121212; color: #ffffff; font-family: sans-serif; text-align: center; padding-top: 10%; }
-        h1 { font-size: 3rem; }
-        p { color: #aaaaaa; }
-    </style>
+    <title>Loo Labs | Modern Free Calculators</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <h1>Loo Labs ⚙️</h1>
-    <h2>Coming Soon...!!</h2>
-    <div style="height: 250px;
-  display: block;"></div>
-    <p>The ultimate array of free tools and calculators. Loading soon...</p>
+
+    <header>
+        <div class="logo">LooLabs</div>
+        <nav class="desktop-nav">
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container">
+        <!--
+        <div class="ad-space">
+            <span>Advertisement Space (728x90)</span>
+        </div>
+        -->
+
+       <section class="hero-section">
+            
+            <div class="home-calculator">
+                <div class="calc-wrapper">
+                    <input type="text" id="calc-display" readonly placeholder="0">
+                    <div class="calc-keys">
+                        <button onclick="appendFunc('Math.sin(')">sin</button>
+                        <button onclick="appendFunc('Math.cos(')">cos</button>
+                        <button onclick="appendFunc('Math.tan(')">tan</button>
+                        <button class="clear-btn" onclick="clearDisplay()">AC</button>
+                        <button class="del-btn" onclick="deleteLast()">DEL</button>
+                        
+                        <button onclick="appendVal('**')">x^y</button>
+                        <button onclick="appendFunc('Math.sqrt(')">√</button>
+                        <button onclick="appendVal('7')">7</button>
+                        <button onclick="appendVal('8')">8</button>
+                        <button onclick="appendVal('9')">9</button>
+                        
+                        <button onclick="appendVal('(')">(</button>
+                        <button onclick="appendVal(')')">)</button>
+                        <button onclick="appendVal('4')">4</button>
+                        <button onclick="appendVal('5')">5</button>
+                        <button onclick="appendVal('6')">6</button>
+                        
+                        <button class="op-btn" onclick="appendVal('/')">÷</button>
+                        <button class="op-btn" onclick="appendVal('*')">×</button>
+                        <button onclick="appendVal('1')">1</button>
+                        <button onclick="appendVal('2')">2</button>
+                        <button onclick="appendVal('3')">3</button>
+                        
+                        <button class="op-btn" onclick="appendVal('-')">−</button>
+                        <button class="op-btn" onclick="appendVal('+')">+</button>
+                        <button onclick="appendVal('0')">0</button>
+                        <button onclick="appendVal('.')">.</button>
+                        <button class="equal-btn" onclick="calculate()">=</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-section">
+                <h1 style="margin-top: 0; font-size: 32px; line-height: 1.2;">Fast, Free & Accurate Calculators</h1>
+                <p style="margin-bottom: 25px; font-size: 16px; opacity: 0.8;">Find the exact tool you need to get your math done instantly.</p>
+                
+                <div class="search-bar">
+                    <input type="text" placeholder="Search for any calculator...">
+                    <button><i class="fas fa-search"></i></button>
+                </div>
+                
+                <div class="trending-chips">
+                    <span class="chip-label">Trending:</span>
+                    <a href="/percentage-calculator" class="chip">🔥 Percentage</a>
+                    <a href="/bmi-calculator" class="chip">⚖️ BMI Calc</a>
+                    <a href="/cgpa-calculator" class="chip">🎓 CGPA</a>
+                    <a href="/age-calculator" class="chip">⏳ Age Calc</a>
+                </div>
+            </div>
+            
+        </section>
+
+        <div class="all-calc-btn-wrapper">
+            <a href="#" class="all-calc-btn">All Calculators <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <section class="categories-grid">
+            <div class="category-card">
+                <i class="fas fa-coins category-icon"></i>
+                <h2>Financial Calculators</h2>
+                <ul>
+                    <li><a href="/mortgage-calculator">Mortgage Calculator</a></li>
+                    <li><a href="/auto-loan-calculator">Auto Loan Calculator</a></li>
+                    <li><a href="/salary-calculator">Salary Calculator</a></li>
+                    <li><a href="/roi-calculator">ROI Calculator</a></li>
+                    <li><a href="/discount-calculator">Discount Calculator</a></li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <i class="fas fa-heartbeat category-icon"></i>
+                <h2>Fitness & Health</h2>
+                <ul>
+                    <li><a href="/bmi-calculator">BMI Calculator</a></li>
+                    <li><a href="/calorie-calculator">Calorie Calculator</a></li>
+                    <li><a href="/bmr-calculator">BMR Calculator</a></li>
+                    <li><a href="/tdee-calculator">TDEE Calculator</a></li>
+                    <li><a href="/macro-calculator">Macro Calculator</a></li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <i class="fas fa-square-root-alt category-icon"></i>
+                <h2>Math Calculators</h2>
+                <ul>
+                    <li><a href="/percentage-calculator">Percentage Calculator</a></li>
+                    <li><a href="/scientific-calculator">Scientific Calculator</a></li>
+                    <li><a href="/fraction-calculator">Fraction Calculator</a></li>
+                    <li><a href="/standard-deviation">Standard Deviation</a></li>
+                    <li><a href="/random-number">Random Number Generator</a></li>
+                </ul>
+            </div>
+
+            <div class="category-card">
+                <i class="fas fa-tools category-icon"></i>
+                <h2>Other Calculators</h2>
+                <ul>
+                    <li><a href="/age-calculator">Age Calculator</a></li>
+                    <li><a href="/gpa-calculator">GPA Calculator</a></li>
+                    <li><a href="/date-calculator">Date Calculator</a></li>
+                    <li><a href="/password-generator">Password Generator</a></li>
+                    <li><a href="/unit-conversion">Unit Conversion</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="feedback-section">
+            <h2>Help us improve LooLabs</h2>
+            <p>Did you find a bug or have a suggestion for a new tool? Let us know!</p>
+            <a href="mailto:puscas007@gmail.com?subject=LooLabs Feedback" class="feedback-btn"><i class="fas fa-envelope"></i> Send Feedback</a>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo">LooLabs</div>
+        <p class="footer-desc">Your modern, one-stop destination for fast and free calculations.</p>
+        <p class="footer-thanks">Built with passion for students and developers.</p>
+        <div class="footer-links">
+            <a href="#">About Us</a> | 
+            <a href="#">Sitemap</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026 loolabs.xyz</p>
+    </footer>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
