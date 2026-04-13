@@ -551,3 +551,50 @@ html, body {
     color: var(--primary-red);
     font-weight: 700;
 }
+
+/* =========================================
+   RANDOM NUMBER GENERATOR SPECIFIC STYLES
+   ========================================= */
+.rng-input-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.rng-input-col {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rng-input-col label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #888;
+}
+
+.rng-input-col .tool-input {
+    width: 100%;
+}
+
+.rng-result-box {
+    margin-top: 25px;
+    padding: 25px;
+    background: var(--bg-color);
+    border-radius: 12px;
+    border: 2px solid rgba(150, 150, 150, 0.1);
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    word-break: break-word;
+}
+
+.rng-output-text {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--primary-red);
+    line-height: 1.4;
+}
