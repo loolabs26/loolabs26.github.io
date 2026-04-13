@@ -1,0 +1,95 @@
+/* css/style.css */
+:root {
+    --primary-color: #0056b3;
+    --bg-color: #f4f7f6;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --border-radius: 8px;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation */
+nav {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav a { color: white; text-decoration: none; font-weight: bold; margin-left: 15px;}
+
+/* Main Layout Grid */
+.container {
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* 75% Main Content, 25% Sidebar */
+    gap: 20px;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* Calculator Cards */
+.calc-card {
+    background: var(--card-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+input[type="number"] {
+    padding: 8px;
+    width: 100px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+button:hover { background-color: #218838; }
+
+/* SEO Text Area */
+.seo-text {
+    line-height: 1.6;
+    margin-top: 30px;
+}
+
+/* Sidebar Placeholder */
+.sidebar-ad {
+    background: #e9ecef;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+    border: 1px dashed #adb5bd;
+    margin-bottom: 20px;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .container { grid-template-columns: 1fr; /* Stacks sidebar under main content on phones */ }
+}
