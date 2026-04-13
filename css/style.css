@@ -598,3 +598,47 @@ html, body {
     color: var(--primary-red);
     line-height: 1.4;
 }
+/* =========================================
+   BMI CALCULATOR ADVANCED STYLES
+   ========================================= */
+.unit-toggle { display: flex; gap: 15px; margin-bottom: 25px; justify-content: center; }
+.unit-btn { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.3); padding: 10px 25px; border-radius: 30px; cursor: pointer; font-weight: 600; color: var(--text-color); transition: all 0.3s; font-family: 'Poppins', sans-serif; }
+.unit-btn.active { background: var(--primary-red); color: white; border-color: var(--primary-red); }
+
+.input-group-stack { display: flex; flex-direction: column; gap: 15px; margin-bottom: 25px; }
+.input-group-stack .tool-input { width: 100%; text-align: left; }
+
+.bmi-result-box { text-align: center; margin-top: 30px; padding: 25px; border-radius: 12px; background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); display: none; }
+.bmi-value { font-size: 42px; font-weight: 700; color: var(--text-color); margin-bottom: 10px; line-height: 1; }
+.bmi-category { font-size: 18px; font-weight: 600; padding: 8px 20px; border-radius: 30px; display: inline-block; color: white; }
+
+/* Visual Color Scale */
+.bmi-scale-container { position: relative; margin: 30px 0 20px 0; padding-top: 15px; }
+.bmi-scale { display: flex; height: 12px; border-radius: 10px; overflow: hidden; }
+.scale-under { width: 25%; background-color: #3498db; }
+.scale-normal { width: 25%; background-color: #2ecc71; }
+.scale-over { width: 25%; background-color: #f39c12; }
+.scale-obese { width: 25%; background-color: #e74c3c; }
+
+/* The Moving Arrow */
+.bmi-marker {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 12px solid var(--text-color);
+    transform: translateX(-50%);
+    transition: left 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Extra Stats List */
+.bmi-extra-stats { list-style: none; padding: 0; margin-top: 25px; text-align: left; font-size: 15px; line-height: 1.8; color: var(--text-color); }
+.bmi-extra-stats li::before { content: "•"; color: var(--primary-red); font-weight: bold; display: inline-block; width: 1em; }
+
+/* Data Table Styles for SEO Section */
+.seo-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: var(--bg-color); border-radius: 8px; overflow: hidden; }
+.seo-table th, .seo-table td { padding: 12px 15px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); text-align: left; }
+.seo-table th { background: var(--primary-red); color: white; font-weight: 600; }
