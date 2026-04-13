@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Generator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <div class="logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <nav class="desktop-nav">
+            <a href="../index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="../index.html">Home</a> &rsaquo; <a href="#">Math</a> &rsaquo; Random Number Generator
+            </div>
+
+            <h1>Random Number Generator</h1>
+
+            <div class="tool-card">
+                
+                <div class="rng-input-grid">
+                    <div class="rng-input-col">
+                        <label>Minimum Value</label>
+                        <input type="number" id="minInput" class="tool-input" value="1">
+                    </div>
+                    <div class="rng-input-col">
+                        <label>Maximum Value</label>
+                        <input type="number" id="maxInput" class="tool-input" value="100">
+                    </div>
+                    <div class="rng-input-col">
+                        <label>How Many Numbers?</label>
+                        <input type="number" id="countInput" class="tool-input" value="1" min="1" max="1000">
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 25px; display: flex; align-items: center; gap: 10px; font-weight: 600; color: var(--text-color);">
+                    <input type="checkbox" id="allowDuplicates" checked style="width: 20px; height: 20px; accent-color: var(--primary-red); cursor: pointer;">
+                    <label for="allowDuplicates" style="cursor: pointer;">Allow Duplicate Numbers</label>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="generateRandom()" class="calc-action-btn">Generate <i class="fas fa-dice"></i></button>
+
+                <div class="rng-result-box">
+                    <div class="rng-output-text" id="resultOutput">Ready</div>
+                </div>
+            </div>
+
+            <div class="tool-card">
+                <h2 style="margin-top: 0; color: var(--primary-red); font-size: 22px;">How to Use the Generator</h2>
+                <p>This tool allows you to instantly generate a single random digit or a large set of completely random numbers within a specific range.</p>
+                <ol style="line-height: 1.8; margin-bottom: 0;">
+                    <li><strong>Set your range:</strong> Enter the lowest possible number in the <em>Minimum</em> box, and the highest possible number in the <em>Maximum</em> box.</li>
+                    <li><strong>Choose quantity:</strong> Specify how many numbers you need generated at the same time.</li>
+                    <li><strong>Toggle duplicates:</strong> If you are running a lottery or drawing names from a hat, uncheck "Allow Duplicates" so the same number isn't picked twice.</li>
+                    <li><strong>Generate:</strong> Click the button to instantly produce your randomized list.</li>
+                </ol>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is a Random Number Generator (RNG)?</h2>
+                <p>A Random Number Generator is a mathematical or computational tool designed to generate a sequence of numbers that lack any predictable pattern. Whether you are assigning raffle tickets, running statistical simulations, organizing a tournament bracket, or playing Dungeons & Dragons, RNGs ensure fairness and total unpredictability.</p>
+
+                <h3>True Randomness vs. Pseudo-Randomness</h3>
+                <p>In the world of computer science, there are two distinct ways to generate a random number:</p>
+                
+                <h4>Pseudo-Random Number Generators (PRNG)</h4>
+                <p>This is the method used by our calculator and nearly all software applications, video games, and programming languages. Because computers operate on strict logic, they cannot do anything truly "random." Instead, a PRNG uses a complex mathematical formula and a "seed" value (often tied to the exact millisecond of your system's clock) to produce a number that appears entirely random to human observers. While perfectly secure for everyday tasks and gaming, PRNGs are entirely deterministic if the seed is known.</p>
+
+                <h4>True Random Number Generators (TRNG)</h4>
+                <p>True randomness requires measuring unpredictable physical phenomena outside of a computer system. TRNGs generate numbers by measuring hardware states, atmospheric noise, radioactive decay, or quantum phenomena. These are highly expensive systems used exclusively for high-level cryptography and national security.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Can I generate negative random numbers?</h4>
+                <p style="margin-bottom: 25px;">Yes. You can enter a negative number in the Minimum Value box (e.g., -50) and a positive number in the Maximum Value box (e.g., 50). The calculator will seamlessly generate values that fall anywhere along that negative-to-positive number line.</p>
+
+                <h4 style="color: var(--text-color);">2. What happens if I uncheck "Allow Duplicates"?</h4>
+                <p style="margin-bottom: 25px;">By unchecking that box, the calculator ensures that every number generated in your sequence is unique. However, mathematically, you cannot ask for more unique numbers than your range allows. For example, if your range is 1 to 10, you can only generate a maximum of 10 unique numbers.</p>
+
+                <h4 style="color: var(--text-color);">3. Is this randomizer fair for giveaways and lotteries?</h4>
+                <p>Absolutely. The JavaScript Math.random() engine powering this tool provides an even, uniform distribution. This means every single number within your specified range has the exact same mathematical probability of being selected on every single click.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/standard-deviation"><i class="fas fa-chart-line"></i> Standard Deviation</a></li>
+                    <li><a href="/scientific-calculator"><i class="fas fa-square-root-variable"></i> Scientific Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="#">About Us</a> | 
+            <a href="#">Sitemap</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
