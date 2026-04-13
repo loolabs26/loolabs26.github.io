@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percentage Calculator | LooLabs</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <nav class="desktop-nav">
+            <a href="../index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Privacy Policy</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="../index.html">Home</a> &rsaquo; Math &rsaquo; Percentage Calculator
+            </div>
+
+            <h1>Percentage Calculator</h1>
+
+            <div class="tool-card">
+                <div class="input-row">
+                    <h3>What is</h3>
+                    <input type="number" id="percentInput" class="tool-input" placeholder="%">
+                    <h3>% of</h3>
+                    <input type="number" id="numberInput" class="tool-input" placeholder="Value">
+                    <h3>?</h3>
+                </div>
+                
+                <div class="result-row">
+                    <span>Result:</span>
+                    <input type="text" id="resultOutput" class="tool-input result-input" readonly placeholder="0">
+                </div>
+
+                <button onclick="calculatePercentage()" class="calc-action-btn">Calculate <i class="fas fa-calculator"></i></button>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How to Calculate Percentages</h2>
+                <p>In mathematics, a percentage is a number or ratio that represents a fraction of 100. It is heavily used in finance, science, and everyday problem-solving. The term comes from the Latin <em>per centum</em>, meaning "by a hundred".</p>
+                
+                <h3>The Core Formula</h3>
+                <p>To find the percentage of a specific number, you can use the standard algebraic equation:</p>
+                <div class="formula-box">
+                    <strong>P × V<sub>1</sub> = V<sub>2</sub></strong>
+                </div>
+                <p>Where <strong>P</strong> is the percentage (converted to a decimal by dividing by 100), <strong>V<sub>1</sub></strong> is the base value, and <strong>V<sub>2</sub></strong> is the final result.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="ad-space" style="height: 250px; flex-direction: column; text-align: center;">
+                <span style="font-size: 12px; margin-bottom: 10px;">Advertisement</span>
+                <span>300x250 Space</span>
+            </div>
+
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/bmi-calculator"><i class="fas fa-heartbeat"></i> BMI Calculator</a></li>
+                    <li><a href="/age-calculator"><i class="fas fa-calendar-alt"></i> Age Calculator</a></li>
+                    <li><a href="/fraction-calculator"><i class="fas fa-divide"></i> Fraction Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple...</p>
+        <p class="footer-thanks">Built with passion for students and developers...</p>
+        <div class="footer-links">
+            <a href="#">About Us</a> | 
+            <a href="#">Sitemap</a> | 
+            <a href="#">Terms of Use</a> | 
+            <a href="#">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
