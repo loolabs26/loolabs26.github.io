@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMR Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="../index.html">Home</a> &rsaquo; <a href="/health">Health</a> &rsaquo; BMR Calculator
+            </div>
+
+            <h1>BMR Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="unit-toggle">
+                    <button class="unit-btn active" id="btnMetric" onclick="switchUnit('metric')">Metric Units</button>
+                    <button class="unit-btn" id="btnUS" onclick="switchUnit('us')">US Units</button>
+                </div>
+
+                <div class="input-group-stack">
+                    <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 100px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Age (15-80)</label>
+                            <input type="number" id="ageInput" class="tool-input" placeholder="Years">
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Gender</label>
+                            <div class="gender-toggle" style="margin-top: 10px;">
+                                <label class="gender-label"><input type="radio" name="gender" value="male" checked> Male</label>
+                                <label class="gender-label"><input type="radio" name="gender" value="female"> Female</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="metricInputs" style="display: flex; gap: 15px;">
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Height</label>
+                            <input type="number" id="heightCm" class="tool-input" placeholder="cm">
+                        </div>
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Weight</label>
+                            <input type="number" id="weightKg" class="tool-input" placeholder="kg">
+                        </div>
+                    </div>
+
+                    <div id="usInputs" style="display: none; gap: 15px;">
+                        <div style="flex: 2; display: flex; gap: 5px;">
+                            <div style="flex: 1;">
+                                <label style="font-weight: 600; color: #888; font-size: 14px;">Height</label>
+                                <input type="number" id="heightFt" class="tool-input" placeholder="ft">
+                            </div>
+                            <div style="flex: 1;">
+                                <label style="font-weight: 600; color: #888; font-size: 14px;">&nbsp;</label>
+                                <input type="number" id="heightIn" class="tool-input" placeholder="in">
+                            </div>
+                        </div>
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Weight</label>
+                            <input type="number" id="weightLbs" class="tool-input" placeholder="lbs">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateBMR()" class="calc-action-btn">Calculate BMR <i class="fas fa-fire-alt"></i></button>
+
+                <div class="bmr-result-container" id="resultBox">
+                    <div class="bmr-main-result">
+                        <h3>Your Basal Metabolic Rate</h3>
+                        <div class="cal-value" id="bmrValue">0</div>
+                        <div style="font-size: 16px; margin-top: 10px; font-weight: 600;">Calories / day</div>
+                        <p style="font-size: 13px; opacity: 0.85; margin-top: 15px; line-height: 1.5;">This is the number of calories your body burns at absolute rest to maintain vital functions like breathing and circulation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is Basal Metabolic Rate (BMR)?</h2>
+                <p>Your Basal Metabolic Rate (BMR) is the total number of calories your body requires to perform basic, life-sustaining functions while completely at rest. Even when you are sleeping or sitting on the couch doing absolutely nothing, your body is working hard to keep you alive. These essential functions include breathing, circulating blood, controlling body temperature, cellular growth, and neurological function.</p>
+                <p>For most individuals, BMR accounts for roughly 60% to 75% of their Total Daily Energy Expenditure (TDEE).</p>
+
+                <h3>BMR vs. TDEE: What's the Difference?</h3>
+                <p>It is very common to confuse BMR with TDEE. Here is the simple difference:</p>
+                <ul>
+                    <li><strong>BMR (Basal Metabolic Rate):</strong> The calories you burn if you stayed in bed all day and did not move.</li>
+                    <li><strong>TDEE (Total Daily Energy Expenditure):</strong> Your BMR <em>plus</em> the calories you burn from daily movement, working, digesting food, and exercising.</li>
+                </ul>
+                <p>If you want to know how many calories you should eat to lose weight, you should calculate your TDEE using our <a href="/calorie-calculator" style="color: var(--primary-red); font-weight: 600;">Calorie Calculator</a>. BMR is simply the foundational baseline.</p>
+
+                <h3>How is BMR Calculated?</h3>
+                <p>This calculator uses the <strong>Mifflin-St Jeor equation</strong>, which is currently widely considered the most accurate formula for calculating BMR in healthy adults by the medical and fitness community.</p>
+                <div class="formula-box">
+                    <strong>Men:</strong> BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age) + 5<br><br>
+                    <strong>Women:</strong> BMR = (10 × weight in kg) + (6.25 × height in cm) - (5 × age) - 161
+                </div>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Does my BMR decrease as I get older?</h4>
+                <p style="margin-bottom: 25px;">Yes. As human beings age, we naturally lose lean muscle mass, and our metabolic rate slows down. Because muscle tissue requires more calories to maintain than fat tissue, a decrease in muscle means your body requires fewer calories at rest. This is why people often gain weight as they age if they do not adjust their diet or exercise habits.</p>
+
+                <h4 style="color: var(--text-color);">2. How can I increase my BMR?</h4>
+                <p style="margin-bottom: 25px;">The single most effective way to increase your Basal Metabolic Rate is to build more lean muscle mass through resistance training and weightlifting. Muscle is highly metabolically active, meaning your body has to burn more calories just to maintain it, even when you are resting.</p>
+
+                <h4 style="color: var(--text-color);">3. Is it dangerous to eat fewer calories than my BMR?</h4>
+                <p>Yes. Medical professionals generally strongly advise against consuming fewer calories than your BMR. Eating below your BMR deprives your body of the basic energy it needs to sustain vital organ functions. This can lead to a severely depressed metabolism, muscle loss, hair loss, fatigue, and nutritional deficiencies.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/calorie-calculator"><i class="fas fa-fire"></i> Calorie Calculator</a></li>
+                    <li><a href="/bmi-calculator"><i class="fas fa-heartbeat"></i> BMI Calculator</a></li>
+                    <li><a href="/macro-calculator"><i class="fas fa-utensils"></i> Macro Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
