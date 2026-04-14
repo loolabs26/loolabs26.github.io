@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROI Calculator (Return on Investment) | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; ROI Calculator
+            </div>
+
+            <h1>ROI Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="input-group-stack">
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Amount Invested</label>
+                            <div class="input-with-symbol">
+                                <span class="symbol">$</span>
+                                <input type="number" id="amountInvested" class="tool-input" placeholder="e.g. 10000">
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Amount Returned</label>
+                            <div class="input-with-symbol">
+                                <span class="symbol">$</span>
+                                <input type="number" id="amountReturned" class="tool-input" placeholder="e.g. 12500">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Investment Length (Optional)</label>
+                        <div class="input-with-symbol right-symbol">
+                            <span class="symbol" style="font-size: 12px;">Years</span>
+                            <input type="number" id="investmentTime" class="tool-input" placeholder="e.g. 2.5" step="0.1">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateROI()" class="calc-action-btn">Calculate ROI <i class="fas fa-chart-pie"></i></button>
+
+                <div class="roi-result-container" id="resultBox">
+                    <div class="roi-main-result profit" id="roiMainBox">
+                        <h3>Return on Investment</h3>
+                        <div class="cal-value" id="roiPercentage">0%</div>
+                    </div>
+                    
+                    <div class="roi-grid">
+                        <div class="roi-box">
+                            <div class="stat-label">Investment Gain/Loss</div>
+                            <div class="stat-value" id="netProfit">$0</div>
+                        </div>
+                        <div class="roi-box">
+                            <div class="stat-label">Annualized ROI</div>
+                            <div class="stat-value" id="annualizedROI">-</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 13px; color: #888; margin-top: 10px;">Note: This calculation does not account for capital gains taxes or inflation.</p>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is Return on Investment (ROI)?</h2>
+                <p><strong>Return on Investment (ROI)</strong> is a simple and universal financial metric used to evaluate the efficiency and profitability of an investment. It measures the amount of return on a particular investment relative to its initial cost. ROI is widely used in stock market investing, real estate, marketing campaigns, and evaluating business expansions.</p>
+                
+                <p>Because ROI is expressed as a percentage, it makes it incredibly easy to compare the effectiveness of different investments. For example, knowing you made a $5,000 profit is good, but making $5,000 on a $10,000 investment (50% ROI) is vastly superior to making $5,000 on a $100,000 investment (5% ROI).</p>
+
+                <h3>The Basic ROI Formula</h3>
+                <p>Calculating your basic Return on Investment requires only two numbers: your initial cost, and your final return.</p>
+                <div class="formula-box">
+                    <strong>ROI = ((Amount Returned - Amount Invested) / Amount Invested) × 100</strong>
+                </div>
+
+                <h3>Why Annualized ROI is Crucial</h3>
+                <p>The standard ROI formula has one major flaw: <strong>it ignores time</strong>. If an investment gives you a 100% ROI, that sounds incredible. However, if it took 50 years to achieve that 100% return, it is actually a very poor investment.</p>
+                <p>This is where <strong>Annualized ROI</strong> comes in. It standardizes your return to show you what your average growth rate was <em>per year</em>. By entering your "Investment Length" in the calculator above, we use the Compound Annual Growth Rate (CAGR) formula to give you your true yearly return.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Can ROI be negative?</h4>
+                <p style="margin-bottom: 25px;">Yes. If your Amount Returned is less than your Amount Invested, your ROI will be a negative percentage. This indicates a financial loss. For example, if you invest $1,000 and sell it for $800, your ROI is -20%.</p>
+
+                <h4 style="color: var(--text-color);">2. What is a "good" ROI?</h4>
+                <p style="margin-bottom: 25px;">A "good" ROI depends entirely on your risk tolerance and the type of investment. Historically, the S&P 500 (the general US stock market) returns an annualized ROI of about 7% to 10% after adjusting for inflation. Any investment offering significantly higher returns than this generally carries a much higher risk of loss.</p>
+
+                <h4 style="color: var(--text-color);">3. Does this calculate my after-tax return?</h4>
+                <p>No. This calculator provides your gross ROI. In the real world, you will likely need to pay short-term or long-term capital gains taxes on your net profit when you sell an asset. You should consult a tax professional to calculate your true "after-tax" ROI.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/salary-calculator"><i class="fas fa-money-bill-wave"></i> Salary Calculator</a></li>
+                    <li><a href="/mortgage-calculator"><i class="fas fa-home"></i> Mortgage Calculator</a></li>
+                    <li><a href="/auto-loan-calculator"><i class="fas fa-car"></i> Auto Loan Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
