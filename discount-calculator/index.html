@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discount Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Discount Calculator
+            </div>
+
+            <h1>Discount Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="input-group-stack">
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Original Price</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="originalPrice" class="tool-input" placeholder="e.g. 150">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Discount (% off)</label>
+                            <div class="input-with-symbol right-symbol">
+                                <span class="symbol">%</span>
+                                <input type="number" id="discountPercent" class="tool-input" placeholder="e.g. 20" step="0.1">
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Sales Tax (Optional)</label>
+                            <div class="input-with-symbol right-symbol">
+                                <span class="symbol">%</span>
+                                <input type="number" id="taxPercent" class="tool-input" placeholder="e.g. 7.5" step="0.1">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateDiscount()" class="calc-action-btn">Calculate Discount <i class="fas fa-tags"></i></button>
+
+                <div class="discount-result-container" id="resultBox">
+                    <div class="discount-main-result">
+                        <h3>Final Price</h3>
+                        <div class="cal-value" id="finalPrice">$0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Including any applicable taxes</p>
+                    </div>
+                    
+                    <div class="discount-grid">
+                        <div class="discount-box">
+                            <div class="stat-label">You Save</div>
+                            <div class="stat-value savings-text" id="amountSaved">$0</div>
+                        </div>
+                        <div class="discount-box">
+                            <div class="stat-label">Price Before Tax</div>
+                            <div class="stat-value" id="discountedPrice">$0</div>
+                        </div>
+                        <div class="discount-box">
+                            <div class="stat-label">Sales Tax Amount</div>
+                            <div class="stat-value" id="taxAmount">$0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How to Calculate a Discount</h2>
+                <p>Calculating a discount is a fundamental math skill used constantly in everyday life, from buying groceries to purchasing a new car. Our free Discount Calculator quickly computes how much money you will save and tells you your exact final price, including sales tax.</p>
+                
+                <h3>The Discount Formula</h3>
+                <p>To figure out a discount manually, you first need to convert the discount percentage into a decimal (by dividing it by 100). Then, you multiply that decimal by the original price to find the amount you are saving.</p>
+                <div class="formula-box">
+                    <strong>Amount Saved = Original Price × (Discount % ÷ 100)</strong><br><br>
+                    <strong>Final Price = Original Price - Amount Saved</strong>
+                </div>
+                <p><em>Example:</em> If a $100 jacket is 20% off, you convert 20% to 0.20. Multiply $100 by 0.20, and your savings are $20. Subtract that from the original $100, and your final price before tax is $80.</p>
+
+                <h3>How Sales Tax Works with Discounts</h3>
+                <p>A common mistake shoppers make is applying the sales tax to the original price. In almost all retail situations, <strong>sales tax is applied to the discounted price</strong>, not the original sticker price. This calculator handles that order of operations automatically for you.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. What is a "Double Discount"?</h4>
+                <p style="margin-bottom: 25px;">A double discount happens when an item is already on sale (e.g., 20% off), and you have an additional coupon (e.g., an extra 10% off). Do not add the percentages together! A 20% off plus 10% off is <em>not</em> 30% off. The store will take the 20% off first, and then apply the 10% coupon to the new, lower price. To calculate this using our tool, find the first discounted price, and then run a second calculation using that new price as your starting point.</p>
+
+                <h4 style="color: var(--text-color);">2. How do I easily calculate a 10% or 20% discount in my head?</h4>
+                <p style="margin-bottom: 25px;">To find 10% of any price, simply move the decimal point one place to the left. For example, 10% of $45.00 is $4.50. To find 20%, find the 10% number and double it ($4.50 × 2 = $9.00).</p>
+
+                <h4 style="color: var(--text-color);">3. Can a discount be more than 100%?</h4>
+                <p>In standard retail and finance, a discount cannot exceed 100%, because a 100% discount means the item is completely free. However, if a store says they are "marking down prices by 150%," they are usually using hyperbolic marketing language and the math does not technically work that way.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/roi-calculator"><i class="fas fa-chart-pie"></i> ROI Calculator</a></li>
+                    <li><a href="/salary-calculator"><i class="fas fa-money-bill-wave"></i> Salary Calculator</a></li>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
