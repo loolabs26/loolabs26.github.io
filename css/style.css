@@ -849,3 +849,132 @@ html, body {
     background: var(--bg-color);
     color: var(--primary-red);
 }
+
+/* =========================================
+   CGPA CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.cgpa-result-container { display: none; margin-top: 30px; }
+.cgpa-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.cgpa-main-result h3 { margin: 0 0 10px 0; font-size: 20px; opacity: 0.9; }
+.cgpa-main-result .cal-value { font-size: 52px; font-weight: 700; line-height: 1; margin-bottom: 5px;}
+
+.cgpa-row { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; flex-wrap: wrap; background: var(--bg-color); padding: 15px; border-radius: 12px; border: 2px solid rgba(150, 150, 150, 0.1); }
+.cgpa-row .input-group { flex: 1; min-width: 100px; }
+.cgpa-row label { font-size: 12px; font-weight: 600; color: #888; margin-bottom: 5px; display: block; }
+.cgpa-row .tool-input { width: 100%; padding: 10px 15px; }
+
+.remove-btn { background: rgba(231, 76, 60, 0.1); color: #e74c3c; border: none; width: 40px; height: 40px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.2s; margin-top: 20px;}
+.remove-btn:hover { background: #e74c3c; color: white; }
+
+.add-row-btn { background: transparent; border: 2px dashed rgba(150, 150, 150, 0.3); color: var(--text-color); width: 100%; padding: 15px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif; margin-bottom: 25px; }
+.add-row-btn:hover { border-color: var(--primary-red); color: var(--primary-red); background: rgba(230, 57, 70, 0.05); }
+
+.cgpa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.cgpa-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+.cgpa-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; }
+.cgpa-box .stat-value { font-size: 24px; font-weight: 700; color: var(--text-color); }
+
+/* =========================================
+   AGE CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.age-result-container { display: none; margin-top: 30px; }
+.age-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.age-main-result h3 { margin: 0 0 15px 0; font-size: 20px; opacity: 0.9; }
+.age-main-result .age-breakdown { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.age-main-result .age-part { display: flex; flex-direction: column; align-items: center; }
+.age-main-result .cal-value { font-size: 48px; font-weight: 700; line-height: 1; }
+.age-main-result .cal-label { font-size: 16px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-top: 5px; opacity: 0.9; }
+
+.age-next-bday { background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; margin-top: 20px; font-size: 14px; font-weight: 600; }
+
+.age-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.age-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+.age-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; }
+.age-box .stat-value { font-size: 24px; font-weight: 700; color: var(--text-color); }
+
+/* =========================================
+   GPA CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.gpa-result-container { display: none; margin-top: 30px; }
+.gpa-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.gpa-main-result h3 { margin: 0 0 10px 0; font-size: 20px; opacity: 0.9; }
+.gpa-main-result .cal-value { font-size: 52px; font-weight: 700; line-height: 1; margin-bottom: 5px;}
+
+.gpa-row { display: flex; gap: 15px; align-items: center; margin-bottom: 15px; flex-wrap: wrap; background: var(--bg-color); padding: 15px; border-radius: 12px; border: 2px solid rgba(150, 150, 150, 0.1); }
+.gpa-row .input-group { flex: 1; min-width: 100px; }
+.gpa-row label { font-size: 12px; font-weight: 600; color: #888; margin-bottom: 5px; display: block; }
+.gpa-row .tool-input { width: 100%; padding: 10px 15px; }
+.gpa-row select.tool-input { cursor: pointer; }
+
+.remove-btn { background: rgba(231, 76, 60, 0.1); color: #e74c3c; border: none; width: 40px; height: 40px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: all 0.2s; margin-top: 20px;}
+.remove-btn:hover { background: #e74c3c; color: white; }
+
+.add-row-btn { background: transparent; border: 2px dashed rgba(150, 150, 150, 0.3); color: var(--text-color); width: 100%; padding: 15px; border-radius: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: 'Poppins', sans-serif; margin-bottom: 25px; }
+.add-row-btn:hover { border-color: var(--primary-red); color: var(--primary-red); background: rgba(230, 57, 70, 0.05); }
+
+.gpa-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.gpa-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+.gpa-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; }
+.gpa-box .stat-value { font-size: 24px; font-weight: 700; color: var(--text-color); }
+
+/* =========================================
+   DATE CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.date-result-container { display: none; margin-top: 30px; }
+.date-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.date-main-result h3 { margin: 0 0 10px 0; font-size: 18px; opacity: 0.9; }
+.date-main-result .cal-value { font-size: 36px; font-weight: 700; line-height: 1.2; margin-bottom: 5px;}
+
+.date-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.date-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+.date-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; }
+.date-box .stat-value { font-size: 24px; font-weight: 700; color: var(--text-color); }
+
+.date-input-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+@media (max-width: 600px) { .date-input-grid { grid-template-columns: 1fr; } }
+
+/* =========================================
+   PASSWORD GENERATOR SPECIFIC STYLES
+   ========================================= */
+.pwd-result-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.2); border-radius: 12px; padding: 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; position: relative; }
+.pwd-text { font-family: monospace; font-size: 24px; font-weight: 700; color: var(--text-color); word-break: break-all; margin-right: 15px; }
+.copy-btn { background: var(--primary-red); color: white; border: none; width: 45px; height: 45px; border-radius: 8px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: background 0.3s; flex-shrink: 0; }
+.copy-btn:hover { background: #c0392b; }
+.copy-feedback { position: absolute; top: -30px; right: 0; background: #2ecc71; color: white; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 600; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+
+.pwd-options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 25px; }
+@media (max-width: 500px) { .pwd-options-grid { grid-template-columns: 1fr; } }
+
+.pwd-checkbox-group { display: flex; align-items: center; gap: 10px; background: rgba(150, 150, 150, 0.05); padding: 15px; border-radius: 8px; cursor: pointer; border: 1px solid rgba(150, 150, 150, 0.1); }
+.pwd-checkbox-group input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--primary-red); cursor: pointer; }
+.pwd-checkbox-group label { font-weight: 600; color: var(--text-color); cursor: pointer; user-select: none; flex-grow: 1; }
+
+.pwd-length-container { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+.pwd-length-slider { flex-grow: 1; accent-color: var(--primary-red); cursor: pointer; height: 6px; }
+.pwd-length-input { width: 70px; text-align: center; font-weight: 700; }
+
+.strength-meter-container { margin-top: 25px; text-align: left; }
+.strength-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; display: flex; justify-content: space-between; }
+.strength-bars { display: flex; gap: 5px; height: 8px; border-radius: 4px; overflow: hidden; }
+.strength-bar { flex: 1; background: rgba(150, 150, 150, 0.2); transition: background 0.3s; }
+
+/* =========================================
+   UNIT CONVERSION SPECIFIC STYLES
+   ========================================= */
+.unit-conv-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 15px; align-items: center; margin-bottom: 25px; }
+@media (max-width: 600px) { 
+    .unit-conv-grid { grid-template-columns: 1fr; gap: 10px; } 
+    .swap-btn-container { text-align: center; margin: 10px 0; }
+    .swap-btn-container i { transform: rotate(90deg); }
+}
+
+.swap-btn { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.2); color: var(--primary-red); width: 45px; height: 45px; border-radius: 50%; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.3s; }
+.swap-btn:hover { background: var(--primary-red); color: white; border-color: var(--primary-red); transform: scale(1.05); }
+
+.conv-result-container { display: none; margin-top: 30px; }
+.conv-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; word-break: break-word; }
+.conv-main-result .cal-value { font-size: 42px; font-weight: 700; line-height: 1.2; margin-bottom: 5px; }
+.conv-formula { background: rgba(0,0,0,0.1); padding: 10px 15px; border-radius: 8px; font-family: monospace; font-size: 14px; margin-top: 15px; display: inline-block; }
+
+.conv-input-group { background: rgba(150, 150, 150, 0.05); padding: 15px; border-radius: 12px; border: 1px solid rgba(150, 150, 150, 0.1); }
+
