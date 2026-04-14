@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mortgage Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Mortgage Calculator
+            </div>
+
+            <h1>Mortgage Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="input-group-stack">
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Home Price</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="homePrice" class="tool-input" placeholder="e.g. 350000">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Down Payment</label>
+                            <div class="input-with-symbol">
+                                <span class="symbol">$</span>
+                                <input type="number" id="downPayment" class="tool-input" placeholder="e.g. 70000">
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Loan Term</label>
+                            <div class="input-with-symbol right-symbol">
+                                <span class="symbol" style="font-size: 12px;">Years</span>
+                                <input type="number" id="loanTerm" class="tool-input" value="30">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Interest Rate</label>
+                        <div class="input-with-symbol right-symbol">
+                            <span class="symbol">%</span>
+                            <input type="number" id="interestRate" class="tool-input" placeholder="e.g. 6.5" step="0.01">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateMortgage()" class="calc-action-btn">Calculate Payment <i class="fas fa-home"></i></button>
+
+                <div class="mortgage-result-container" id="resultBox">
+                    <div class="mortgage-main-result">
+                        <h3>Estimated Monthly Payment</h3>
+                        <div class="cal-value" id="monthlyPayment">$0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">(Principal & Interest Only)</p>
+                    </div>
+                    
+                    <div class="mortgage-grid">
+                        <div class="mortgage-box">
+                            <div class="stat-label">Principal Amount</div>
+                            <div class="stat-value" id="principalAmount">$0</div>
+                        </div>
+                        <div class="mortgage-box">
+                            <div class="stat-label">Total Interest Paid</div>
+                            <div class="stat-value" id="totalInterest">$0</div>
+                        </div>
+                        <div class="mortgage-box">
+                            <div class="stat-label">Total Cost of Loan</div>
+                            <div class="stat-value" id="totalCost">$0</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 13px; color: #888; margin-top: 10px;">Note: This calculation does not include property taxes, homeowner's insurance, or HOA fees.</p>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How Our Mortgage Calculator Works</h2>
+                <p>Buying a house is likely the largest financial decision you will ever make. Our free Mortgage Calculator helps you estimate your monthly payments and see exactly how much interest you will pay over the life of your loan.</p>
+                <p>The standard formula used by banks to calculate a fixed-rate mortgage is complex. It ensures that your monthly payment remains exactly the same for the entire duration of the loan, while the ratio of principal to interest shifts over time (a process known as <strong>amortization</strong>).</p>
+
+                <h3>Understanding the Key Terms</h3>
+                <ul>
+                    <li><strong>Home Price:</strong> The total agreed-upon purchase price of the property.</li>
+                    <li><strong>Down Payment:</strong> The upfront cash you pay towards the home. Subtracting this from the Home Price gives you your actual Principal Loan Amount. A 20% down payment is often recommended to avoid paying Private Mortgage Insurance (PMI).</li>
+                    <li><strong>Loan Term:</strong> How long you have to pay back the loan. The most common terms in the United States are 15-year and 30-year fixed-rate mortgages.</li>
+                    <li><strong>Interest Rate:</strong> The annual percentage rate charged by the lender for borrowing the money. Even a 0.5% difference in your interest rate can save or cost you tens of thousands of dollars over 30 years.</li>
+                </ul>
+
+                <h3>The Amortization Process</h3>
+                <p>When you make your first few mortgage payments, you might be surprised to see that your loan balance barely drops. This is because of amortization. In the early years of a 30-year mortgage, the vast majority of your monthly payment goes toward paying off interest. As the years go by and the principal shrinks, a larger percentage of your payment begins to attack the principal directly.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Does this calculator include taxes and insurance?</h4>
+                <p style="margin-bottom: 25px;">No. This calculator provides your pure "P&I" (Principal and Interest) payment. Most homeowners will also have to pay property taxes and homeowner's insurance, which are typically bundled into your monthly bill and held in an escrow account. You should budget an additional several hundred dollars a month for these expenses.</p>
+
+                <h4 style="color: var(--text-color);">2. Should I choose a 15-year or 30-year mortgage?</h4>
+                <p style="margin-bottom: 25px;">A 30-year mortgage gives you a much lower and more manageable monthly payment, which is why it is the most popular choice. A 15-year mortgage will have a higher monthly payment, but you will pay significantly less total interest over the life of the loan and own your home free-and-clear twice as fast.</p>
+
+                <h4 style="color: var(--text-color);">3. What happens if I pay extra every month?</h4>
+                <p>Because your interest is calculated based on your remaining principal balance, making extra payments directed specifically at the principal can drastically reduce the amount of total interest you pay and shorten the life of your loan by years. Even adding $100 extra a month makes a massive mathematical difference!</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/scientific-calculator"><i class="fas fa-square-root-variable"></i> Scientific Calculator</a></li>
+                    <li><a href="/tdee-calculator"><i class="fas fa-bolt"></i> TDEE Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
