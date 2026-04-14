@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Date Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/other">Other Calculators</a> &rsaquo; Date Calculator
+            </div>
+
+            <h1>Date Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="unit-toggle">
+                    <button class="unit-btn active" id="btnDiff" onclick="switchMode('difference')">Date Difference</button>
+                    <button class="unit-btn" id="btnAddSub" onclick="switchMode('addsub')">Add / Subtract</button>
+                </div>
+
+                <div id="differenceInputs" class="input-group-stack">
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Start Date</label>
+                            <input type="date" id="diffStartDate" class="tool-input" style="cursor: pointer;">
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">End Date</label>
+                            <input type="date" id="diffEndDate" class="tool-input" style="cursor: pointer;">
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px; margin-top: 5px;">
+                        <input type="checkbox" id="includeEndDate" style="width: 18px; height: 18px; accent-color: var(--primary-red); cursor: pointer;">
+                        <label for="includeEndDate" style="font-weight: 600; font-size: 14px; cursor: pointer;">Include end date in calculation (+1 day)</label>
+                    </div>
+                    <button onclick="calculateDifference()" class="calc-action-btn" style="margin-top: 15px;">Calculate Difference <i class="far fa-calendar-check"></i></button>
+                </div>
+
+                <div id="addSubInputs" class="input-group-stack" style="display: none;">
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 2; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Start Date</label>
+                            <input type="date" id="addStartDate" class="tool-input" style="cursor: pointer;">
+                        </div>
+                        <div style="flex: 1; min-width: 120px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Action</label>
+                            <select id="actionType" class="tool-input" style="cursor: pointer;">
+                                <option value="add">Add (+)</option>
+                                <option value="subtract">Subtract (-)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="date-input-grid">
+                        <div>
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Years</label>
+                            <input type="number" id="inputYears" class="tool-input" placeholder="0" min="0">
+                        </div>
+                        <div>
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Months</label>
+                            <input type="number" id="inputMonths" class="tool-input" placeholder="0" min="0">
+                        </div>
+                        <div>
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Weeks</label>
+                            <input type="number" id="inputWeeks" class="tool-input" placeholder="0" min="0">
+                        </div>
+                        <div>
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Days</label>
+                            <input type="number" id="inputDays" class="tool-input" placeholder="0" min="0">
+                        </div>
+                    </div>
+                    <button onclick="calculateAddSub()" class="calc-action-btn" style="margin-top: 15px;">Calculate New Date <i class="fas fa-arrow-right"></i></button>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-top: 15px; display: none;"></div>
+
+                <div class="date-result-container" id="resultBox">
+                    <div class="date-main-result">
+                        <h3 id="resultTitle">Result</h3>
+                        <div class="cal-value" id="mainResultText">-</div>
+                    </div>
+                    
+                    <div class="date-grid" id="extraStatsGrid">
+                        </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How to Use the Date Calculator</h2>
+                <p>Calculating dates mentally is notoriously difficult due to varying month lengths and leap years. Whether you are tracking a project deadline, calculating your age, counting down to a vacation, or managing a legal contract, our free Date Calculator handles the complex calendar math instantly.</p>
+
+                <h3>Mode 1: Date Difference</h3>
+                <p>This mode allows you to select a Start Date and an End Date. It will instantly tell you exactly how much time exists between those two points. We break the result down into a highly readable format (Years, Months, and Days) and also provide the total difference in pure days.</p>
+                <p><strong>Note on "Including the End Date":</strong> By default, if you calculate the difference between Monday and Tuesday, the result is 1 day. However, if you are tracking something like hotel reservations or billable work days where both Monday and Tuesday count as full days, you should check the "Include end date" box to add +1 day to the final result.</p>
+
+                <h3>Mode 2: Add or Subtract Time</h3>
+                <p>If you have a starting date and need to know what the exact date will be 90 days from now, or 6 months in the past, use this mode. Simply input your starting date, select whether you want to move forward (Add) or backward (Subtract) in time, and enter your values. The calculator strictly follows the Gregorian calendar to ensure perfect accuracy.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Does this calculator account for Leap Years?</h4>
+                <p style="margin-bottom: 25px;">Yes. The mathematical engine powering this tool perfectly accounts for leap years. It knows that February has 29 days every four years and will adjust your calculations accordingly.</p>
+
+                <h4 style="color: var(--text-color);">2. How are months calculated?</h4>
+                <p style="margin-bottom: 25px;">A "month" in calendar math varies from 28 to 31 days. When you add exactly "1 Month" to March 15th, the calculator will land on April 15th, regardless of how many days were in March. If you add 1 Month to January 31st, it will land on the last day of February (the 28th or 29th).</p>
+                
+                <h4 style="color: var(--text-color);">3. Can I enter negative numbers?</h4>
+                <p>In the "Add/Subtract" mode, you should use positive numbers and simply flip the dropdown toggle to "Subtract" if you want to go backwards in time. The calculator handles the negative integer conversion in the background to prevent user errors.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/age-calculator"><i class="fas fa-birthday-cake"></i> Age Calculator</a></li>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/salary-calculator"><i class="fas fa-money-bill-wave"></i> Salary Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
