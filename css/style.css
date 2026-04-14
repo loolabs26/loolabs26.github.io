@@ -642,3 +642,172 @@ html, body {
 .seo-table { width: 100%; border-collapse: collapse; margin: 20px 0; background: var(--bg-color); border-radius: 8px; overflow: hidden; }
 .seo-table th, .seo-table td { padding: 12px 15px; border-bottom: 1px solid rgba(150, 150, 150, 0.2); text-align: left; }
 .seo-table th { background: var(--primary-red); color: white; font-weight: 600; }
+
+/* =========================================
+   CALORIE CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.gender-toggle { display: flex; gap: 15px; margin-bottom: 15px; }
+.gender-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--text-color); }
+.gender-label input { accent-color: var(--primary-red); width: 18px; height: 18px; cursor: pointer; }
+
+.calorie-result-container { display: none; margin-top: 30px; }
+.calorie-main-result { background: var(--primary-red); color: white; padding: 25px; border-radius: 12px; text-align: center; margin-bottom: 20px; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); }
+.calorie-main-result h3 { margin: 0 0 10px 0; font-size: 18px; opacity: 0.9; }
+.calorie-main-result .cal-value { font-size: 42px; font-weight: 700; line-height: 1; }
+
+.calorie-table { width: 100%; border-collapse: collapse; background: var(--bg-color); border-radius: 12px; overflow: hidden; border: 2px solid rgba(150, 150, 150, 0.1); }
+.calorie-table th, .calorie-table td { padding: 15px; border-bottom: 1px solid rgba(150, 150, 150, 0.1); text-align: left; }
+.calorie-table th { background: rgba(150, 150, 150, 0.1); font-weight: 700; color: var(--text-color); }
+.calorie-table tr:last-child td { border-bottom: none; }
+.calorie-table .percentage { font-weight: 700; color: var(--primary-red); }
+
+/* =========================================
+   BMR CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.gender-toggle { display: flex; gap: 15px; margin-bottom: 15px; }
+.gender-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--text-color); }
+.gender-label input { accent-color: var(--primary-red); width: 18px; height: 18px; cursor: pointer; }
+
+.bmr-result-container { display: none; margin-top: 30px; }
+.bmr-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); }
+.bmr-main-result h3 { margin: 0 0 15px 0; font-size: 20px; opacity: 0.9; }
+.bmr-main-result .cal-value { font-size: 48px; font-weight: 700; line-height: 1; }
+
+/* =========================================
+   TDEE CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.gender-toggle { display: flex; gap: 15px; margin-bottom: 15px; }
+.gender-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--text-color); }
+.gender-label input { accent-color: var(--primary-red); width: 18px; height: 18px; cursor: pointer; }
+
+.tdee-result-container { display: none; margin-top: 30px; }
+.tdee-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.tdee-main-result h3 { margin: 0 0 15px 0; font-size: 20px; opacity: 0.9; }
+.tdee-main-result .cal-value { font-size: 48px; font-weight: 700; line-height: 1; }
+
+.tdee-secondary-stats { display: flex; justify-content: space-around; background: var(--bg-color); padding: 20px; border-radius: 12px; border: 2px solid rgba(150, 150, 150, 0.1); text-align: center; }
+.tdee-secondary-stats .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 5px; }
+.tdee-secondary-stats .stat-value { font-size: 22px; font-weight: 700; color: var(--text-color); }
+
+/* =========================================
+   MACRO CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.gender-toggle { display: flex; gap: 15px; margin-bottom: 15px; }
+.gender-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--text-color); }
+.gender-label input { accent-color: var(--primary-red); width: 18px; height: 18px; cursor: pointer; }
+
+.macro-result-container { display: none; margin-top: 30px; }
+.macro-target-cals { text-align: center; font-size: 24px; font-weight: 700; color: var(--text-color); margin-bottom: 25px; }
+.macro-target-cals span { color: var(--primary-red); font-size: 36px; }
+
+.macro-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.macro-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+
+.macro-box.protein { border-top: 5px solid #e74c3c; } /* Red */
+.macro-box.fat { border-top: 5px solid #f39c12; }     /* Orange */
+.macro-box.carbs { border-top: 5px solid #3498db; }   /* Blue */
+
+.macro-label { font-size: 16px; font-weight: 600; color: #888; margin-bottom: 10px; }
+.macro-value { font-size: 32px; font-weight: 700; color: var(--text-color); line-height: 1; }
+.macro-unit { font-size: 14px; font-weight: 400; color: #888; }
+.macro-pct { font-size: 13px; font-weight: 600; margin-top: 10px; display: inline-block; padding: 4px 10px; border-radius: 20px; background: rgba(150, 150, 150, 0.1); }
+
+/* =========================================
+   MORTGAGE CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.mortgage-result-container { display: none; margin-top: 30px; }
+.mortgage-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.mortgage-main-result h3 { margin: 0 0 10px 0; font-size: 20px; opacity: 0.9; }
+.mortgage-main-result .cal-value { font-size: 48px; font-weight: 700; line-height: 1; margin-bottom: 10px;}
+
+.mortgage-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.mortgage-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+.mortgage-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; }
+.mortgage-box .stat-value { font-size: 22px; font-weight: 700; color: var(--text-color); }
+
+.input-with-symbol { position: relative; width: 100%; }
+.input-with-symbol .symbol { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-weight: 600; color: #888; }
+.input-with-symbol.right-symbol .symbol { left: auto; right: 15px; }
+.input-with-symbol input { padding-left: 35px; width: 100%; text-align: left; }
+.input-with-symbol.right-symbol input { padding-left: 15px; padding-right: 35px; }
+
+/* =========================================
+   AUTO LOAN CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.auto-result-container { display: none; margin-top: 30px; }
+.auto-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.auto-main-result h3 { margin: 0 0 10px 0; font-size: 20px; opacity: 0.9; }
+.auto-main-result .cal-value { font-size: 48px; font-weight: 700; line-height: 1; margin-bottom: 10px;}
+
+.auto-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.auto-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+.auto-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; }
+.auto-box .stat-value { font-size: 22px; font-weight: 700; color: var(--text-color); }
+
+.input-with-symbol { position: relative; width: 100%; }
+.input-with-symbol .symbol { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-weight: 600; color: #888; }
+.input-with-symbol.right-symbol .symbol { left: auto; right: 15px; }
+.input-with-symbol input { padding-left: 35px; width: 100%; text-align: left; }
+.input-with-symbol.right-symbol input { padding-left: 15px; padding-right: 35px; }
+
+/* =========================================
+   SALARY CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.salary-result-container { display: none; margin-top: 30px; }
+.salary-main-result { background: var(--primary-red); color: white; padding: 25px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.salary-main-result h3 { margin: 0 0 10px 0; font-size: 20px; opacity: 0.9; }
+.salary-main-result .cal-value { font-size: 42px; font-weight: 700; line-height: 1; margin-bottom: 5px;}
+
+.salary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.salary-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 15px; text-align: center; }
+.salary-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;}
+.salary-box .stat-value { font-size: 20px; font-weight: 700; color: var(--text-color); }
+
+.input-with-symbol { position: relative; width: 100%; }
+.input-with-symbol .symbol { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-weight: 600; color: #888; }
+.input-with-symbol input { padding-left: 35px; width: 100%; text-align: left; }
+
+/* =========================================
+   ROI CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.roi-result-container { display: none; margin-top: 30px; }
+.roi-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; transition: background 0.3s ease; }
+.roi-main-result.profit { background: #2ecc71; box-shadow: 0 10px 20px rgba(46, 204, 113, 0.3); }
+.roi-main-result.loss { background: #e74c3c; box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3); }
+
+.roi-main-result h3 { margin: 0 0 10px 0; font-size: 20px; opacity: 0.9; }
+.roi-main-result .cal-value { font-size: 52px; font-weight: 700; line-height: 1; margin-bottom: 5px;}
+
+.roi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.roi-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+.roi-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; }
+.roi-box .stat-value { font-size: 24px; font-weight: 700; color: var(--text-color); }
+.roi-box .stat-value.profit-text { color: #2ecc71; }
+.roi-box .stat-value.loss-text { color: #e74c3c; }
+
+.input-with-symbol { position: relative; width: 100%; }
+.input-with-symbol .symbol { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-weight: 600; color: #888; }
+.input-with-symbol.right-symbol .symbol { left: auto; right: 15px; }
+.input-with-symbol input { padding-left: 35px; width: 100%; text-align: left; }
+.input-with-symbol.right-symbol input { padding-left: 15px; padding-right: 40px; }
+
+/* =========================================
+   DISCOUNT CALCULATOR SPECIFIC STYLES
+   ========================================= */
+.discount-result-container { display: none; margin-top: 30px; }
+.discount-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.discount-main-result h3 { margin: 0 0 10px 0; font-size: 20px; opacity: 0.9; }
+.discount-main-result .cal-value { font-size: 52px; font-weight: 700; line-height: 1; margin-bottom: 5px;}
+
+.discount-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.discount-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+.discount-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; }
+.discount-box .stat-value { font-size: 24px; font-weight: 700; color: var(--text-color); }
+.discount-box .stat-value.savings-text { color: #2ecc71; }
+
+.input-with-symbol { position: relative; width: 100%; }
+.input-with-symbol .symbol { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-weight: 600; color: #888; }
+.input-with-symbol.right-symbol .symbol { left: auto; right: 15px; }
+.input-with-symbol input { padding-left: 35px; width: 100%; text-align: left; }
+.input-with-symbol.right-symbol input { padding-left: 15px; padding-right: 40px; }
+
