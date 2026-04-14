@@ -1,6 +1,5 @@
 // --- Macro Calculator Logic ---
 let currentUnit = 'metric';
-
 function switchUnit(unit) {
     currentUnit = unit;
     const btnMetric = document.getElementById('btnMetric');
