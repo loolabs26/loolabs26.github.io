@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/other">Other Calculators</a> &rsaquo; CGPA Calculator
+            </div>
+
+            <h1>CGPA Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div id="cgpaForm">
+                    <div id="rowsContainer">
+                        <div class="cgpa-row">
+                            <div class="input-group">
+                                <label>Semester / Course</label>
+                                <input type="text" class="tool-input sem-name" placeholder="Semester 1">
+                            </div>
+                            <div class="input-group">
+                                <label>Credits</label>
+                                <input type="number" class="tool-input sem-credits" placeholder="e.g. 20" step="0.5">
+                            </div>
+                            <div class="input-group">
+                                <label>SGPA / GPA</label>
+                                <input type="number" class="tool-input sem-gpa" placeholder="e.g. 8.5" step="0.01">
+                            </div>
+                            <button class="remove-btn" onclick="removeRow(this)" title="Remove Row"><i class="fas fa-trash"></i></button>
+                        </div>
+                        <div class="cgpa-row">
+                            <div class="input-group">
+                                <label>Semester / Course</label>
+                                <input type="text" class="tool-input sem-name" placeholder="Semester 2">
+                            </div>
+                            <div class="input-group">
+                                <label>Credits</label>
+                                <input type="number" class="tool-input sem-credits" placeholder="e.g. 22" step="0.5">
+                            </div>
+                            <div class="input-group">
+                                <label>SGPA / GPA</label>
+                                <input type="number" class="tool-input sem-gpa" placeholder="e.g. 9.1" step="0.01">
+                            </div>
+                            <button class="remove-btn" onclick="removeRow(this)" title="Remove Row"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+
+                    <button class="add-row-btn" onclick="addRow()"><i class="fas fa-plus"></i> Add Another Semester</button>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateCGPA()" class="calc-action-btn">Calculate CGPA <i class="fas fa-graduation-cap"></i></button>
+
+                <div class="cgpa-result-container" id="resultBox">
+                    <div class="cgpa-main-result">
+                        <h3>Your Cumulative GPA</h3>
+                        <div class="cal-value" id="finalCGPA">0.00</div>
+                    </div>
+                    
+                    <div class="cgpa-grid">
+                        <div class="cgpa-box">
+                            <div class="stat-label">Total Credits Earned</div>
+                            <div class="stat-value" id="totalCredits">0</div>
+                        </div>
+                        <div class="cgpa-box">
+                            <div class="stat-label">Total Grade Points</div>
+                            <div class="stat-value" id="totalGradePoints">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is CGPA?</h2>
+                <p><strong>CGPA (Cumulative Grade Point Average)</strong> is a widely used educational metric that represents a student's overall academic performance throughout their entire program (such as a Bachelor's degree, Diploma, or High School). While an SGPA (Semester Grade Point Average) only calculates your performance for a single specific term, your CGPA combines all of your semesters together into one master score.</p>
+                <p>This calculator is built to be universally compatible. Whether your university uses a <strong>4.0 US grading scale</strong> or a <strong>10.0 scale (common in India, Europe, and Asia)</strong>, simply enter your credits and your numerical GPA for each semester to get your true cumulative score.</p>
+
+                <h3>How CGPA is Calculated</h3>
+                <p>A common mistake students make is simply adding their SGPAs together and dividing by the number of semesters. This is mathematically incorrect unless every single semester had the exact same number of credits. To find your true CGPA, you must calculate a <em>weighted average</em>.</p>
+                <div class="formula-box" style="font-size: 18px;">
+                    <strong>CGPA = Total Grade Points Earned ÷ Total Credits Attempted</strong>
+                </div>
+                <p>To find your Total Grade Points, you multiply your SGPA for a semester by the number of credits you took that semester. You repeat this for every semester, add all those points together, and then divide by your total lifetime credits.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. What is the difference between GPA, SGPA, and CGPA?</h4>
+                <p style="margin-bottom: 25px;"><strong>GPA</strong> stands for Grade Point Average and is usually applied to individual classes. <strong>SGPA</strong> (Semester Grade Point Average) combines all your classes for a single term. <strong>CGPA</strong> combines all your SGPAs across your entire academic program from start to finish.</p>
+
+                <h4 style="color: var(--text-color);">2. How do I convert a 10.0 CGPA to a percentage?</h4>
+                <p style="margin-bottom: 25px;">While this rule changes depending on the specific university or board (such as CBSE or AICTE in India), the most widely accepted formula is to multiply your CGPA by 9.5. For example, a 9.0 CGPA would be (9.0 × 9.5) = 85.5%.</p>
+
+                <h4 style="color: var(--text-color);">3. Can my CGPA go down if I do poorly in one semester?</h4>
+                <p>Yes. Because CGPA is a running average, a bad semester will lower your overall score. However, the further along you are in your degree, the less impact a single bad (or good) semester will have, because your pool of "Total Credits" is so large that the new grades carry less mathematical weight.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/scientific-calculator"><i class="fas fa-square-root-variable"></i> Scientific Calculator</a></li>
+                    <li><a href="/fraction-calculator"><i class="fas fa-divide"></i> Fraction Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
