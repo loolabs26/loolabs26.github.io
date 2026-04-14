@@ -97,3 +97,77 @@ siteLogos.forEach(logo => {
         window.location.href = '/'; // Sends the user home
     });
 });
+
+/* =========================================
+   LIVE AUTOCOMPLETE SEARCH LOGIC
+   ========================================= */
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+
+// Master dictionary of your calculators
+const calculators = [
+    { name: "Mortgage Calculator", url: "/mortgage-calculator" },
+    { name: "Auto Loan Calculator", url: "/auto-loan-calculator" },
+    { name: "Salary Calculator", url: "/salary-calculator" },
+    { name: "ROI Calculator", url: "/roi-calculator" },
+    { name: "Discount Calculator", url: "/discount-calculator" },
+    { name: "BMI Calculator", url: "/bmi-calculator" },
+    { name: "Calorie Calculator", url: "/calorie-calculator" },
+    { name: "BMR Calculator", url: "/bmr-calculator" },
+    { name: "TDEE Calculator", url: "/tdee-calculator" },
+    { name: "Macro Calculator", url: "/macro-calculator" },
+    { name: "Percentage Calculator", url: "/percentage-calculator" },
+    { name: "Scientific Calculator", url: "/scientific-calculator" },
+    { name: "Fraction Calculator", url: "/fraction-calculator" },
+    { name: "Standard Deviation Calculator", url: "/standard-deviation" },
+    { name: "Random Number Generator", url: "/random-number" },
+    { name: "Age Calculator", url: "/age-calculator" },
+    { name: "GPA Calculator", url: "/gpa-calculator" },
+    { name: "Date Calculator", url: "/date-calculator" },
+    { name: "Password Generator", url: "/password-generator" },
+    { name: "Unit Conversion Calculator", url: "/unit-conversion" }
+];
+
+if (searchInput && searchResults) {
+    // Listen for every keystroke
+    searchInput.addEventListener('input', function() {
+        const query = this.value.toLowerCase().trim();
+        searchResults.innerHTML = ''; // Clear previous results
+        
+        if (query.length > 0) {
+            // Find calculators that match the typed letters
+            const filtered = calculators.filter(calc => calc.name.toLowerCase().includes(query));
+            
+            if (filtered.length > 0) {
+                // Display the matches
+                filtered.forEach(calc => {
+                    const a = document.createElement('a');
+                    a.href = calc.url;
+                    a.className = 'search-result-item';
+                    a.textContent = calc.name;
+                    searchResults.appendChild(a);
+                });
+                searchResults.style.display = 'block';
+            } else {
+                // Display a "Not found" message
+                const div = document.createElement('div');
+                div.className = 'search-result-item';
+                div.textContent = 'No calculators found...';
+                div.style.color = '#888';
+                div.style.cursor = 'default';
+                searchResults.appendChild(div);
+                searchResults.style.display = 'block';
+            }
+        } else {
+            // Hide dropdown if search bar is empty
+            searchResults.style.display = 'none';
+        }
+    });
+
+    // Hide dropdown if the user clicks anywhere else on the screen
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.style.display = 'none';
+        }
+    });
+}
