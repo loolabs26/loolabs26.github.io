@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Unit Converter | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/math">Math Calculators</a> &rsaquo; Unit Converter
+            </div>
+
+            <h1>Unit Converter</h1>
+
+            <div class="tool-card">
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-weight: 600; color: #888; font-size: 14px;">Conversion Category</label>
+                    <select id="categorySelect" class="tool-input" style="width: 100%; cursor: pointer; font-weight: 600; font-size: 16px;" onchange="populateUnits()">
+                        <option value="length">📏 Length & Distance</option>
+                        <option value="weight">⚖️ Weight & Mass</option>
+                        <option value="temperature">🌡️ Temperature</option>
+                        <option value="volume">💧 Volume & Capacity</option>
+                        <option value="area">🟩 Area</option>
+                        <option value="data">💾 Digital Data</option>
+                    </select>
+                </div>
+
+                <div class="unit-conv-grid">
+                    <div class="conv-input-group">
+                        <label style="font-weight: 600; color: #888; font-size: 14px; display: block; margin-bottom: 5px;">From</label>
+                        <input type="number" id="inputValue" class="tool-input" placeholder="Enter amount" value="1" style="width: 100%; margin-bottom: 10px;">
+                        <select id="fromUnit" class="tool-input" style="width: 100%; cursor: pointer;"></select>
+                    </div>
+
+                    <div class="swap-btn-container">
+                        <button class="swap-btn" onclick="swapUnits()" title="Swap Units">
+                            <i class="fas fa-exchange-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="conv-input-group">
+                        <label style="font-weight: 600; color: #888; font-size: 14px; display: block; margin-bottom: 5px;">To</label>
+                        <input type="text" id="outputValue" class="tool-input" placeholder="Result" readonly style="width: 100%; margin-bottom: 10px; background: rgba(150, 150, 150, 0.1); font-weight: 700;">
+                        <select id="toUnit" class="tool-input" style="width: 100%; cursor: pointer;"></select>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="convertUnits()" class="calc-action-btn">Convert <i class="fas fa-magic"></i></button>
+
+                <div class="conv-result-container" id="resultBox">
+                    <div class="conv-main-result">
+                        <div class="cal-value" id="mainResultText">0</div>
+                        <div class="conv-formula" id="formulaText">Formula: -</div>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How to Use the Universal Unit Converter</h2>
+                <p>Navigating between the Metric system and the Imperial system can be highly confusing. Our free Unit Converter is designed to bridge the gap between global measurement standards instantly. Whether you are baking a cake, doing physics homework, or calculating digital storage space, this tool handles the complex multipliers for you.</p>
+
+                <h3>The Metric System (SI) vs. Imperial System</h3>
+                <p>There are two primary systems of measurement used in the world today:</p>
+                <ul>
+                    <li><strong>The Metric System (International System of Units - SI):</strong> Used by almost every country on Earth. It is a decimal-based system, meaning it scales perfectly by powers of 10. For example, there are exactly 1,000 meters in a kilometer, and 1,000 grams in a kilogram.</li>
+                    <li><strong>The Imperial System (US Customary Units):</strong> Primarily used in the United States, Liberia, and Myanmar. It scales irregularly, making mental math difficult. For example, there are 12 inches in a foot, 3 feet in a yard, and 5,280 feet in a mile.</li>
+                </ul>
+
+                <h3>How Temperature Conversion Works</h3>
+                <p>While lengths and weights can be converted using simple multiplication, temperature requires a unique mathematical formula because the scales do not start at the same "zero" point. For instance, 0° Celsius is the freezing point of water, but on the Fahrenheit scale, that exact same temperature is represented as 32°F.</p>
+                <div class="formula-box">
+                    <strong>Celsius to Fahrenheit:</strong> (°C × 9/5) + 32 = °F<br><br>
+                    <strong>Fahrenheit to Celsius:</strong> (°F - 32) × 5/9 = °C
+                </div>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. How is digital data (Bytes) calculated?</h4>
+                <p style="margin-bottom: 25px;">Computers operate in binary (base-2). Therefore, a Kilobyte (KB) is traditionally 1,024 Bytes, a Megabyte (MB) is 1,024 KB, and a Gigabyte (GB) is 1,024 MB. Our data converter uses this standard binary convention (JEDEC) which is exactly what your computer's operating system uses to display file sizes.</p>
+
+                <h4 style="color: var(--text-color);">2. What is the difference between mass and weight?</h4>
+                <p style="margin-bottom: 25px;">Scientifically, <strong>Mass</strong> is the amount of matter in an object (measured in kilograms), and it never changes regardless of where you are in the universe. <strong>Weight</strong> is the force of gravity acting on that mass (measured in Newtons or Pounds). However, for everyday, on-Earth calculations, the terms are used interchangeably in unit converters.</p>
+
+                <h4 style="color: var(--text-color);">3. Can I convert values backwards?</h4>
+                <p>Yes! To quickly reverse a conversion (e.g., switching from Miles to Kilometers back to Kilometers to Miles), simply click the circular "Swap" button located between the two dropdown menus. The calculator will instantly recalculate the result.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/scientific-calculator"><i class="fas fa-square-root-variable"></i> Scientific Calculator</a></li>
+                    <li><a href="/random-number"><i class="fas fa-dice"></i> Random Number</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
