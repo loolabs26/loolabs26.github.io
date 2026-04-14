@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | LooLabs</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    
+    <style>
+        .document-container { max-width: 900px; margin: 0 auto 80px auto; }
+        .document-box { background: var(--surface-color); padding: 50px; border-radius: var(--border-radius); box-shadow: var(--shadow); line-height: 1.8; font-size: 16px; }
+        .document-box h1 { color: var(--primary-red); margin-top: 0; font-size: 36px; border-bottom: 2px solid rgba(230, 57, 70, 0.1); padding-bottom: 20px; }
+        
+        /* Contact Form Grid layout */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 30px;
+        }
+
+        .contact-info h2 { color: var(--text-color); margin-top: 0; font-size: 24px; margin-bottom: 20px; }
+        .contact-info p { color: var(--text-color); opacity: 0.9; margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .contact-info i { color: var(--primary-red); font-size: 24px; width: 30px; text-align: center; }
+        
+        .social-links { display: flex; gap: 15px; margin-top: 30px; }
+        .social-links a { display: flex; align-items: center; justify-content: center; width: 45px; height: 45px; background: var(--bg-color); border-radius: 50%; color: var(--primary-red); font-size: 20px; transition: all 0.3s ease; border: 1px solid rgba(150,150,150,0.2); }
+        .social-links a:hover { background: var(--primary-red); color: white; transform: translateY(-3px); }
+
+        /* Neumorphic Form Inputs */
+        .contact-form { display: flex; flex-direction: column; gap: 20px; }
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid rgba(150, 150, 150, 0.2);
+            border-radius: 12px;
+            background: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: var(--primary-red);
+            background: var(--surface-color);
+        }
+        
+        .contact-form textarea { resize: vertical; min-height: 160px; }
+        
+        .submit-btn {
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(230, 57, 70, 0.3);
+            transition: all 0.2s;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .submit-btn:hover { background: var(--primary-red-hover); transform: translateY(-2px); }
+
+        @media (max-width: 768px) {
+            .document-box { padding: 30px 20px; }
+            .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container document-container">
+        <div class="breadcrumbs" style="font-size: 14px; margin-bottom: 20px; color: #888;">
+            <a href="/" style="color: var(--primary-red); font-weight: 600;">Home</a> › Contact Us
+        </div>
+
+        <div class="document-box">
+            <h1>Get in Touch</h1>
+            
+            <div class="contact-grid">
+                
+                <div class="contact-info">
+                    <h2>We'd love to hear from you!</h2>
+                    <p style="opacity: 0.8; margin-bottom: 30px;">Did you find a bug? Have a suggestion for a new calculator? Or just want to say hi? Drop us a message and we will get back to you as soon as possible.</p>
+                    
+                    <p><i class="fas fa-envelope"></i> <a href="mailto:puscas007@gmail.com" style="color: var(--text-color); font-weight: 600;">puscas007@gmail.com</a></p>
+                    <p><i class="fas fa-globe"></i> <span style="font-weight: 600;">loolabs.xyz</span></p>
+
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
+                    <input type="text" name="name" placeholder="Your Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="text" name="subject" placeholder="Subject (Bug, Suggestion, etc.)" required>
+                    <textarea name="message" placeholder="How can we help you?" required></textarea>
+                    <button type="submit" class="submit-btn">Send Message <i class="fas fa-paper-plane" style="margin-left: 8px;"></i></button>
+                </form>
+
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers. LooLabs is built on strict testing and continuous improvement. We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="../js/script.js"></script>
+</body>
+</html>
