@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Salary Calculator
+            </div>
+
+            <h1>Salary Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="input-group-stack">
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 2; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Pay Amount</label>
+                            <div class="input-with-symbol">
+                                <span class="symbol">$</span>
+                                <input type="number" id="payAmount" class="tool-input" placeholder="e.g. 50000">
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Pay Period</label>
+                            <select id="payPeriod" class="tool-input" style="width: 100%; text-align: left; cursor: pointer;">
+                                <option value="annually" selected>Annually (Year)</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="semi-monthly">Semi-Monthly (24/yr)</option>
+                                <option value="bi-weekly">Bi-Weekly (26/yr)</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="daily">Daily</option>
+                                <option value="hourly">Hourly</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Hours per Week</label>
+                            <input type="number" id="hoursPerWeek" class="tool-input" value="40">
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Days per Week</label>
+                            <input type="number" id="daysPerWeek" class="tool-input" value="5">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateSalary()" class="calc-action-btn">Calculate Breakdown <i class="fas fa-money-bill-wave"></i></button>
+
+                <div class="salary-result-container" id="resultBox">
+                    <div class="salary-main-result">
+                        <h3>Equivalent Annual Salary</h3>
+                        <div class="cal-value" id="annualSalaryResult">$0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Gross Income (Before Taxes)</p>
+                    </div>
+                    
+                    <div class="salary-grid">
+                        <div class="salary-box">
+                            <div class="stat-label">Monthly</div>
+                            <div class="stat-value" id="resMonthly">$0</div>
+                        </div>
+                        <div class="salary-box">
+                            <div class="stat-label">Semi-Monthly</div>
+                            <div class="stat-value" id="resSemiMonthly">$0</div>
+                        </div>
+                        <div class="salary-box">
+                            <div class="stat-label">Bi-Weekly</div>
+                            <div class="stat-value" id="resBiWeekly">$0</div>
+                        </div>
+                        <div class="salary-box">
+                            <div class="stat-label">Weekly</div>
+                            <div class="stat-value" id="resWeekly">$0</div>
+                        </div>
+                        <div class="salary-box">
+                            <div class="stat-label">Daily</div>
+                            <div class="stat-value" id="resDaily">$0</div>
+                        </div>
+                        <div class="salary-box">
+                            <div class="stat-label">Hourly</div>
+                            <div class="stat-value" id="resHourly">$0</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 13px; color: #888; margin-top: 10px;">Calculations assume 52 weeks in a year. Actual pay may vary slightly based on leap years and unpaid time off.</p>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How to Use the Salary Calculator</h2>
+                <p>Understanding exactly how your income breaks down is essential for budgeting, negotiating a job offer, or deciding between a salaried position and a freelance hourly rate. Our free Salary Calculator instantly converts your wage across all standard pay periods.</p>
+
+                <h3>Gross Pay vs. Net Pay</h3>
+                <p>This calculator outputs your <strong>Gross Pay</strong>. It is vital to understand the difference between gross and net income when planning your finances:</p>
+                <ul>
+                    <li><strong>Gross Pay:</strong> The total amount of money you earn before any taxes, benefits, or deductions are taken out. If you are offered a "$60,000 salary," that is your gross pay.</li>
+                    <li><strong>Net Pay (Take-Home Pay):</strong> The actual amount of money deposited into your bank account on payday. This is your gross pay minus federal and state income taxes, FICA (Social Security and Medicare), health insurance premiums, and retirement contributions (like a 401k).</li>
+                </ul>
+
+                <h3>Understanding Pay Periods</h3>
+                <p>Depending on your employer, you will likely be paid on one of these common schedules:</p>
+                <ul>
+                    <li><strong>Weekly:</strong> Paid once a week, usually on Fridays. (52 paychecks per year).</li>
+                    <li><strong>Bi-Weekly:</strong> Paid every two weeks. This is the most common schedule in the US. Because there are 52 weeks in a year, you will receive 26 paychecks. Twice a year, you will experience a "three-paycheck month."</li>
+                    <li><strong>Semi-Monthly:</strong> Paid twice a month, typically on the 1st and 15th, or the 15th and the last day of the month. (24 paychecks per year).</li>
+                    <li><strong>Monthly:</strong> Paid once a month. (12 paychecks per year).</li>
+                </ul>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. How is the hourly wage calculated from a salary?</h4>
+                <p style="margin-bottom: 25px;">To find your hourly wage, we first find your total annual salary. We then calculate how many total hours you work in a year (Hours Per Week multiplied by 52 weeks). Finally, we divide your annual salary by your total yearly hours. For a standard 40-hour workweek, you work 2,080 hours a year.</p>
+
+                <h4 style="color: var(--text-color);">2. What if my job gives me unpaid vacation time?</h4>
+                <p style="margin-bottom: 25px;">The standard calculation assumes you are paid for 52 full weeks. If you take two weeks of unpaid vacation, you are only paid for 50 weeks. To adjust for this manually, simply calculate your "Weekly" result and multiply it by the exact number of weeks you plan to work.</p>
+
+                <h4 style="color: var(--text-color);">3. Is a $50k salary the same as $25 an hour?</h4>
+                <p>Very close! If you work a standard 40-hour week for 52 weeks (2,080 hours total), $25 an hour equals exactly $52,000 a year gross. A flat $50,000 salary breaks down to about $24.04 an hour.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/mortgage-calculator"><i class="fas fa-home"></i> Mortgage Calculator</a></li>
+                    <li><a href="/auto-loan-calculator"><i class="fas fa-car"></i> Auto Loan Calculator</a></li>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
