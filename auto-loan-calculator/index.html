@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Loan Calculator | LooLabs.xyz</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Auto Loan Calculator
+            </div>
+
+            <h1>Auto Loan Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="input-group-stack">
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Vehicle Price</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="autoPrice" class="tool-input" placeholder="e.g. 25000">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Down Payment</label>
+                            <div class="input-with-symbol">
+                                <span class="symbol">$</span>
+                                <input type="number" id="downPayment" class="tool-input" placeholder="e.g. 5000">
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Trade-In Value</label>
+                            <div class="input-with-symbol">
+                                <span class="symbol">$</span>
+                                <input type="number" id="tradeIn" class="tool-input" placeholder="e.g. 3000">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Loan Term</label>
+                            <div class="input-with-symbol right-symbol">
+                                <span class="symbol" style="font-size: 12px;">Months</span>
+                                <select id="loanTerm" class="tool-input" style="padding-left: 15px; cursor: pointer;">
+                                    <option value="36">36 Months (3 Years)</option>
+                                    <option value="48">48 Months (4 Years)</option>
+                                    <option value="60" selected>60 Months (5 Years)</option>
+                                    <option value="72">72 Months (6 Years)</option>
+                                    <option value="84">84 Months (7 Years)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Interest Rate</label>
+                            <div class="input-with-symbol right-symbol">
+                                <span class="symbol">%</span>
+                                <input type="number" id="interestRate" class="tool-input" placeholder="e.g. 5.5" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Sales Tax Rate (Optional)</label>
+                        <div class="input-with-symbol right-symbol">
+                            <span class="symbol">%</span>
+                            <input type="number" id="salesTax" class="tool-input" placeholder="e.g. 7.0" step="0.01">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateAutoLoan()" class="calc-action-btn">Calculate Auto Loan <i class="fas fa-car"></i></button>
+
+                <div class="auto-result-container" id="resultBox">
+                    <div class="auto-main-result">
+                        <h3>Estimated Monthly Payment</h3>
+                        <div class="cal-value" id="monthlyPayment">$0</div>
+                    </div>
+                    
+                    <div class="auto-grid">
+                        <div class="auto-box">
+                            <div class="stat-label">Total Loan Amount</div>
+                            <div class="stat-value" id="totalLoanAmount">$0</div>
+                        </div>
+                        <div class="auto-box">
+                            <div class="stat-label">Total Interest Paid</div>
+                            <div class="stat-value" id="totalInterest">$0</div>
+                        </div>
+                        <div class="auto-box">
+                            <div class="stat-label">Sales Tax Paid</div>
+                            <div class="stat-value" id="totalSalesTax">$0</div>
+                        </div>
+                        <div class="auto-box">
+                            <div class="stat-label">Total Cost (With Loan)</div>
+                            <div class="stat-value" id="totalCost">$0</div>
+                        </div>
+                    </div>
+                    <p style="text-align: center; font-size: 13px; color: #888; margin-top: 10px;">Assumes sales tax is rolled into the total loan amount. Documentation and dealer fees are not included.</p>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How to Calculate Your Auto Loan</h2>
+                <p>Buying a car can be an overwhelming financial experience. Dealerships often focus negotiations purely on the "monthly payment" to hide the true cost of the vehicle. By using an auto loan calculator before you shop, you can determine exactly how much car you can afford and understand how interest rates and loan terms affect your total out-of-pocket cost.</p>
+
+                <h3>Understanding the Variables</h3>
+                <ul>
+                    <li><strong>Vehicle Price:</strong> The negotiated purchase price of the car before any taxes or fees are applied.</li>
+                    <li><strong>Down Payment:</strong> The cash amount you are paying upfront. A larger down payment reduces your total loan amount, which lowers your monthly payment and saves you money on interest.</li>
+                    <li><strong>Trade-In Value:</strong> The amount the dealership is willing to give you for your current vehicle. Like a down payment, this value is subtracted from the purchase price of the new car.</li>
+                    <li><strong>Sales Tax:</strong> Most states charge sales tax on vehicle purchases. In many states, the sales tax is calculated <em>after</em> the trade-in value is deducted from the vehicle price, which can result in significant tax savings.</li>
+                </ul>
+
+                <h3>The Danger of Long Loan Terms</h3>
+                <p>While stretching a car loan out to 72 or 84 months will give you a smaller, more attractive monthly payment, it is often a poor financial decision. Vehicles are depreciating assets—meaning they lose value over time. If you take out a 7-year loan, you will pay significantly more in total interest, and you run a high risk of being "underwater" (owing more on the loan than the car is currently worth) for several years.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Should I finance through the dealership or my bank?</h4>
+                <p style="margin-bottom: 25px;">It is highly recommended to get pre-approved for an auto loan from your local bank or credit union before visiting a dealership. This gives you a baseline interest rate. You can then allow the dealership to try and "beat" your bank's rate, guaranteeing you get the best possible financing deal.</p>
+
+                <h4 style="color: var(--text-color);">2. Are dealer fees included in this calculation?</h4>
+                <p style="margin-bottom: 25px;">No. Most dealerships charge "doc fees" (documentation fees), title, and registration fees that can add anywhere from $200 to over $1,000 to the total cost of the car. You should ask the dealer for the "Out The Door" (OTD) price to see exactly what you will be paying.</p>
+
+                <h4 style="color: var(--text-color);">3. Does a trade-in reduce my sales tax?</h4>
+                <p>In the majority of US states, yes. If you buy a $30,000 car and trade in a $10,000 car, most states will only charge you sales tax on the $20,000 difference. Our calculator uses this standard logic to estimate your tax obligation.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/mortgage-calculator"><i class="fas fa-home"></i> Mortgage Calculator</a></li>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/tdee-calculator"><i class="fas fa-bolt"></i> TDEE Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
