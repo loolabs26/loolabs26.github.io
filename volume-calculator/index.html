@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volume Calculator | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/math">Math Calculators</a> &rsaquo; Volume Calculator
+            </div>
+
+            <h1>Volume Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-weight: 600; color: #888; font-size: 14px;">Select 3D Object</label>
+                    <select id="shapeSelect" class="tool-input" style="width: 100%; cursor: pointer;" onchange="toggleVolumeInputs()">
+                        <option value="cube">Cube</option>
+                        <option value="box">Rectangular Prism (Box)</option>
+                        <option value="cylinder">Cylinder</option>
+                        <option value="sphere">Sphere</option>
+                        <option value="cone">Cone</option>
+                    </select>
+                </div>
+
+                <div class="input-group-stack">
+                    
+                    <div id="cubeInputs" class="shape-inputs active">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Edge Length (a)</label>
+                        <input type="number" id="cubeA" class="tool-input" style="width: 100%;">
+                    </div>
+
+                    <div id="boxInputs" class="shape-inputs">
+                        <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Length (l)</label><input type="number" id="boxL" class="tool-input"></div>
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Width (w)</label><input type="number" id="boxW" class="tool-input"></div>
+                        </div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Height (h)</label>
+                        <input type="number" id="boxH" class="tool-input" style="width: 100%;">
+                    </div>
+
+                    <div id="cylinderInputs" class="shape-inputs">
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Radius (r)</label><input type="number" id="cylR" class="tool-input"></div>
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Height (h)</label><input type="number" id="cylH" class="tool-input"></div>
+                        </div>
+                    </div>
+
+                    <div id="sphereInputs" class="shape-inputs">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Radius (r)</label>
+                        <input type="number" id="sphereR" class="tool-input" style="width: 100%;">
+                    </div>
+
+                    <div id="coneInputs" class="shape-inputs">
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Base Radius (r)</label><input type="number" id="coneR" class="tool-input"></div>
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Height (h)</label><input type="number" id="coneH" class="tool-input"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessageVol" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
+
+                <button onclick="calculateVolume()" class="calc-action-btn">Calculate Volume <i class="fas fa-cube"></i></button>
+
+                <div class="geo-result-container" id="resultBoxVol">
+                    <div class="geo-main-result">
+                        <h3>Total Volume</h3>
+                        <div class="cal-value" id="finalVolume">0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Cubic Units (u³)</p>
+                    </div>
+                    <div class="formula-display" id="volumeFormula">Formula: </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is Volume?</h2>
+                <p>While Area calculates flat space, <strong>Volume</strong> measures the amount of three-dimensional space enclosed by a closed surface. Think of it as the capacity of an object—how much water it would take to completely fill a swimming pool, or how much air is inside a basketball.</p>
+                <p>Volume is universally measured in "cubic units" (such as cubic meters, cubic feet, or cubic centimeters) because you are mathematically multiplying three distinct dimensional measurements (length, width, and depth/height) together.</p>
+
+                <h3>Common Volume Formulas</h3>
+                <ul>
+                    <li><strong>Cube:</strong> Volume = Edge³</li>
+                    <li><strong>Rectangular Prism (Box):</strong> Volume = Length × Width × Height</li>
+                    <li><strong>Cylinder:</strong> Volume = π × Radius² × Height</li>
+                    <li><strong>Sphere:</strong> Volume = 4/3 × π × Radius³</li>
+                    <li><strong>Cone:</strong> Volume = 1/3 × π × Radius² × Height</li>
+                </ul>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/area-calculator"><i class="fas fa-draw-polygon"></i> Area Calculator</a></li>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/unit-conversion"><i class="fas fa-exchange-alt"></i> Unit Converter</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
