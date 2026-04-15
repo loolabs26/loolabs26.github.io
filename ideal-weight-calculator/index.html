@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ideal Weight Calculator | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+        </nav>
+    </header>
+
+    <main class="container tool-layout">
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/health">Fitness & Health</a> &rsaquo; Ideal Weight Calculator
+            </div>
+
+            <h1>Ideal Weight Calculator</h1>
+
+            <div class="tool-card">
+                <div class="unit-toggle">
+                    <button class="unit-btn active" id="btnMetricIW" onclick="switchUnitIW('metric')">Metric (cm)</button>
+                    <button class="unit-btn" id="btnUSIW" onclick="switchUnitIW('us')">US (ft/in)</button>
+                </div>
+
+                <div class="input-group-stack">
+                    <label style="font-weight: 600; color: #888; font-size: 14px;">Gender</label>
+                    <div class="gender-toggle">
+                        <label class="gender-label"><input type="radio" name="iwGender" value="male" checked> Male</label>
+                        <label class="gender-label"><input type="radio" name="iwGender" value="female"> Female</label>
+                    </div>
+
+                    <div id="iwMetric" style="display: block;">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Height (cm)</label>
+                        <input type="number" id="iwHeightCm" class="tool-input" style="width: 100%;">
+                    </div>
+
+                    <div id="iwUS" style="display: none; gap: 15px;">
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Height (ft)</label>
+                            <input type="number" id="iwHeightFt" class="tool-input" style="width: 100%;">
+                        </div>
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Height (in)</label>
+                            <input type="number" id="iwHeightIn" class="tool-input" style="width: 100%;">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMsgIW" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
+
+                <button onclick="calculateIdealWeight()" class="calc-action-btn">Calculate Ideal Weight <i class="fas fa-weight-scale"></i></button>
+
+                <div class="health-result-container" id="resultBoxIW">
+                    <div class="health-main-result">
+                        <h3>Your Ideal Weight</h3>
+                        <div class="cal-value" id="iwResultMain">-</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Devine Formula</p>
+                    </div>
+                    
+                    <div class="health-grid">
+                        <div class="health-box">
+                            <div class="stat-label">Robinson Formula</div>
+                            <div class="stat-value" id="iwRob">-</div>
+                        </div>
+                        <div class="health-box">
+                            <div class="stat-label">Miller Formula</div>
+                            <div class="stat-value" id="iwMil">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is the Ideal Weight?</h2>
+                <p>The concept of "Ideal Body Weight" (IBW) was originally created for medical dosing, but has become a standard health metric. Our calculator uses the three most widely recognized medical formulas (Devine, Robinson, and Miller) to give you a precise target.</p>
+                <p>Keep in mind that these formulas are based purely on height and gender. They do not account for muscle mass or bone density. Athletes with high muscle mass will often weigh more than their "ideal" weight while still being perfectly healthy.</p>
+            </article>
+        </div>
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/bmi-calculator"><i class="fas fa-heartbeat"></i> BMI Calculator</a></li>
+                    <li><a href="/body-fat-calculator"><i class="fas fa-child"></i> Body Fat Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="copyright">&copy; 2026 LooLabs.xyz</p>
+    </footer>
+
+    <script>
+        let iwUnit = 'metric';
+
+        function switchUnitIW(unit) {
+            iwUnit = unit;
+            document.getElementById('btnMetricIW').classList.toggle('active', unit === 'metric');
+            document.getElementById('btnUSIW').classList.toggle('active', unit === 'us');
+            
+            document.getElementById('iwMetric').style.display = unit === 'metric' ? 'block' : 'none';
+            document.getElementById('iwUS').style.display = unit === 'us' ? 'flex' : 'none';
+            document.getElementById('resultBoxIW').style.display = 'none';
+        }
+
+        function calculateIdealWeight() {
+            const errorMsg = document.getElementById('errorMsgIW');
+            errorMsg.style.display = 'none';
+
+            const gender = document.querySelector('input[name="iwGender"]:checked').value;
+            let inchesOver5Ft = 0;
+
+            if (iwUnit === 'metric') {
+                const cm = parseFloat(document.getElementById('iwHeightCm').value);
+                if (isNaN(cm) || cm < 140) {
+                    errorMsg.innerText = "Please enter a valid height (Minimum 140cm).";
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                const totalInches = cm / 2.54;
+                inchesOver5Ft = totalInches - 60;
+            } else {
+                const ft = parseFloat(document.getElementById('iwHeightFt').value) || 0;
+                const inches = parseFloat(document.getElementById('iwHeightIn').value) || 0;
+                const totalInches = (ft * 12) + inches;
+                if (totalInches < 55) {
+                    errorMsg.innerText = "Please enter a valid height (Minimum 4ft 7in).";
+                    errorMsg.style.display = 'block';
+                    return;
+                }
+                inchesOver5Ft = totalInches - 60;
+            }
+
+            // Devine Formula (1974)
+            const devineBase = gender === 'male' ? 50 : 45.5;
+            let devineKg = devineBase + (2.3 * inchesOver5Ft);
+
+            // Robinson Formula (1983)
+            const robBase = gender === 'male' ? 52 : 49;
+            const robMult = gender === 'male' ? 1.9 : 1.7;
+            let robKg = robBase + (robMult * inchesOver5Ft);
+
+            // Miller Formula (1983)
+            const milBase = gender === 'male' ? 56.2 : 53.1;
+            const milMult = gender === 'male' ? 1.41 : 1.36;
+            let milKg = milBase + (milMult * inchesOver5Ft);
+
+            const displayUnit = iwUnit === 'metric' ? 'kg' : 'lbs';
+            const multiplier = iwUnit === 'metric' ? 1 : 2.20462;
+
+            document.getElementById('iwResultMain').innerText = (devineKg * multiplier).toFixed(1) + " " + displayUnit;
+            document.getElementById('iwRob').innerText = (robKg * multiplier).toFixed(1) + " " + displayUnit;
+            document.getElementById('iwMil').innerText = (milKg * multiplier).toFixed(1) + " " + displayUnit;
+
+            document.getElementById('resultBoxIW').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
