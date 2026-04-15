@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Calculator | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/math">Math Calculators</a> &rsaquo; Area Calculator
+            </div>
+
+            <h1>Area Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div style="margin-bottom: 25px;">
+                    <label style="font-weight: 600; color: #888; font-size: 14px;">Select Shape</label>
+                    <select id="shapeSelect" class="tool-input" style="width: 100%; cursor: pointer;" onchange="toggleAreaInputs()">
+                        <option value="rectangle">Rectangle</option>
+                        <option value="square">Square</option>
+                        <option value="circle">Circle</option>
+                        <option value="triangle">Triangle</option>
+                        <option value="trapezoid">Trapezoid</option>
+                    </select>
+                </div>
+
+                <div class="input-group-stack">
+                    
+                    <div id="rectInputs" class="shape-inputs active">
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Length</label><input type="number" id="rectL" class="tool-input"></div>
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Width</label><input type="number" id="rectW" class="tool-input"></div>
+                        </div>
+                    </div>
+
+                    <div id="squareInputs" class="shape-inputs">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Side Edge (a)</label>
+                        <input type="number" id="squareS" class="tool-input" style="width: 100%;">
+                    </div>
+
+                    <div id="circleInputs" class="shape-inputs">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Radius (r)</label>
+                        <input type="number" id="circleR" class="tool-input" style="width: 100%;">
+                    </div>
+
+                    <div id="triangleInputs" class="shape-inputs">
+                        <div style="display: flex; gap: 15px;">
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Base (b)</label><input type="number" id="triB" class="tool-input"></div>
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Height (h)</label><input type="number" id="triH" class="tool-input"></div>
+                        </div>
+                    </div>
+
+                    <div id="trapezoidInputs" class="shape-inputs">
+                        <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Base 1 (a)</label><input type="number" id="trapA" class="tool-input"></div>
+                            <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Base 2 (b)</label><input type="number" id="trapB" class="tool-input"></div>
+                        </div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Height (h)</label>
+                        <input type="number" id="trapH" class="tool-input" style="width: 100%;">
+                    </div>
+                </div>
+
+                <div id="errorMessageArea" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
+
+                <button onclick="calculateArea()" class="calc-action-btn">Calculate Area <i class="fas fa-draw-polygon"></i></button>
+
+                <div class="geo-result-container" id="resultBoxArea">
+                    <div class="geo-main-result">
+                        <h3>Total Area</h3>
+                        <div class="cal-value" id="finalArea">0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Squared Units (u²)</p>
+                    </div>
+                    <div class="formula-display" id="areaFormula">Formula: </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is Area?</h2>
+                <p>In geometry, <strong>Area</strong> is the quantity that expresses the extent of a two-dimensional shape or planar lamina. It represents the amount of space inside the boundary of a flat (2D) object such as a triangle, circle, or rectangle.</p>
+                <p>Area is universally measured in "square units" (such as square meters, square feet, or square inches) because you are mathematically multiplying two distinct one-dimensional measurements (like length and width) together.</p>
+
+                <h3>Common Area Formulas</h3>
+                <ul>
+                    <li><strong>Rectangle:</strong> Area = Length × Width</li>
+                    <li><strong>Square:</strong> Area = Side²</li>
+                    <li><strong>Circle:</strong> Area = π × Radius²</li>
+                    <li><strong>Triangle:</strong> Area = ½ × Base × Height</li>
+                    <li><strong>Trapezoid:</strong> Area = ½ × (Base 1 + Base 2) × Height</li>
+                </ul>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/volume-calculator"><i class="fas fa-cube"></i> Volume Calculator</a></li>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/unit-conversion"><i class="fas fa-exchange-alt"></i> Unit Converter</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
