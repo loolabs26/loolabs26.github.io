@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Right Triangle Calculator | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/math">Math Calculators</a> &rsaquo; Right Triangle Calculator
+            </div>
+
+            <h1>Right Triangle Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="tri-instruction">
+                    Enter exactly <strong>TWO</strong> known values to calculate the rest. <br>Angle C is always 90&deg;.
+                </div>
+
+                <div class="input-group-stack">
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 120px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Leg a</label>
+                            <input type="number" id="rtSideA" class="tool-input" placeholder="Length">
+                        </div>
+                        <div style="flex: 1; min-width: 120px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Leg b</label>
+                            <input type="number" id="rtSideB" class="tool-input" placeholder="Length">
+                        </div>
+                        <div style="flex: 1; min-width: 120px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Hypotenuse c</label>
+                            <input type="number" id="rtSideC" class="tool-input" placeholder="Length">
+                        </div>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+                        <div style="flex: 1; min-width: 120px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Angle A (&deg;)</label>
+                            <input type="number" id="rtAngleA" class="tool-input" placeholder="Degrees">
+                        </div>
+                        <div style="flex: 1; min-width: 120px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Angle B (&deg;)</label>
+                            <input type="number" id="rtAngleB" class="tool-input" placeholder="Degrees">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessageRt" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
+
+                <div style="display: flex; gap: 15px; margin-top: 15px;">
+                    <button onclick="calculateRightTriangle()" class="calc-action-btn" style="flex: 2;">Calculate <i class="fas fa-play"></i></button>
+                    <button onclick="clearFields()" class="calc-action-btn" style="flex: 1; background: var(--bg-color); color: var(--text-color); border: 2px solid rgba(150,150,150,0.3);">Clear</button>
+                </div>
+
+                <div class="tri-result-container" id="resultBoxRt">
+                    <h3 style="font-size: 18px; text-align: center; margin-bottom: 20px;">Calculated Missing Values</h3>
+                    
+                    <div class="tri-grid">
+                        <div class="tri-box">
+                            <div class="stat-label">Leg a</div>
+                            <div class="stat-value" id="resA">0</div>
+                        </div>
+                        <div class="tri-box">
+                            <div class="stat-label">Leg b</div>
+                            <div class="stat-value" id="resB">0</div>
+                        </div>
+                        <div class="tri-box">
+                            <div class="stat-label">Hypotenuse c</div>
+                            <div class="stat-value" id="resC" style="color: var(--primary-red);">0</div>
+                        </div>
+                    </div>
+
+                    <div class="tri-grid">
+                        <div class="tri-box">
+                            <div class="stat-label">Angle A</div>
+                            <div class="stat-value"><span id="resAngleA">0</span>&deg;</div>
+                        </div>
+                        <div class="tri-box">
+                            <div class="stat-label">Angle B</div>
+                            <div class="stat-value"><span id="resAngleB">0</span>&deg;</div>
+                        </div>
+                        <div class="tri-box">
+                            <div class="stat-label">Area</div>
+                            <div class="stat-value" id="resArea">0</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is a Right Triangle?</h2>
+                <p>A right triangle is a special type of triangle that has exactly one interior angle measuring 90 degrees (a "right angle"). This single property unlocks some of the most famous and useful mathematics in human history, including the Pythagorean Theorem and Trigonometry (SOH CAH TOA).</p>
+
+                <h3>The Pythagorean Theorem</h3>
+                <p>If you know the lengths of any two sides of a right triangle, you can always find the third side using the Pythagorean Theorem. The longest side, opposite the 90-degree angle, is always called the <strong>Hypotenuse (c)</strong>. The other two sides are called the <strong>Legs (a and b)</strong>.</p>
+                <div class="formula-box">
+                    <strong>a² + b² = c²</strong><br><br>
+                    <em>To find the hypotenuse: c = √(a² + b²)</em><br>
+                    <em>To find a leg: a = √(c² - b²)</em>
+                </div>
+
+                <h3>Using Trigonometry (SOH CAH TOA)</h3>
+                <p>If you only know one side length and one angle, you can use basic sine, cosine, and tangent functions to find the rest of the shape. Our smart calculator automatically identifies what information you provided and applies the correct trigonometric formulas instantly.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/triangle-calculator"><i class="fas fa-caret-up"></i> Triangle Calculator</a></li>
+                    <li><a href="/area-calculator"><i class="fas fa-draw-polygon"></i> Area Calculator</a></li>
+                    <li><a href="/scientific-calculator"><i class="fas fa-square-root-variable"></i> Scientific Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple...</p>
+        <p class="footer-thanks">Built with passion for students and developers...</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
