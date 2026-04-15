@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pregnancy Due Date Calculator | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+        </nav>
+    </header>
+
+    <main class="container tool-layout">
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/health">Fitness & Health</a> &rsaquo; Pregnancy Calculator
+            </div>
+
+            <h1>Pregnancy Due Date Calculator</h1>
+
+            <div class="tool-card">
+                <div class="input-group-stack">
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">First Day of Last Period (LMP)</label>
+                        <input type="date" id="pregLMP" class="tool-input" style="cursor: pointer; width: 100%;">
+                    </div>
+                    <div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Average Cycle Length (Days)</label>
+                        <input type="number" id="pregCycle" class="tool-input" value="28" style="width: 100%;">
+                    </div>
+                </div>
+
+                <div id="errorMsgPreg" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
+
+                <button onclick="calculateDueDate()" class="calc-action-btn">Calculate Due Date <i class="fas fa-baby"></i></button>
+
+                <div class="health-result-container" id="resultBoxPreg">
+                    <div class="health-main-result">
+                        <h3>Estimated Due Date</h3>
+                        <div class="cal-value" id="pregDueDate">-</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Congratulations!</p>
+                    </div>
+                    
+                    <div class="health-grid">
+                        <div class="health-box">
+                            <div class="stat-label">Estimated Conception</div>
+                            <div class="stat-value" id="pregConception">-</div>
+                        </div>
+                        <div class="health-box">
+                            <div class="stat-label">End of First Trimester</div>
+                            <div class="stat-value" id="pregTri1">-</div>
+                        </div>
+                        <div class="health-box">
+                            <div class="stat-label">End of Second Trimester</div>
+                            <div class="stat-value" id="pregTri2">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How is the Due Date Calculated?</h2>
+                <p>This calculator uses Naegele's rule, the standard medical calculation for pregnancy. It adds 280 days (40 weeks) to the first day of your last menstrual period (LMP). It also adjusts automatically if your cycle is shorter or longer than the standard 28 days.</p>
+                <p>Remember, only about 4% of babies are born on their exact due date. It is an estimation, and your doctor will provide the most accurate timeline using ultrasound measurements.</p>
+            </article>
+        </div>
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/age-calculator"><i class="fas fa-birthday-cake"></i> Age Calculator</a></li>
+                    <li><a href="/date-calculator"><i class="far fa-calendar-alt"></i> Date Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="copyright">&copy; 2026 LooLabs.xyz</p>
+    </footer>
+
+    <script>
+        function calculateDueDate() {
+            const errorMsg = document.getElementById('errorMsgPreg');
+            errorMsg.style.display = 'none';
+
+            const lmpVal = document.getElementById('pregLMP').value;
+            const cycleLength = parseInt(document.getElementById('pregCycle').value);
+
+            if(!lmpVal || isNaN(cycleLength) || cycleLength < 20 || cycleLength > 45) {
+                errorMsg.innerText = "Please select a valid date and cycle length (20-45 days).";
+                errorMsg.style.display = 'block';
+                return;
+            }
+
+            let lmpDate = new Date(lmpVal);
+            // Fix timezone offset
+            lmpDate = new Date(lmpDate.getTime() + lmpDate.getTimezoneOffset() * 60000);
+
+            // Naegele's Rule: +280 days. Adjusted by (cycleLength - 28)
+            const daysToAdd = 280 + (cycleLength - 28);
+            
+            const dueDate = new Date(lmpDate);
+            dueDate.setDate(dueDate.getDate() + daysToAdd);
+
+            const conceptionDate = new Date(lmpDate);
+            conceptionDate.setDate(conceptionDate.getDate() + 14 + (cycleLength - 28));
+
+            const tri1Date = new Date(lmpDate);
+            tri1Date.setDate(tri1Date.getDate() + (12 * 7)); // 12 weeks
+
+            const tri2Date = new Date(lmpDate);
+            tri2Date.setDate(tri2Date.getDate() + (27 * 7)); // 27 weeks
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+            document.getElementById('pregDueDate').innerText = dueDate.toLocaleDateString('en-US', options);
+            document.getElementById('pregConception').innerText = conceptionDate.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+            document.getElementById('pregTri1').innerText = tri1Date.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+            document.getElementById('pregTri2').innerText = tri2Date.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+
+            document.getElementById('resultBoxPreg').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
