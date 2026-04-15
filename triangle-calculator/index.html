@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triangle Calculator | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/math">Math Calculators</a> &rsaquo; Triangle Calculator
+            </div>
+
+            <h1>Triangle Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div class="tri-instruction">
+                    Enter the lengths of all 3 sides to solve the triangle.
+                </div>
+
+                <div class="input-group-stack" style="display: flex; gap: 15px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 120px;">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Side a</label>
+                        <input type="number" id="sideA" class="tool-input" placeholder="Length">
+                    </div>
+                    <div style="flex: 1; min-width: 120px;">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Side b</label>
+                        <input type="number" id="sideB" class="tool-input" placeholder="Length">
+                    </div>
+                    <div style="flex: 1; min-width: 120px;">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Side c</label>
+                        <input type="number" id="sideC" class="tool-input" placeholder="Length">
+                    </div>
+                </div>
+
+                <div id="errorMessageTri" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
+
+                <button onclick="calculateTriangle()" class="calc-action-btn" style="margin-top: 15px;">Calculate Triangle <i class="fas fa-play"></i></button>
+
+                <div class="tri-result-container" id="resultBoxTri">
+                    <div class="tri-main-result">
+                        <h3>Total Area</h3>
+                        <div class="cal-value" id="triArea">0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Squared Units</p>
+                    </div>
+                    
+                    <h3 style="margin-top: 25px; font-size: 18px;">Interior Angles</h3>
+                    <div class="tri-grid">
+                        <div class="tri-box">
+                            <div class="stat-label">Angle A</div>
+                            <div class="stat-value"><span id="angleA">0</span>&deg;</div>
+                        </div>
+                        <div class="tri-box">
+                            <div class="stat-label">Angle B</div>
+                            <div class="stat-value"><span id="angleB">0</span>&deg;</div>
+                        </div>
+                        <div class="tri-box">
+                            <div class="stat-label">Angle C</div>
+                            <div class="stat-value"><span id="angleC">0</span>&deg;</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 20px; font-size: 18px;">Properties</h3>
+                    <div class="tri-grid">
+                        <div class="tri-box">
+                            <div class="stat-label">Perimeter</div>
+                            <div class="stat-value" id="triPerimeter">0</div>
+                        </div>
+                        <div class="tri-box">
+                            <div class="stat-label">Semi-Perimeter</div>
+                            <div class="stat-value" id="triSemi">0</div>
+                        </div>
+                        <div class="tri-box">
+                            <div class="stat-label">Triangle Type</div>
+                            <div class="stat-value" id="triType" style="font-size: 18px;">-</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>How to Solve a Triangle</h2>
+                <p>Solving a triangle means finding all the unknown missing values (sides and angles) based on the known values. This specific calculator operates on the <strong>SSS (Side-Side-Side) Postulate</strong>. If you know the lengths of all three sides of a valid triangle, there is only one mathematically possible shape it can take.</p>
+
+                <h3>The Triangle Inequality Theorem</h3>
+                <p>Not every combination of three numbers can form a triangle! The Triangle Inequality Theorem states that the sum of the lengths of any two sides of a triangle must be strictly greater than the length of the third side. If you try to enter sides of 2, 2, and 10, the calculator will give you an error because those lines could never physically connect to form a closed shape.</p>
+
+                <h3>Calculating Area (Heron's Formula)</h3>
+                <p>Most people learn the standard area formula: Area = ½ × Base × Height. But what if you don't know the height? Over 2,000 years ago, a mathematician named Hero of Alexandria created a formula to find the area using only the three sides.</p>
+                <div class="formula-box">
+                    <strong>Step 1 (Find Semi-Perimeter):</strong> s = (a + b + c) ÷ 2<br><br>
+                    <strong>Step 2 (Heron's Formula):</strong> Area = √(s × (s - a) × (s - b) × (s - c))
+                </div>
+
+                <h3>Calculating Angles (Law of Cosines)</h3>
+                <p>To find the interior angles without knowing the height, we use trigonometry—specifically the Law of Cosines. It is a generalized version of the Pythagorean theorem that works for non-right triangles.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/right-triangle-calculator"><i class="fas fa-ruler-combined"></i> Right Triangle</a></li>
+                    <li><a href="/area-calculator"><i class="fas fa-draw-polygon"></i> Area Calculator</a></li>
+                    <li><a href="/scientific-calculator"><i class="fas fa-square-root-variable"></i> Scientific Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple...</p>
+        <p class="footer-thanks">Built with passion for students and developers...</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
