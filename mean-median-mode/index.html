@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mean, Median, Mode, Range Calculator | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/math">Math Calculators</a> &rsaquo; Mean, Median, Mode Calculator
+            </div>
+
+            <h1>Mean, Median, Mode & Range Calculator</h1>
+
+            <div class="tool-card">
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="font-weight: 600; color: #888; font-size: 14px; display: block; margin-bottom: 10px;">Enter your data set (numbers separated by commas or spaces)</label>
+                    <textarea id="dataInput" class="data-input-area" placeholder="e.g. 5, 12, 19, 5, 23, 8..."></textarea>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateStatistics()" class="calc-action-btn">Calculate Statistics <i class="fas fa-chart-bar"></i></button>
+
+                <div class="stats-result-container" id="resultBox">
+                    <div class="stats-main-result">
+                        <h3>Mean (Average)</h3>
+                        <div class="cal-value" id="resMean">0</div>
+                    </div>
+                    
+                    <div class="stats-grid">
+                        <div class="stats-box">
+                            <div class="stat-label">Median</div>
+                            <div class="stat-value" id="resMedian">0</div>
+                        </div>
+                        <div class="stats-box">
+                            <div class="stat-label">Mode</div>
+                            <div class="stat-value" id="resMode">0</div>
+                        </div>
+                        <div class="stats-box">
+                            <div class="stat-label">Range</div>
+                            <div class="stat-value" id="resRange">0</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 30px; font-size: 18px;">Dataset Details</h3>
+                    <div class="stats-grid">
+                        <div class="stats-box">
+                            <div class="stat-label">Count (n)</div>
+                            <div class="stat-value" id="resCount">0</div>
+                        </div>
+                        <div class="stats-box">
+                            <div class="stat-label">Sum</div>
+                            <div class="stat-value" id="resSum">0</div>
+                        </div>
+                        <div class="stats-box">
+                            <div class="stat-label">Min / Max</div>
+                            <div class="stat-value" style="font-size: 18px;" id="resMinMax">0 / 0</div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div style="font-weight: 600; color: #888; font-size: 14px; margin-top: 15px;">Sorted Dataset (Ascending)</div>
+                        <div class="sorted-data-box" id="resSortedData"></div>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>Understanding Descriptive Statistics</h2>
+                <p>When analyzing a set of data, whether it is test scores, financial returns, or survey results, it is crucial to understand the central tendencies and the spread of your numbers. Our free calculator instantly finds the Mean, Median, Mode, and Range of any dataset.</p>
+
+                <h3>What is the Mean?</h3>
+                <p>The <strong>Mean</strong> is the mathematical average of all the numbers. To find it, you add up all the numbers in the dataset and then divide that total by the quantity of numbers.</p>
+                <ul>
+                    <li><strong>Formula:</strong> Sum of all values ÷ Number of values</li>
+                    <li><strong>Best used for:</strong> Data sets without extreme outliers. Because the mean incorporates every single number, one massive number can skew the result heavily.</li>
+                </ul>
+
+                <h3>What is the Median?</h3>
+                <p>The <strong>Median</strong> is the exact middle number when your dataset is arranged in numerical order from smallest to largest. If there is an odd number of data points, it is the center number. If there is an even number, it is the average of the two center numbers.</p>
+                <ul>
+                    <li><strong>Best used for:</strong> Finding the true "center" of data that has extreme outliers (like calculating the average income of a city where one billionaire lives).</li>
+                </ul>
+
+                <h3>What is the Mode?</h3>
+                <p>The <strong>Mode</strong> is the number that appears most frequently in your dataset. A set of data can have one mode, more than one mode (bimodal or multimodal), or "No Mode" if every number appears exactly once.</p>
+                <ul>
+                    <li><strong>Best used for:</strong> Categorical data or finding the most common occurrence (e.g., finding out which shoe size sells the most in a retail store).</li>
+                </ul>
+
+                <h3>What is the Range?</h3>
+                <p>The <strong>Range</strong> is the difference between the highest value (maximum) and the lowest value (minimum) in the dataset. It gives you a quick idea of how spread out your numbers are.</p>
+                <ul>
+                    <li><strong>Formula:</strong> Maximum Value - Minimum Value</li>
+                </ul>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. How does the calculator handle decimals and negative numbers?</h4>
+                <p style="margin-bottom: 25px;">Our calculator is fully capable of processing both decimals (e.g., 3.14) and negative numbers (e.g., -15). Simply ensure you use a minus sign for negative numbers, and separate your individual data points with commas or spaces.</p>
+
+                <h4 style="color: var(--text-color);">2. What happens if multiple numbers tie for the Mode?</h4>
+                <p>If two or more numbers tie for the highest frequency, the dataset is considered multimodal. Our calculator will detect this and display all of the modes separated by commas.</p>
+            </article>
+        </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <ul>
+                    <li><a href="/percentage-calculator"><i class="fas fa-percent"></i> Percentage Calculator</a></li>
+                    <li><a href="/unit-conversion"><i class="fas fa-exchange-alt"></i> Unit Converter</a></li>
+                    <li><a href="/random-number"><i class="fas fa-dice"></i> Random Number</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
