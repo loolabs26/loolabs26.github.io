@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Interest Calculator | LooLabs.xyz</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+    </header>
+
+    <main class="container tool-layout">
+        <div class="tool-main">
+            <div class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Simple Interest</div>
+            <h1>Simple Interest Calculator</h1>
+            <div class="tool-card">
+                <div class="input-group-stack">
+                    <label style="font-weight: 600; color: #888; font-size: 14px;">Principal Amount (P)</label>
+                    <div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="siPrincipal" class="tool-input" placeholder="e.g. 5000"></div>
+                    
+                    <div style="display: flex; gap: 15px; margin-top: 15px;">
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Interest Rate (r)</label>
+                            <div class="input-with-symbol right-symbol"><span class="symbol">%</span><input type="number" id="siRate" class="tool-input" placeholder="e.g. 5"></div>
+                        </div>
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Time in Years (t)</label>
+                            <input type="number" id="siTime" class="tool-input" placeholder="e.g. 3">
+                        </div>
+                    </div>
+                </div>
+                <button onclick="calculateSI()" class="calc-action-btn" style="margin-top: 15px;">Calculate Simple Interest <i class="fas fa-percentage"></i></button>
+
+                <div class="fin-result-container" id="resultBoxSI">
+                    <div class="fin-main-result">
+                        <h3>Total Amount (Principal + Interest)</h3>
+                        <div class="cal-value" id="resSITotal">$0</div>
+                    </div>
+                    <div class="fin-grid">
+                        <div class="fin-box"><div class="stat-label">Total Interest Paid</div><div class="stat-value danger" id="resSIInterest">$0</div></div>
+                        <div class="fin-box"><div class="stat-label">Principal</div><div class="stat-value" id="resSIPrinc">$0</div></div>
+                    </div>
+                </div>
+            </div>
+            <article class="tool-seo">
+                <h2>What is Simple Interest?</h2>
+                <p>Unlike Compound Interest, Simple Interest is only calculated on the original principal amount. It is commonly used for short-term personal loans or auto loans. The formula is: <strong>I = P × r × t</strong></p>
+            </article>
+        </div>
+    </main>
+
+    <script>
+        function calculateSI() {
+            const p = parseFloat(document.getElementById('siPrincipal').value);
+            const r = parseFloat(document.getElementById('siRate').value) / 100;
+            const t = parseFloat(document.getElementById('siTime').value);
+            
+            if(isNaN(p) || isNaN(r) || isNaN(t)) return alert("Please fill all fields.");
+
+            const interest = p * r * t;
+            const total = p + interest;
+
+            const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            document.getElementById('resSITotal').innerText = fmt(total);
+            document.getElementById('resSIInterest').innerText = fmt(interest);
+            document.getElementById('resSIPrinc').innerText = fmt(p);
+            document.getElementById('resultBoxSI').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
