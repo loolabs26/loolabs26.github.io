@@ -4,75 +4,192 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple Interest Calculator | LooLabs.xyz</title>
+    
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
 </head>
 <body>
+
     <header>
         <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </header>
 
     <main class="container tool-layout">
+        
         <div class="tool-main">
-            <div class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Simple Interest</div>
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Simple Interest
+            </div>
+
             <h1>Simple Interest Calculator</h1>
+
             <div class="tool-card">
-                <div class="input-group-stack">
-                    <label style="font-weight: 600; color: #888; font-size: 14px;">Principal Amount (P)</label>
-                    <div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="siPrincipal" class="tool-input" placeholder="e.g. 5000"></div>
-                    
-                    <div style="display: flex; gap: 15px; margin-top: 15px;">
-                        <div style="flex: 1;">
-                            <label style="font-weight: 600; color: #888; font-size: 14px;">Interest Rate (r)</label>
-                            <div class="input-with-symbol right-symbol"><span class="symbol">%</span><input type="number" id="siRate" class="tool-input" placeholder="e.g. 5"></div>
+                
+                <div class="adv-calc-grid">
+                    <div class="adv-input-section">
+                        <h3>Loan / Investment Details</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Principal Amount (P)</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="siPrincipal" class="tool-input" value="10000">
                         </div>
-                        <div style="flex: 1;">
-                            <label style="font-weight: 600; color: #888; font-size: 14px;">Time in Years (t)</label>
-                            <input type="number" id="siTime" class="tool-input" placeholder="e.g. 3">
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Annual Interest Rate (r)</label>
+                        <div class="input-with-symbol right-symbol">
+                            <span class="symbol">%</span>
+                            <input type="number" id="siRate" class="tool-input" value="5" step="0.1">
                         </div>
                     </div>
-                </div>
-                <button onclick="calculateSI()" class="calc-action-btn" style="margin-top: 15px;">Calculate Simple Interest <i class="fas fa-percentage"></i></button>
 
-                <div class="fin-result-container" id="resultBoxSI">
+                    <div class="adv-input-section">
+                        <h3>Time Period (t)</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Duration</label>
+                        <input type="number" id="siTime" class="tool-input" value="3" style="width: 100%; margin-bottom: 15px;">
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Time Unit</label>
+                        <select id="siTimeUnit" class="tool-input" style="width: 100%; cursor: pointer;">
+                            <option value="years" selected>Years</option>
+                            <option value="months">Months</option>
+                            <option value="days">Days (365/Yr)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateSI()" class="calc-action-btn">Calculate Simple Interest <i class="fas fa-percentage"></i></button>
+
+                <div class="fin-result-container" id="resultBox">
                     <div class="fin-main-result">
                         <h3>Total Amount (Principal + Interest)</h3>
                         <div class="cal-value" id="resSITotal">$0</div>
                     </div>
-                    <div class="fin-grid">
-                        <div class="fin-box"><div class="stat-label">Total Interest Paid</div><div class="stat-value danger" id="resSIInterest">$0</div></div>
-                        <div class="fin-box"><div class="stat-label">Principal</div><div class="stat-value" id="resSIPrinc">$0</div></div>
-                    </div>
+
+                    <table class="fin-breakdown-table">
+                        <thead>
+                            <tr><th>Interest Summary</th><th style="text-align: right;">Amount</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Initial Principal</td><td class="amount" id="resSIPrinc">$0</td></tr>
+                            <tr style="background: rgba(150,150,150,0.05); border-top: 2px solid rgba(150,150,150,0.2);">
+                                <td><strong>Total Interest Accumulated</strong></td><td class="amount" id="resSIInterest" style="color: #e74c3c; font-weight: 700;">+$0</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
             <article class="tool-seo">
-                <h2>What is Simple Interest?</h2>
-                <p>Unlike Compound Interest, Simple Interest is only calculated on the original principal amount. It is commonly used for short-term personal loans or auto loans. The formula is: <strong>I = P × r × t</strong></p>
+                <h2>The Ultimate Guide to Simple Interest</h2>
+                <p>When borrowing money from a bank or investing capital into a financial instrument, understanding exactly how your interest is calculated is the most important step in protecting your wealth. <strong>Simple Interest</strong> is a method of calculating the interest charge on a loan or the return on an investment based <em>only</em> on the original principal amount.</p>
+                <p>Unlike compound interest, where you earn or pay interest on previously accumulated interest, simple interest stays flat and predictable. If you borrow $1,000 at a 5% simple interest rate for 3 years, you will pay exactly $50 in interest every single year, regardless of how much time passes.</p>
+
+                <h3>The Simple Interest Formula</h3>
+                <p>The mathematical equation for calculating simple interest is a foundational concept taught in early finance and algebra. It relies on three core variables:</p>
+                <div class="formula-box">
+                    <strong>I = P × r × t</strong><br><br>
+                    <em>To find the Total Amount (A):</em> <strong>A = P(1 + rt)</strong>
+                </div>
+                <ul>
+                    <li><strong>I (Interest):</strong> The total monetary amount of interest generated or owed.</li>
+                    <li><strong>P (Principal):</strong> The starting amount of money borrowed or invested.</li>
+                    <li><strong>r (Rate):</strong> The annual interest rate, written as a decimal (e.g., 5% becomes 0.05).</li>
+                    <li><strong>t (Time):</strong> The length of time the money is borrowed or invested, expressed strictly in years.</li>
+                </ul>
+
+                <h3>Calculating for Months and Days</h3>
+                <p>Because the standard formula assumes <em>t</em> is measured in years, calculating loans that last for a few months or a specific number of days requires converting the time into a fraction of a year. Our calculator handles this conversion automatically behind the scenes.</p>
+                <ul>
+                    <li><strong>For Months:</strong> Divide the number of months by 12. A 9-month loan becomes 0.75 years.</li>
+                    <li><strong>For Days (Exact Interest):</strong> Divide the number of days by 365. This is the standard for most modern loans and is what our calculator uses.</li>
+                    <li><strong>For Days (Ordinary Interest):</strong> Some banks historically used a 360-day year (12 months of 30 days) to make mental math easier. This is known as the "Banker's Rule."</li>
+                </ul>
+
+                <h3>Real-World Examples of Simple Interest</h3>
+                <p>While compound interest dominates the investing world, simple interest is incredibly common in consumer lending. If you are borrowing money, simple interest works heavily in your favor because the debt grows linearly, not exponentially.</p>
+                <ul>
+                    <li><strong>Auto Loans:</strong> The vast majority of car loans use simple interest calculated daily. Your monthly payment remains the same, but the portion going toward interest versus the principal shifts. If you pay extra on your car loan early in the month, you reduce the principal, which immediately reduces the daily interest charge moving forward.</li>
+                    <li><strong>Short-Term Personal Loans:</strong> Many installment loans and payday loans utilize simple interest.</li>
+                    <li><strong>Certificates of Deposit (CDs):</strong> While many CDs compound, some traditional, short-term banking CDs pay out simple interest at the end of the term.</li>
+                </ul>
+
+                <h3>Simple Interest vs. Compound Interest: Which is Better?</h3>
+                <p>The answer depends entirely on which side of the transaction you are on. If you are the <strong>borrower</strong> taking out a loan, you always want Simple Interest. Your total debt will grow much slower because you are never paying "interest on top of interest."</p>
+                <p>However, if you are the <strong>investor</strong> trying to grow your wealth for retirement, you absolutely want Compound Interest. The exponential growth curve of compound interest is what allows retirement accounts to double and triple in value over decades.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Can simple interest ever be higher than compound interest?</h4>
+                <p style="margin-bottom: 25px;">No. Assuming the principal, the interest rate, and the time period are exactly the same, compound interest will always yield a higher total amount than simple interest after the first compounding period has passed. In year one (or period one), they are identical. By year two, compound interest pulls ahead.</p>
+
+                <h4 style="color: var(--text-color);">2. How do I calculate the Principal if I only know the Interest, Rate, and Time?</h4>
+                <p style="margin-bottom: 25px;">You can use basic algebra to rearrange the simple interest formula. To find the Principal, use the formula: <strong>P = I / (r × t)</strong>. For example, if you earned $100 in interest over 2 years at a 5% rate, your principal was $100 / (0.05 × 2) = $1,000.</p>
+
+                <h4 style="color: var(--text-color);">3. Does making extra payments help on a simple interest loan?</h4>
+                <p>Yes, massively! Because simple interest is calculated based on the outstanding principal balance, making an extra payment directly reduces that principal. With a lower principal, the total interest calculated for the next period will be lower. This is the fastest way to pay off a car loan early and save hundreds or thousands of dollars in interest.</p>
             </article>
+
+            <div class="ad-space" style="height: 90px; margin-top: 30px; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 12px; color: #888;">Advertisement (728x90)</span>
+            </div>
+
         </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Related Financial Tools</h3>
+                <ul>
+                    <li><a href="/compound-interest-calculator"><i class="fas fa-chart-line"></i> Compound Interest</a></li>
+                    <li><a href="/auto-loan-calculator"><i class="fas fa-car"></i> Auto Loan Calculator</a></li>
+                    <li><a href="/mortgage-calculator"><i class="fas fa-home"></i> Mortgage Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
     </main>
 
-    <script>
-        function calculateSI() {
-            const p = parseFloat(document.getElementById('siPrincipal').value);
-            const r = parseFloat(document.getElementById('siRate').value) / 100;
-            const t = parseFloat(document.getElementById('siTime').value);
-            
-            if(isNaN(p) || isNaN(r) || isNaN(t)) return alert("Please fill all fields.");
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
 
-            const interest = p * r * t;
-            const total = p + interest;
-
-            const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('resSITotal').innerText = fmt(total);
-            document.getElementById('resSIInterest').innerText = fmt(interest);
-            document.getElementById('resSIPrinc').innerText = fmt(p);
-            document.getElementById('resultBoxSI').style.display = 'block';
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
