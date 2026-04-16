@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator | LooLabs.xyz</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav"><a href="/all-calculators">All Calculators</a><button id="theme-toggle"><i class="fas fa-moon"></i></button></nav>
+    </header>
+
+    <main class="container tool-layout">
+        <div class="tool-main">
+            <div class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Compound Interest</div>
+            <h1>Compound Interest Calculator</h1>
+            <div class="tool-card">
+                <div class="input-group-stack">
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Initial Deposit</label>
+                            <div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="ciPrincipal" class="tool-input" value="1000"></div>
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Monthly Contribution</label>
+                            <div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="ciMonthly" class="tool-input" value="100"></div>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Time (Years)</label>
+                            <input type="number" id="ciYears" class="tool-input" value="10">
+                        </div>
+                        <div style="flex: 1; min-width: 150px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Interest Rate</label>
+                            <div class="input-with-symbol right-symbol"><span class="symbol">%</span><input type="number" id="ciRate" class="tool-input" value="7"></div>
+                        </div>
+                    </div>
+                </div>
+                <div id="errorMsgCI" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
+                <button onclick="calculateCI()" class="calc-action-btn">Calculate Growth <i class="fas fa-chart-line"></i></button>
+
+                <div class="fin-result-container" id="resultBoxCI">
+                    <div class="fin-main-result">
+                        <h3>Future Value</h3>
+                        <div class="cal-value" id="resCIFuture">$0</div>
+                    </div>
+                    <div class="fin-grid">
+                        <div class="fin-box"><div class="stat-label">Total Deposits</div><div class="stat-value" id="resCIPrincipal">$0</div></div>
+                        <div class="fin-box"><div class="stat-label">Total Interest Earned</div><div class="stat-value success" id="resCIInterest">+$0</div></div>
+                    </div>
+                </div>
+            </div>
+            <article class="tool-seo">
+                <h2>The Magic of Compound Interest</h2>
+                <p>Albert Einstein supposedly called compound interest the "eighth wonder of the world." Compound interest is the interest calculated on your initial principal <strong>and</strong> also on the accumulated interest of previous periods. Your money makes money, and then that money makes more money.</p>
+            </article>
+        </div>
+    </main>
+
+    <script>
+        function calculateCI() {
+            const p = parseFloat(document.getElementById('ciPrincipal').value) || 0;
+            const pmt = parseFloat(document.getElementById('ciMonthly').value) || 0;
+            const t = parseFloat(document.getElementById('ciYears').value);
+            const r = parseFloat(document.getElementById('ciRate').value) / 100;
+            const n = 12; // Compounded monthly
+
+            if(isNaN(t) || t <= 0) return alert("Enter valid years");
+
+            // A = P(1+r/n)^(nt) + PMT * [((1+r/n)^(nt) - 1) / (r/n)]
+            const ratePerPeriod = r / n;
+            const totalPeriods = n * t;
+            
+            const principalGrowth = p * Math.pow(1 + ratePerPeriod, totalPeriods);
+            const contributionGrowth = pmt * ((Math.pow(1 + ratePerPeriod, totalPeriods) - 1) / ratePerPeriod);
+            
+            const futureValue = principalGrowth + contributionGrowth;
+            const totalPrincipal = p + (pmt * totalPeriods);
+            const totalInterest = futureValue - totalPrincipal;
+
+            const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            
+            document.getElementById('resCIFuture').innerText = fmt(futureValue);
+            document.getElementById('resCIPrincipal').innerText = fmt(totalPrincipal);
+            document.getElementById('resCIInterest').innerText = "+" + fmt(totalInterest);
+            document.getElementById('resultBoxCI').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
