@@ -3,121 +3,289 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Income Tax Calculator | LooLabs.xyz</title>
+    <title>Comprehensive Income Tax Calculator | LooLabs.xyz</title>
+    
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
-    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-FRTPM5S88N');</script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
 </head>
 <body>
+
     <header>
         <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
         <nav class="desktop-nav">
-            <a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy Policy</a><a href="/all-calculators">All Calculators</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
             <button id="theme-toggle"><i class="fas fa-moon"></i></button>
         </nav>
         <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </header>
 
     <main class="container tool-layout">
+        
         <div class="tool-main">
-            <div class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Income Tax</div>
-            <h1>Income Tax Calculator</h1>
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Income Tax Calculator
+            </div>
+
+            <h1>Income Tax Calculator (US)</h1>
+
             <div class="tool-card">
-                <div class="input-group-stack">
-                    <div>
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">Gross Annual Income</label>
-                        <div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="taxIncome" class="tool-input" placeholder="e.g. 75000"></div>
-                    </div>
-                    <div>
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">Filing Status (US Federal 2024)</label>
-                        <select id="taxStatus" class="tool-input" style="width: 100%; cursor: pointer;">
+                <div class="adv-calc-grid">
+                    <div class="adv-input-section">
+                        <h3>Income Details</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Tax Year</label>
+                        <select id="taxYear" class="tool-input" style="width: 100%; margin-bottom: 15px; cursor: pointer;">
+                            <option value="2024">2024</option>
+                            <option value="2023">2023</option>
+                        </select>
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Gross Income</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="grossIncome" class="tool-input" value="75000">
+                        </div>
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Filing Status</label>
+                        <select id="filingStatus" class="tool-input" style="width: 100%; margin-bottom: 15px; cursor: pointer;">
                             <option value="single">Single</option>
-                            <option value="married">Married Filing Jointly</option>
+                            <option value="married_joint">Married Filing Jointly</option>
+                            <option value="married_sep">Married Filing Separately</option>
+                            <option value="head">Head of Household</option>
                         </select>
                     </div>
-                </div>
-                <div id="errorMsgTax" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
-                <button onclick="calculateTax()" class="calc-action-btn">Calculate Estimated Tax <i class="fas fa-file-invoice-dollar"></i></button>
 
-                <div class="fin-result-container" id="resultBoxTax">
+                    <div class="adv-input-section">
+                        <h3>Deductions & Exemptions</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">401(k) / IRA Contributions</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="retDeduct" class="tool-input" value="0">
+                        </div>
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Itemized Deductions</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="itemDeduct" class="tool-input" value="0">
+                        </div>
+                        <p style="font-size: 12px; color: #888; margin-top: -10px;">Leave as 0 to use Standard Deduction.</p>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateTax()" class="calc-action-btn">Calculate Estimated Taxes <i class="fas fa-file-invoice-dollar"></i></button>
+
+                <div class="fin-result-container" id="resultBox">
                     <div class="fin-main-result">
-                        <h3>Estimated Net Pay (Take Home)</h3>
-                        <div class="cal-value" id="resNetPay">$0</div>
-                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">After estimated federal taxes</p>
+                        <h3>Estimated Take-Home Pay (Net)</h3>
+                        <div class="cal-value" id="netPayDisplay">$0</div>
                     </div>
-                    <div class="fin-grid">
-                        <div class="fin-box"><div class="stat-label">Estimated Taxes Owed</div><div class="stat-value danger" id="resTaxes">$0</div></div>
-                        <div class="fin-box"><div class="stat-label">Effective Tax Rate</div><div class="stat-value" id="resEffective">0%</div></div>
+
+                    <table class="fin-breakdown-table">
+                        <thead>
+                            <tr><th>Tax Breakdown</th><th style="text-align: right;">Amount</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Gross Income</td><td class="amount" id="resGross">$0</td></tr>
+                            <tr><td>Total Deductions</td><td class="amount" id="resDeduct" style="color: #2ecc71;">-$0</td></tr>
+                            <tr><td>Taxable Income</td><td class="amount" id="resTaxable">$0</td></tr>
+                            <tr style="background: rgba(150,150,150,0.05);"><td>Federal Income Tax</td><td class="amount" id="resFedTax" style="color: #e74c3c;">-$0</td></tr>
+                            <tr style="background: rgba(150,150,150,0.05);"><td>FICA (Social Security & Medicare)</td><td class="amount" id="resFicaTax" style="color: #e74c3c;">-$0</td></tr>
+                            <tr style="border-top: 2px solid rgba(150,150,150,0.2);"><td><strong>Total Taxes Paid</strong></td><td class="amount" id="resTotalTax" style="color: #e74c3c; font-weight: 700;">-$0</td></tr>
+                        </tbody>
+                    </table>
+
+                    <div style="display: flex; justify-content: space-around; background: rgba(150,150,150,0.05); padding: 15px; border-radius: 8px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 12px; color: #888; font-weight: 600; text-transform: uppercase;">Marginal Tax Rate</div>
+                            <div style="font-size: 24px; font-weight: 700; color: var(--text-color);" id="resMarginal">0%</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 12px; color: #888; font-weight: 600; text-transform: uppercase;">Effective Tax Rate</div>
+                            <div style="font-size: 24px; font-weight: 700; color: var(--primary-red);" id="resEffective">0%</div>
+                        </div>
                     </div>
-                    <p style="text-align: center; font-size: 12px; color: #888; margin-top: 10px;">Estimations based on 2024 standard deductions. Does not include state taxes, FICA, or local levies.</p>
                 </div>
             </div>
+
             <article class="tool-seo">
-                <h2>How Income Tax Works</h2>
-                <p>In most modern economies, income tax is a progressive system. This means you do not pay a flat percentage on your entire income. Instead, your income is divided into "brackets," and each bracket is taxed at a progressively higher rate.</p>
-                <h3>Marginal vs. Effective Tax Rate</h3>
-                <p>Your <strong>Marginal Tax Rate</strong> is the highest bracket your final dollar falls into. Your <strong>Effective Tax Rate</strong> is the actual, mathematical percentage of your total income that you pay in taxes. Your effective rate is always significantly lower than your marginal rate.</p>
+                <h2>Comprehensive Guide to US Income Tax</h2>
+                <p>Navigating the United States federal tax system can be overwhelming. With shifting tax brackets, variable standard deductions, and the complexities of FICA, understanding exactly how much of your paycheck you get to keep is crucial for personal finance and budgeting. Our advanced Income Tax Calculator estimates your federal tax liability, FICA obligations, and total take-home pay based on the most current IRS data.</p>
+
+                <h3>Gross Income vs. Net Income</h3>
+                <p>Your <strong>Gross Income</strong> is the total amount of money you earn from your employer before any taxes, benefits, or deductions are removed. If you accept a job offer with a "$80,000 salary," that is your gross income.</p>
+                <p>Your <strong>Net Income</strong> (or take-home pay) is the actual amount deposited into your bank account after the federal government, state government, and benefit providers take their share. This calculator focuses strictly on federal obligations.</p>
+
+                <h3>How Tax Brackets Work (Marginal Tax System)</h3>
+                <p>The US operates on a progressive, marginal tax system. A common misconception is that moving into a higher tax bracket means all of your income is taxed at that higher rate. <strong>This is false.</strong></p>
+                <p>Only the income that falls <em>inside</em> the higher bracket is taxed at the higher rate. For example, if the 22% bracket starts at $47,150, and you make $50,000, only the $2,850 that spills over the threshold is taxed at 22%. The rest of your money is taxed at the lower 10% and 12% rates. This is why your <strong>Effective Tax Rate</strong> (the actual percentage of your total income paid to the IRS) is always significantly lower than your <strong>Marginal Tax Rate</strong> (the highest bracket you touched).</p>
+
+                <h3>Standard Deduction vs. Itemized Deductions</h3>
+                <p>The IRS allows you to reduce your "Taxable Income" by taking deductions. You have two choices:</p>
+                <ul>
+                    <li><strong>The Standard Deduction:</strong> A flat dollar amount that reduces your taxable income, automatically given to you based on your filing status. For 2024, the standard deduction for a single filer is $14,600. If you make $75,000, the IRS only taxes you on $60,400.</li>
+                    <li><strong>Itemized Deductions:</strong> If you have significant eligible expenses (like massive medical bills, huge charitable donations, or high mortgage interest), you can add them up. If the total is greater than the standard deduction, you should itemize. Otherwise, taking the standard deduction is financially better and much less paperwork.</li>
+                </ul>
+
+                <h3>What is FICA?</h3>
+                <p>In addition to Federal Income Tax, all W-2 employees must pay FICA (Federal Insurance Contributions Act) taxes. This funds Social Security and Medicare.</p>
+                <ul>
+                    <li><strong>Social Security:</strong> 6.2% of your gross earnings (up to a specific wage base limit).</li>
+                    <li><strong>Medicare:</strong> 1.45% of your gross earnings (with no wage base limit).</li>
+                </ul>
+                <p>If you are a W-2 employee, your employer pays an equal 7.65% match. If you are self-employed (1099), you are responsible for both halves, known as the Self-Employment Tax (15.3%).</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Why doesn't this match my exact paycheck?</h4>
+                <p style="margin-bottom: 25px;">This calculator provides an estimation of your <em>Federal</em> and <em>FICA</em> taxes. It does not account for State Income Taxes (which vary wildly by state), local city taxes, health insurance premiums, HSA contributions, or union dues deducted by your employer.</p>
+
+                <h4 style="color: var(--text-color);">2. Do pre-tax 401(k) contributions lower my taxes?</h4>
+                <p>Yes! Money contributed to a traditional 401(k) or traditional IRA is deducted from your gross income before taxes are calculated. If you make $80,000 and put $10,000 into a 401(k), the IRS acts as if you only made $70,000 that year, significantly lowering your total tax bill.</p>
             </article>
+
+            <div class="ad-space" style="height: 90px; margin-top: 30px; display: flex; align-items: center; justify-content: center;">
+                <span style="font-size: 12px; color: #888;">Advertisement (728x90)</span>
+            </div>
         </div>
+
         <aside class="tool-sidebar">
             <div class="tool-card related-tools">
-                <h3 style="margin-top: 0;">Trending</h3>
-                <ul><li><a href="/salary-calculator"><i class="fas fa-money-bill-wave"></i> Salary Calculator</a></li></ul>
+                <h3 style="margin-top: 0;">Popular Financial Tools</h3>
+                <ul>
+                    <li><a href="/compound-interest-calculator"><i class="fas fa-chart-line"></i> Compound Interest</a></li>
+                    <li><a href="/salary-calculator"><i class="fas fa-money-bill-wave"></i> Salary Calculator</a></li>
+                    <li><a href="/mortgage-calculator"><i class="fas fa-home"></i> Mortgage Calculator</a></li>
+                </ul>
             </div>
         </aside>
+
     </main>
 
     <footer>
         <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple...</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | <a href="/all-calculators">Sitemap</a> | <a href="/privacy-policy">Privacy Policy</a>
+        </div>
         <p class="copyright">&copy; 2026 LooLabs.xyz</p>
     </footer>
 
     <script>
+        // Formatter
+        const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // Simplified 2024 Tax Brackets & Standard Deductions for Logic
+        const taxData = {
+            2024: {
+                standardDeduction: { single: 14600, married_joint: 29200, married_sep: 14600, head: 21900 },
+                brackets: {
+                    single: [ {limit: 11600, rate: 0.10}, {limit: 47150, rate: 0.12}, {limit: 100525, rate: 0.22}, {limit: 191950, rate: 0.24}, {limit: 243725, rate: 0.32}, {limit: 609350, rate: 0.35}, {limit: Infinity, rate: 0.37} ],
+                    married_joint: [ {limit: 23200, rate: 0.10}, {limit: 94300, rate: 0.12}, {limit: 201050, rate: 0.22}, {limit: 383900, rate: 0.24}, {limit: 487450, rate: 0.32}, {limit: 731200, rate: 0.35}, {limit: Infinity, rate: 0.37} ],
+                    head: [ {limit: 16550, rate: 0.10}, {limit: 63100, rate: 0.12}, {limit: 100500, rate: 0.22}, {limit: 191950, rate: 0.24}, {limit: 243700, rate: 0.32}, {limit: 609350, rate: 0.35}, {limit: Infinity, rate: 0.37} ]
+                }
+            },
+            2023: {
+                standardDeduction: { single: 13850, married_joint: 27700, married_sep: 13850, head: 20800 },
+                brackets: {
+                    single: [ {limit: 11000, rate: 0.10}, {limit: 44725, rate: 0.12}, {limit: 95375, rate: 0.22}, {limit: 182100, rate: 0.24}, {limit: 231250, rate: 0.32}, {limit: 578125, rate: 0.35}, {limit: Infinity, rate: 0.37} ],
+                    married_joint: [ {limit: 22000, rate: 0.10}, {limit: 89450, rate: 0.12}, {limit: 190750, rate: 0.22}, {limit: 364200, rate: 0.24}, {limit: 462500, rate: 0.32}, {limit: 693750, rate: 0.35}, {limit: Infinity, rate: 0.37} ],
+                    head: [ {limit: 15700, rate: 0.10}, {limit: 59850, rate: 0.12}, {limit: 95350, rate: 0.22}, {limit: 182100, rate: 0.24}, {limit: 231250, rate: 0.32}, {limit: 578100, rate: 0.35}, {limit: Infinity, rate: 0.37} ]
+                }
+            }
+        };
+
         function calculateTax() {
-            const income = parseFloat(document.getElementById('taxIncome').value);
-            const status = document.getElementById('taxStatus').value;
-            const errorMsg = document.getElementById('errorMsgTax');
+            const year = document.getElementById('taxYear').value;
+            const status = document.getElementById('filingStatus').value;
+            const gross = parseFloat(document.getElementById('grossIncome').value);
+            const retDeduct = parseFloat(document.getElementById('retDeduct').value) || 0;
+            const itemDeduct = parseFloat(document.getElementById('itemDeduct').value) || 0;
+            
+            const errorMsg = document.getElementById('errorMessage');
             errorMsg.style.display = 'none';
 
-            if (isNaN(income) || income < 0) { errorMsg.innerText = "Enter a valid income."; errorMsg.style.display = 'block'; return; }
+            if(isNaN(gross) || gross < 0) {
+                errorMsg.innerText = "Please enter a valid gross income.";
+                errorMsg.style.display = 'block';
+                return;
+            }
 
-            // Simplified 2024 Brackets & Standard Deduction
-            let stdDeduction = status === 'single' ? 14600 : 29200;
-            let taxableIncome = Math.max(0, income - stdDeduction);
-            let tax = 0;
-
-            const bracketsSingle = [ {limit: 11600, rate: 0.10}, {limit: 47150, rate: 0.12}, {limit: 100525, rate: 0.22}, {limit: 191950, rate: 0.24}, {limit: 243725, rate: 0.32}, {limit: 609350, rate: 0.35}, {limit: Infinity, rate: 0.37} ];
-            const bracketsMarried = [ {limit: 23200, rate: 0.10}, {limit: 94300, rate: 0.12}, {limit: 201050, rate: 0.22}, {limit: 383900, rate: 0.24}, {limit: 487450, rate: 0.32}, {limit: 731200, rate: 0.35}, {limit: Infinity, rate: 0.37} ];
+            // Determine Deductions
+            const stdDeduct = taxData[year].standardDeduction[status];
+            const actualDeduction = Math.max(stdDeduct, itemDeduct) + retDeduct;
             
-            const brackets = status === 'single' ? bracketsSingle : bracketsMarried;
+            // Calculate Taxable Income
+            const taxableIncome = Math.max(0, gross - actualDeduction);
+
+            // Fetch correct brackets (Married Sep uses Single brackets usually, simplified here)
+            const bracketStatus = status === 'married_sep' ? 'single' : status;
+            const brackets = taxData[year].brackets[bracketStatus];
+
+            let fedTax = 0;
             let prevLimit = 0;
+            let marginalRate = 0;
 
             for (let b of brackets) {
                 if (taxableIncome > prevLimit) {
                     let taxableInThisBracket = Math.min(taxableIncome, b.limit) - prevLimit;
-                    tax += taxableInThisBracket * b.rate;
+                    fedTax += taxableInThisBracket * b.rate;
+                    marginalRate = b.rate * 100;
                     prevLimit = b.limit;
                 } else { break; }
             }
 
-            const netPay = income - tax;
-            const effectiveRate = income > 0 ? (tax / income) * 100 : 0;
+            // Calculate FICA (Social Security 6.2% up to limit, Medicare 1.45% unlimited)
+            // Limit for SS in 2024 is $168,600. In 2023 is $160,200.
+            const ssLimit = year === '2024' ? 168600 : 160200;
+            const ssTax = Math.min(gross, ssLimit) * 0.062;
+            const medTax = gross * 0.0145;
+            const ficaTax = ssTax + medTax;
 
-            const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            document.getElementById('resNetPay').innerText = fmt(netPay);
-            document.getElementById('resTaxes').innerText = fmt(tax);
+            const totalTax = fedTax + ficaTax;
+            const netPay = gross - totalTax - retDeduct; // Subtracting retirement contributions from take-home
+            const effectiveRate = gross > 0 ? (totalTax / gross) * 100 : 0;
+
+            // Output
+            document.getElementById('netPayDisplay').innerText = fmt(netPay);
+            document.getElementById('resGross').innerText = fmt(gross);
+            document.getElementById('resDeduct').innerText = "-" + fmt(actualDeduction);
+            document.getElementById('resTaxable').innerText = fmt(taxableIncome);
+            document.getElementById('resFedTax').innerText = "-" + fmt(fedTax);
+            document.getElementById('resFicaTax').innerText = "-" + fmt(ficaTax);
+            document.getElementById('resTotalTax').innerText = "-" + fmt(totalTax);
+            
+            document.getElementById('resMarginal').innerText = marginalRate.toFixed(0) + '%';
             document.getElementById('resEffective').innerText = effectiveRate.toFixed(2) + '%';
-            document.getElementById('resultBoxTax').style.display = 'block';
+
+            document.getElementById('resultBox').style.display = 'block';
         }
-        
-        // Dark Mode Logic
-        const themeToggleBtn = document.getElementById('theme-toggle');
-        if(themeToggleBtn) { themeToggleBtn.addEventListener('click', () => { document.body.classList.toggle('dark-mode'); }); }
+
+        // Theme Toggle
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('#theme-toggle i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+        document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+            document.querySelector('.desktop-nav').classList.toggle('active');
+        });
     </script>
 </body>
 </html>
