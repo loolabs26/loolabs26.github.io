@@ -3,96 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compound Interest Calculator | LooLabs.xyz</title>
+    <title>Advanced Compound Interest Calculator | LooLabs.xyz</title>
+    
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
 </head>
 <body>
+
     <header>
         <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
-        <nav class="desktop-nav"><a href="/all-calculators">All Calculators</a><button id="theme-toggle"><i class="fas fa-moon"></i></button></nav>
+        <nav class="desktop-nav">
+            <a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy Policy</a><a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </header>
 
     <main class="container tool-layout">
+        
         <div class="tool-main">
-            <div class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Compound Interest</div>
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Compound Interest Calculator
+            </div>
+
             <h1>Compound Interest Calculator</h1>
+
             <div class="tool-card">
-                <div class="input-group-stack">
-                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 150px;">
-                            <label style="font-weight: 600; color: #888; font-size: 14px;">Initial Deposit</label>
-                            <div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="ciPrincipal" class="tool-input" value="1000"></div>
+                <div class="adv-calc-grid">
+                    <div class="adv-input-section">
+                        <h3>Investment Details</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Initial Investment (Principal)</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="ciPrincipal" class="tool-input" value="5000">
                         </div>
-                        <div style="flex: 1; min-width: 150px;">
-                            <label style="font-weight: 600; color: #888; font-size: 14px;">Monthly Contribution</label>
-                            <div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="ciMonthly" class="tool-input" value="100"></div>
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Regular Addition</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="ciAddition" class="tool-input" value="250">
                         </div>
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Addition Frequency</label>
+                        <select id="ciAddFreq" class="tool-input" style="width: 100%; margin-bottom: 15px; cursor: pointer;">
+                            <option value="12" selected>Monthly</option>
+                            <option value="1">Annually</option>
+                            <option value="4">Quarterly</option>
+                            <option value="52">Weekly</option>
+                        </select>
+                        
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Add to Principal At</label>
+                        <select id="ciAddTiming" class="tool-input" style="width: 100%; cursor: pointer;">
+                            <option value="end">End of Period</option>
+                            <option value="beginning">Beginning of Period</option>
+                        </select>
                     </div>
-                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                        <div style="flex: 1; min-width: 150px;">
-                            <label style="font-weight: 600; color: #888; font-size: 14px;">Time (Years)</label>
-                            <input type="number" id="ciYears" class="tool-input" value="10">
+
+                    <div class="adv-input-section">
+                        <h3>Growth Parameters</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Time Length (Years)</label>
+                        <input type="number" id="ciYears" class="tool-input" value="20" style="width: 100%; margin-bottom: 15px;">
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Annual Interest Rate</label>
+                        <div class="input-with-symbol right-symbol">
+                            <span class="symbol">%</span>
+                            <input type="number" id="ciRate" class="tool-input" value="8" step="0.1">
                         </div>
-                        <div style="flex: 1; min-width: 150px;">
-                            <label style="font-weight: 600; color: #888; font-size: 14px;">Interest Rate</label>
-                            <div class="input-with-symbol right-symbol"><span class="symbol">%</span><input type="number" id="ciRate" class="tool-input" value="7"></div>
-                        </div>
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Compounding Frequency</label>
+                        <select id="ciCompFreq" class="tool-input" style="width: 100%; margin-bottom: 15px; cursor: pointer;">
+                            <option value="1">Annually (1/Yr)</option>
+                            <option value="2">Semi-Annually (2/Yr)</option>
+                            <option value="4">Quarterly (4/Yr)</option>
+                            <option value="12" selected>Monthly (12/Yr)</option>
+                            <option value="365">Daily (365/Yr)</option>
+                        </select>
                     </div>
                 </div>
-                <div id="errorMsgCI" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
-                <button onclick="calculateCI()" class="calc-action-btn">Calculate Growth <i class="fas fa-chart-line"></i></button>
 
-                <div class="fin-result-container" id="resultBoxCI">
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateCompound()" class="calc-action-btn">Calculate Growth <i class="fas fa-chart-line"></i></button>
+
+                <div class="fin-result-container" id="resultBox">
                     <div class="fin-main-result">
-                        <h3>Future Value</h3>
-                        <div class="cal-value" id="resCIFuture">$0</div>
+                        <h3>Future Value (End Balance)</h3>
+                        <div class="cal-value" id="resFutureValue">$0</div>
                     </div>
-                    <div class="fin-grid">
-                        <div class="fin-box"><div class="stat-label">Total Deposits</div><div class="stat-value" id="resCIPrincipal">$0</div></div>
-                        <div class="fin-box"><div class="stat-label">Total Interest Earned</div><div class="stat-value success" id="resCIInterest">+$0</div></div>
-                    </div>
+
+                    <table class="fin-breakdown-table">
+                        <thead>
+                            <tr><th>Investment Summary</th><th style="text-align: right;">Amount</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Initial Principal</td><td class="amount" id="resPrincipal">$0</td></tr>
+                            <tr><td>Total Regular Additions</td><td class="amount" id="resTotalAdditions">$0</td></tr>
+                            <tr><td><strong>Total Amount Invested</strong></td><td class="amount" style="color: #3498db; font-weight: 700;" id="resTotalInvested">$0</td></tr>
+                            <tr style="background: rgba(150,150,150,0.05); border-top: 2px solid rgba(150,150,150,0.2);">
+                                <td><strong>Total Interest Earned</strong></td><td class="amount" id="resTotalInterest" style="color: #2ecc71; font-weight: 700;">+$0</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
             <article class="tool-seo">
                 <h2>The Magic of Compound Interest</h2>
-                <p>Albert Einstein supposedly called compound interest the "eighth wonder of the world." Compound interest is the interest calculated on your initial principal <strong>and</strong> also on the accumulated interest of previous periods. Your money makes money, and then that money makes more money.</p>
+                <p>Albert Einstein is frequently quoted as saying, <em>"Compound interest is the eighth wonder of the world. He who understands it, earns it; he who doesn't, pays it."</em> Whether the quote is real or a myth, the mathematical truth behind it is undeniable.</p>
+                <p><strong>Compound interest</strong> is the process where the interest you earn on an investment is added back to your principal balance. In the next period, you earn interest not only on your original money, but also on the interest you earned previously. Your money makes money, and then that new money makes even more money. Over long periods, this creates an exponential growth curve.</p>
+
+                <h3>How Compounding Frequency Affects Returns</h3>
+                <p>The <strong>Compounding Frequency</strong> is how often the interest is calculated and added back to your balance. The more frequently interest compounds, the faster your money grows.</p>
+                <ul>
+                    <li><strong>Annually:</strong> Interest is calculated once at the end of the year.</li>
+                    <li><strong>Monthly:</strong> Interest is calculated 12 times a year. This is standard for most high-yield savings accounts and credit cards.</li>
+                    <li><strong>Daily:</strong> Interest is calculated 365 times a year. While it sounds like a massive advantage, the difference between monthly and daily compounding is usually very small due to the fractions involved.</li>
+                </ul>
+
+                <h3>The Compound Interest Formula</h3>
+                <p>If you want to calculate basic compound interest manually (without regular additions), you use the following algebraic formula:</p>
+                <div class="formula-box">
+                    <strong>A = P (1 + r/n)^(nt)</strong>
+                </div>
+                <p>
+                    <strong>A</strong> = the future value of the investment/loan, including interest<br>
+                    <strong>P</strong> = the principal investment amount (the initial deposit)<br>
+                    <strong>r</strong> = the annual interest rate (decimal)<br>
+                    <strong>n</strong> = the number of times that interest is compounded per year<br>
+                    <strong>t</strong> = the number of years the money is invested
+                </p>
+                <p><em>Note: Calculating regular additions (like contributing $100 every month) requires adding a complex Future Value of an Annuity formula to the base equation, which is why using our calculator is highly recommended!</em></p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. What is the Rule of 72?</h4>
+                <p style="margin-bottom: 25px;">The Rule of 72 is a quick mental math shortcut to estimate how long it will take an investment to double in value. Simply divide the number 72 by your annual interest rate. For example, if you expect an 8% return, it will take roughly 9 years for your money to double (72 ÷ 8 = 9).</p>
+
+                <h4 style="color: var(--text-color);">2. What is the difference between Beginning and End of period additions?</h4>
+                <p>If you select "Beginning of Period", it assumes you make your deposit on Day 1 of the month, meaning that deposit earns interest for the entire month. If you select "End of Period", the deposit is made on the last day, meaning it earns zero interest for that specific month. "Beginning of period" will mathematically result in a slightly higher final balance.</p>
             </article>
+
         </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Related Tools</h3>
+                <ul>
+                    <li><a href="/retirement-calculator"><i class="fas fa-piggy-bank"></i> Retirement Calculator</a></li>
+                    <li><a href="/simple-interest-calculator"><i class="fas fa-percentage"></i> Simple Interest</a></li>
+                    <li><a href="/roi-calculator"><i class="fas fa-chart-pie"></i> ROI Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
     </main>
 
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple...</p>
+        <p class="copyright">&copy; 2026 LooLabs.xyz</p>
+    </footer>
+
     <script>
-        function calculateCI() {
-            const p = parseFloat(document.getElementById('ciPrincipal').value) || 0;
-            const pmt = parseFloat(document.getElementById('ciMonthly').value) || 0;
+        const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        function calculateCompound() {
+            const P = parseFloat(document.getElementById('ciPrincipal').value);
+            const PMT = parseFloat(document.getElementById('ciAddition').value) || 0;
             const t = parseFloat(document.getElementById('ciYears').value);
             const r = parseFloat(document.getElementById('ciRate').value) / 100;
-            const n = 12; // Compounded monthly
+            const n = parseFloat(document.getElementById('ciCompFreq').value); // Compounding freq
+            const m = parseFloat(document.getElementById('ciAddFreq').value); // Addition freq
+            const timing = document.getElementById('ciAddTiming').value;
 
-            if(isNaN(t) || t <= 0) return alert("Enter valid years");
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.style.display = 'none';
 
-            // A = P(1+r/n)^(nt) + PMT * [((1+r/n)^(nt) - 1) / (r/n)]
-            const ratePerPeriod = r / n;
-            const totalPeriods = n * t;
-            
-            const principalGrowth = p * Math.pow(1 + ratePerPeriod, totalPeriods);
-            const contributionGrowth = pmt * ((Math.pow(1 + ratePerPeriod, totalPeriods) - 1) / ratePerPeriod);
-            
-            const futureValue = principalGrowth + contributionGrowth;
-            const totalPrincipal = p + (pmt * totalPeriods);
-            const totalInterest = futureValue - totalPrincipal;
+            if (isNaN(P) || isNaN(t) || isNaN(r) || t <= 0) {
+                errorMsg.innerText = "Please enter valid numbers for Principal, Time, and Rate.";
+                errorMsg.style.display = 'block';
+                return;
+            }
 
-            const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            // Advanced Calculation Engine
+            // To handle mismatched compounding and contribution frequencies, we simulate period by period.
+            // Using a monthly simulation loop is the most universally accurate way for web calculators to handle complex intervals.
             
-            document.getElementById('resCIFuture').innerText = fmt(futureValue);
-            document.getElementById('resCIPrincipal').innerText = fmt(totalPrincipal);
-            document.getElementById('resCIInterest').innerText = "+" + fmt(totalInterest);
-            document.getElementById('resultBoxCI').style.display = 'block';
+            let currentBalance = P;
+            const totalMonths = t * 12;
+            const compoundInterval = 12 / n; // Months between compounds
+            const additionInterval = 12 / m; // Months between additions
+            
+            let totalAdditions = 0;
+
+            for (let month = 1; month <= totalMonths; month++) {
+                // Beginning of period additions
+                if (timing === 'beginning' && (month - 1) % additionInterval === 0) {
+                    currentBalance += PMT;
+                    totalAdditions += PMT;
+                }
+
+                // Apply Compounding
+                if (month % compoundInterval === 0) {
+                    currentBalance = currentBalance * (1 + (r / n));
+                }
+
+                // End of period additions
+                if (timing === 'end' && month % additionInterval === 0) {
+                    currentBalance += PMT;
+                    totalAdditions += PMT;
+                }
+            }
+
+            const totalInvested = P + totalAdditions;
+            const totalInterest = currentBalance - totalInvested;
+
+            document.getElementById('resFutureValue').innerText = fmt(currentBalance);
+            document.getElementById('resPrincipal').innerText = fmt(P);
+            document.getElementById('resTotalAdditions').innerText = fmt(totalAdditions);
+            document.getElementById('resTotalInvested').innerText = fmt(totalInvested);
+            document.getElementById('resTotalInterest').innerText = "+" + fmt(totalInterest);
+
+            document.getElementById('resultBox').style.display = 'block';
         }
+
+        // Theme Logic
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('#theme-toggle i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+        document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+            document.querySelector('.desktop-nav').classList.toggle('active');
+        });
     </script>
 </body>
 </html>
