@@ -1,174 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Interest Calculator | LooLabs.xyz</title>
+function calculateSI() {
+    const p = parseFloat(document.getElementById('siPrincipal').value);
+    const r = parseFloat(document.getElementById('siRate').value) / 100;
+    const timeValue = parseFloat(document.getElementById('siTime').value);
+    const timeUnit = document.getElementById('siTimeUnit').value;
     
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    const errorMsg = document.getElementById('errorMessage');
+    errorMsg.style.display = 'none';
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    if(isNaN(p) || isNaN(r) || isNaN(timeValue) || p <= 0 || timeValue <= 0) {
+        errorMsg.innerText = "Please enter valid positive numbers for all fields.";
+        errorMsg.style.display = 'block';
+        return;
+    }
+
+    // Convert time to Years based on unit
+    let t = 0;
+    if (timeUnit === 'years') {
+        t = timeValue;
+    } else if (timeUnit === 'months') {
+        t = timeValue / 12;
+    } else if (timeUnit === 'days') {
+        t = timeValue / 365;
+    }
+
+    // I = P * r * t
+    const interest = p * r * t;
+    const total = p + interest;
+
+    const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     
-    <link rel="stylesheet" href="../css/style.css">
+    document.getElementById('resSITotal').innerText = fmt(total);
+    document.getElementById('resSIInterest').innerText = "+" + fmt(interest);
+    document.getElementById('resSIPrinc').innerText = fmt(p);
+    
+    document.getElementById('resultBox').style.display = 'block';
+}
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-FRTPM5S88N');
-    </script>
-</head>
-<body>
-
-    <header>
-        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
-        <nav class="desktop-nav">
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
-            <a href="/privacy-policy">Privacy Policy</a>
-            <a href="/all-calculators">All Calculators</a>
-            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
-        </nav>
-        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-    </header>
-
-    <main class="container tool-layout">
-        
-        <div class="tool-main">
-            <div class="breadcrumbs">
-                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Simple Interest Calculator
-            </div>
-
-            <h1>Simple Interest Calculator</h1>
-
-            <div class="tool-card">
-                
-                <div class="adv-calc-grid">
-                    <div class="adv-input-section">
-                        <h3>Loan / Investment Details</h3>
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">Principal Amount (P)</label>
-                        <div class="input-with-symbol">
-                            <span class="symbol">$</span>
-                            <input type="number" id="siPrincipal" class="tool-input" value="10000">
-                        </div>
-
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">Annual Interest Rate (r)</label>
-                        <div class="input-with-symbol right-symbol">
-                            <span class="symbol">%</span>
-                            <input type="number" id="siRate" class="tool-input" value="5" step="0.1">
-                        </div>
-                    </div>
-
-                    <div class="adv-input-section">
-                        <h3>Time Period (t)</h3>
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">Duration</label>
-                        <input type="number" id="siTime" class="tool-input" value="3" style="width: 100%; margin-bottom: 15px;">
-
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">Time Unit</label>
-                        <select id="siTimeUnit" class="tool-input" style="width: 100%; cursor: pointer;">
-                            <option value="years" selected>Years</option>
-                            <option value="months">Months</option>
-                            <option value="days">Days (365/Yr)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
-
-                <button onclick="calculateSI()" class="calc-action-btn">Calculate Simple Interest <i class="fas fa-percentage"></i></button>
-
-                <div class="fin-result-container" id="resultBox">
-                    <div class="fin-main-result">
-                        <h3>Total Amount (Principal + Interest)</h3>
-                        <div class="cal-value" id="resSITotal">$0</div>
-                    </div>
-
-                    <table class="fin-breakdown-table">
-                        <thead>
-                            <tr><th>Interest Summary</th><th style="text-align: right;">Amount</th></tr>
-                        </thead>
-                        <tbody>
-                            <tr><td>Initial Principal</td><td class="amount" id="resSIPrinc">$0</td></tr>
-                            <tr style="background: rgba(150,150,150,0.05); border-top: 2px solid rgba(150,150,150,0.2);">
-                                <td><strong>Total Interest Accumulated</strong></td><td class="amount" id="resSIInterest" style="color: #e74c3c; font-weight: 700;">+$0</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <article class="tool-seo">
-                <h2>What is Simple Interest?</h2>
-                <p><strong>Simple Interest</strong> is a quick and straightforward method of calculating the interest charge on a loan or the return on an investment. Unlike compound interest (where you earn interest on your past interest), simple interest is calculated <em>only</em> on the original principal amount.</p>
-                <p>This type of interest is most commonly used for short-term personal loans, auto loans, and certain types of short-term business capital. Because the interest does not compound, the borrower ultimately pays less money over the life of the loan compared to a compounding structure.</p>
-
-                <h3>The Simple Interest Formula</h3>
-                <p>The mathematical equation for calculating simple interest is universally taught in early finance and algebra classes:</p>
-                <div class="formula-box">
-                    <strong>I = P × r × t</strong>
-                </div>
-                <ul>
-                    <li><strong>I (Interest):</strong> The total amount of money generated or owed.</li>
-                    <li><strong>P (Principal):</strong> The starting amount of money borrowed or invested.</li>
-                    <li><strong>r (Rate):</strong> The annual interest rate, written as a decimal (e.g., 5% becomes 0.05).</li>
-                    <li><strong>t (Time):</strong> The length of time the money is borrowed or invested, expressed in years.</li>
-                </ul>
-
-                <h3>Handling Months and Days</h3>
-                <p>Because the standard formula assumes <em>t</em> is in years, dealing with loans that last for 9 months or 45 days requires converting the time into a fraction of a year. Our calculator handles this automatically. If you have a 6-month loan, the calculator divides 6 by 12 (0.5 years). If you have a 90-day loan, it divides 90 by 365 (0.246 years) to provide perfect, bank-level accuracy.</p>
-
-                <h2>Frequently Asked Questions (FAQ)</h2>
-                
-                <h4 style="color: var(--text-color);">1. Simple Interest vs. Compound Interest: Which is better?</h4>
-                <p style="margin-bottom: 25px;">It depends on which side of the transaction you are on! If you are the <strong>borrower</strong>, you want Simple Interest because your total debt will grow much slower. If you are the <strong>investor</strong>, you absolutely want Compound Interest because your wealth will grow exponentially faster over time.</p>
-
-                <h4 style="color: var(--text-color);">2. How do car loans use simple interest?</h4>
-                <p>Most modern auto loans are simple interest loans, but the interest is calculated daily. Your monthly payment is split: a portion goes to the exact amount of simple interest accrued since your last payment (usually about 30 days), and the rest goes toward the principal. If you pay early, less interest accrues, and more of your payment hits the principal, saving you money!</p>
-            </article>
-
-            <div class="ad-space" style="height: 90px; margin-top: 30px; display: flex; align-items: center; justify-content: center;">
-                <span style="font-size: 12px; color: #888;">Advertisement (728x90)</span>
-            </div>
-
-        </div>
-
-        <aside class="tool-sidebar">
-            <div class="tool-card related-tools">
-                <h3 style="margin-top: 0;">Related Tools</h3>
-                <ul>
-                    <li><a href="/compound-interest-calculator"><i class="fas fa-chart-line"></i> Compound Interest</a></li>
-                    <li><a href="/auto-loan-calculator"><i class="fas fa-car"></i> Auto Loan Calculator</a></li>
-                    <li><a href="/mortgage-calculator"><i class="fas fa-home"></i> Mortgage Calculator</a></li>
-                </ul>
-            </div>
-        </aside>
-
-    </main>
-
-    <footer>
-        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
-        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
-            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
-            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
-            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
-        <p class="footer-thanks">Built with passion for students and developers.
-            LooLabs is built on strict testing and continuous improvement. 
-            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
-            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
-        <div class="footer-links">
-            <a href="/about">About Us</a> | 
-            <a href="/all-calculators">Sitemap</a> | 
-            <a href="/terms">Terms of Use</a> | 
-            <a href="/privacy-policy">Privacy Policy</a>
-        </div>
-        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-</html>
+// Global UI Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    if(themeToggleBtn) {
+        const themeIcon = themeToggleBtn.querySelector('i');
+        if (localStorage.getItem('theme') === 'dark') {
+            body.classList.add('dark-mode');
+            themeIcon.classList.replace('fa-moon', 'fa-sun');
+        }
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            if (body.classList.contains('dark-mode')) {
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+    }
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const desktopNav = document.querySelector('.desktop-nav');
+    if(mobileMenuBtn && desktopNav) {
+        mobileMenuBtn.addEventListener('click', () => { desktopNav.classList.toggle('active'); });
+    }
+});
