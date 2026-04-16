@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Calculator | LooLabs.xyz</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+    </header>
+
+    <main class="container tool-layout">
+        <div class="tool-main">
+            <div class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Currency</div>
+            <h1>Currency Calculator</h1>
+            <div class="tool-card">
+                <div class="input-group-stack">
+                    <label style="font-weight: 600; color: #888; font-size: 14px;">Amount</label>
+                    <input type="number" id="currAmount" class="tool-input" value="100">
+                    
+                    <div style="display: flex; gap: 15px; align-items: center; margin-top: 15px;">
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">From</label>
+                            <select id="currFrom" class="tool-input" style="width: 100%; cursor: pointer;">
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="INR">INR - Indian Rupee</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                            </select>
+                        </div>
+                        <button onclick="swapCurr()" style="margin-top: 20px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--primary-red);"><i class="fas fa-exchange-alt"></i></button>
+                        <div style="flex: 1;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">To</label>
+                            <select id="currTo" class="tool-input" style="width: 100%; cursor: pointer;">
+                                <option value="EUR">EUR - Euro</option>
+                                <option value="USD">USD - US Dollar</option>
+                                <option value="GBP">GBP - British Pound</option>
+                                <option value="INR">INR - Indian Rupee</option>
+                                <option value="JPY">JPY - Japanese Yen</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="calculateCurr()" class="calc-action-btn" style="margin-top: 15px;">Convert Currency <i class="fas fa-coins"></i></button>
+
+                <div class="fin-result-container" id="resultBoxCurr">
+                    <div class="fin-main-result">
+                        <div class="cal-value" id="resCurrTotal">0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;" id="resCurrRate">1 USD = X EUR</p>
+                    </div>
+                    <p style="text-align: center; font-size: 12px; color: #888;">Note: Uses static demonstration rates. Not for live trading.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mock Rates (Base USD)
+        const rates = { USD: 1, EUR: 0.92, GBP: 0.79, INR: 83.3, JPY: 150.2 };
+
+        function swapCurr() {
+            const from = document.getElementById('currFrom');
+            const to = document.getElementById('currTo');
+            const temp = from.value;
+            from.value = to.value;
+            to.value = temp;
+            calculateCurr();
+        }
+
+        function calculateCurr() {
+            const amount = parseFloat(document.getElementById('currAmount').value);
+            const from = document.getElementById('currFrom').value;
+            const to = document.getElementById('currTo').value;
+
+            if(isNaN(amount)) return;
+
+            // Convert 'from' to USD, then USD to 'to'
+            const inUSD = amount / rates[from];
+            const finalAmount = inUSD * rates[to];
+            const conversionRate = (1 / rates[from]) * rates[to];
+
+            document.getElementById('resCurrTotal').innerText = `${finalAmount.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})} ${to}`;
+            document.getElementById('resCurrRate').innerText = `1 ${from} = ${conversionRate.toFixed(4)} ${to}`;
+            document.getElementById('resultBoxCurr').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
