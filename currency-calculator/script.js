@@ -1,23 +1,80 @@
-// Top 15 Currencies Static Dictionary (Base USD)
-const exchangeRates = {
-    USD: 1,           // US Dollar
-    EUR: 0.92,        // Euro
-    GBP: 0.79,        // British Pound
-    INR: 83.30,       // Indian Rupee
-    JPY: 150.20,      // Japanese Yen
-    AUD: 1.53,        // Australian Dollar
-    CAD: 1.35,        // Canadian Dollar
-    CHF: 0.88,        // Swiss Franc
-    CNY: 7.19,        // Chinese Yuan
-    HKD: 7.82,        // Hong Kong Dollar
-    NZD: 1.63,        // New Zealand Dollar
-    SGD: 1.34,        // Singapore Dollar
-    SEK: 10.45,       // Swedish Krona
-    KRW: 1332.50,     // South Korean Won
-    MXN: 17.10        // Mexican Peso
+// --- Live Currency Calculator Logic ---
+
+let apiData = null;
+const API_URL = "https://open.er-api.com/v6/latest/USD"; // Reliable open-access API
+
+// Currency Metadata Dictionary (Flags & Symbols)
+const currencyMeta = {
+    USD: { flag: "🇺🇸", symbol: "$" },
+    EUR: { flag: "🇪🇺", symbol: "€" },
+    GBP: { flag: "🇬🇧", symbol: "£" },
+    INR: { flag: "🇮🇳", symbol: "₹" },
+    JPY: { flag: "🇯🇵", symbol: "¥" },
+    AUD: { flag: "🇦🇺", symbol: "A$" },
+    CAD: { flag: "🇨🇦", symbol: "C$" },
+    AED: { flag: "🇦🇪", symbol: "د.إ" },
+    SAR: { flag: "🇸🇦", symbol: "﷼" },
+    MYR: { flag: "🇲🇾", symbol: "RM" },
+    SGD: { flag: "🇸🇬", symbol: "S$" },
+    CNY: { flag: "🇨🇳", symbol: "¥" }
 };
 
-function swapCurr() {
+// Fetch rates once when the page loads
+async function fetchRates() {
+    try {
+        const response = await fetch(API_URL);
+        apiData = await response.json();
+        
+        if (apiData && apiData.result === "success") {
+            document.getElementById('loadingMsg').style.display = 'none';
+            document.getElementById('resultBox').style.display = 'block';
+            document.getElementById('lastUpdate').innerText = new Date(apiData.time_last_update_utc).toLocaleDateString();
+            
+            // Initial Calculation
+            calculate();
+        } else {
+            throw new Error("API Response Error");
+        }
+    } catch (error) {
+        document.getElementById('loadingMsg').innerHTML = `<span style="color:red;">Error: Could not load live rates. Please refresh.</span>`;
+        console.error("Currency Fetch Error:", error);
+    }
+}
+
+function calculate() {
+    if (!apiData) return;
+
+    const amount = parseFloat(document.getElementById('currAmount').value);
+    const from = document.getElementById('currFrom').value;
+    const to = document.getElementById('currTo').value;
+
+    if (isNaN(amount) || amount <= 0) {
+        document.getElementById('resConvertedAmount').innerText = "0.00";
+        return;
+    }
+
+    // Get rates relative to USD
+    const usdToFrom = apiData.rates[from];
+    const usdToTarget = apiData.rates[to];
+
+    // Conversion: (Amount / RateFrom) * RateTo
+    const converted = (amount / usdToFrom) * usdToTarget;
+    const directRate = (1 / usdToFrom) * usdToTarget;
+
+    // Grab the Flag and Symbol for the targeted currency
+    const toFlag = currencyMeta[to] ? currencyMeta[to].flag : "";
+    const toSymbol = currencyMeta[to] ? currencyMeta[to].symbol : "";
+    const fromFlag = currencyMeta[from] ? currencyMeta[from].flag : "";
+
+    // Format the number cleanly
+    const formattedAmount = converted.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+    // Display Result with Icons and Symbols
+    document.getElementById('resConvertedAmount').innerHTML = `${toFlag} ${toSymbol}${formattedAmount} <span style="font-size: 20px; opacity: 0.8;">${to}</span>`;
+    document.getElementById('resExchangeRate').innerText = `${fromFlag} 1 ${from} = ${toFlag} ${directRate.toFixed(4)} ${to}`;
+}
+
+function swapCurrencies() {
     const fromSelect = document.getElementById('currFrom');
     const toSelect = document.getElementById('currTo');
     
@@ -25,68 +82,32 @@ function swapCurr() {
     fromSelect.value = toSelect.value;
     toSelect.value = temp;
     
-    calculateCurr();
+    calculate();
 }
 
-function calculateCurr() {
-    const errorMsg = document.getElementById('errorMessage');
-    errorMsg.style.display = 'none';
+// Event Listeners
+document.getElementById('currAmount').addEventListener('input', calculate);
+document.getElementById('currFrom').addEventListener('change', calculate);
+document.getElementById('currTo').addEventListener('change', calculate);
 
-    const amount = parseFloat(document.getElementById('currAmount').value);
-    const fromCode = document.getElementById('currFrom').value;
-    const toCode = document.getElementById('currTo').value;
-
-    if(isNaN(amount) || amount <= 0) {
-        errorMsg.innerText = "Please enter a valid amount greater than zero.";
-        errorMsg.style.display = 'block';
-        document.getElementById('resultBox').style.display = 'none';
-        return;
-    }
-
-    // Calculate conversions using USD as the base pivot
-    const fromRateToUSD = exchangeRates[fromCode];
-    const toRateFromUSD = exchangeRates[toCode];
-
-    // Convert input amount to USD, then to target currency
-    const amountInUSD = amount / fromRateToUSD;
-    const finalAmount = amountInUSD * toRateFromUSD;
-
-    // Calculate direct 1-to-1 conversion rate for display
-    const directRate = (1 / fromRateToUSD) * toRateFromUSD;
-
-    // Formatting
-    const formattedAmount = finalAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    
-    document.getElementById('resCurrTotal').innerText = `${formattedAmount} ${toCode}`;
-    document.getElementById('resCurrRate').innerText = `1 ${fromCode} = ${directRate.toFixed(4)} ${toCode}`;
-    
-    document.getElementById('resultBox').style.display = 'block';
-}
-
-// Global UI Logic
+// Initialize on Load
 document.addEventListener('DOMContentLoaded', () => {
+    fetchRates();
+
+    // Standard Theme/Mobile Logic
     const themeToggleBtn = document.getElementById('theme-toggle');
-    const body = document.body;
     if(themeToggleBtn) {
-        const themeIcon = themeToggleBtn.querySelector('i');
-        if (localStorage.getItem('theme') === 'dark') {
-            body.classList.add('dark-mode');
-            themeIcon.classList.replace('fa-moon', 'fa-sun');
-        }
         themeToggleBtn.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            if (body.classList.contains('dark-mode')) {
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-                localStorage.setItem('theme', 'light');
-            }
+            document.body.classList.toggle('dark-mode');
+            const icon = themeToggleBtn.querySelector('i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
         });
     }
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-    const desktopNav = document.querySelector('.desktop-nav');
-    if(mobileMenuBtn && desktopNav) {
-        mobileMenuBtn.addEventListener('click', () => { desktopNav.classList.toggle('active'); });
+    if(mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            document.querySelector('.desktop-nav').classList.toggle('active');
+        });
     }
 });
