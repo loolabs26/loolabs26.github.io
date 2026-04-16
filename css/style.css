@@ -1061,3 +1061,24 @@ html, body {
 .gender-label { display: flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--text-color); }
 .gender-label input { accent-color: var(--primary-red); width: 18px; height: 18px; cursor: pointer; }
 
+/* =========================================
+   FINANCE CALCULATORS (TAX, INTEREST, RETIREMENT, CURRENCY)
+   ========================================= */
+.fin-result-container { display: none; margin-top: 30px; }
+.fin-main-result { background: var(--primary-red); color: white; padding: 30px 20px; border-radius: 12px; text-align: center; box-shadow: 0 10px 20px rgba(230, 57, 70, 0.3); margin-bottom: 20px; }
+.fin-main-result h3 { margin: 0 0 10px 0; font-size: 20px; opacity: 0.9; }
+.fin-main-result .cal-value { font-size: 48px; font-weight: 700; line-height: 1.1; margin-bottom: 5px; word-break: break-word; }
+
+.fin-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-bottom: 20px; }
+.fin-box { background: var(--bg-color); border: 2px solid rgba(150, 150, 150, 0.1); border-radius: 12px; padding: 20px; text-align: center; }
+.fin-box .stat-label { font-size: 14px; font-weight: 600; color: #888; margin-bottom: 8px; }
+.fin-box .stat-value { font-size: 22px; font-weight: 700; color: var(--text-color); }
+.fin-box .stat-value.success { color: #2ecc71; }
+.fin-box .stat-value.danger { color: #e74c3c; }
+
+.input-with-symbol { position: relative; width: 100%; }
+.input-with-symbol .symbol { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-weight: 600; color: #888; }
+.input-with-symbol.right-symbol .symbol { left: auto; right: 15px; }
+.input-with-symbol input, .input-with-symbol select { padding-left: 35px; width: 100%; text-align: left; }
+.input-with-symbol.right-symbol input { padding-left: 15px; padding-right: 40px; }
+
