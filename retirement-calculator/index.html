@@ -3,87 +3,256 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retirement Calculator | LooLabs.xyz</title>
+    <title>Retirement Planning Calculator | LooLabs.xyz</title>
+    
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
 </head>
 <body>
+
     <header>
         <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy-policy">Privacy Policy</a><a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </header>
 
     <main class="container tool-layout">
+        
         <div class="tool-main">
-            <div class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Retirement</div>
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Retirement
+            </div>
+
             <h1>Retirement Calculator</h1>
+
             <div class="tool-card">
-                <div class="input-group-stack">
-                    <div style="display: flex; gap: 15px;">
-                        <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Current Age</label><input type="number" id="retAge" class="tool-input" value="30"></div>
-                        <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Retirement Age</label><input type="number" id="retTarget" class="tool-input" value="65"></div>
+                <div class="adv-calc-grid">
+                    <div class="adv-input-section">
+                        <h3>Timeline</h3>
+                        <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                            <div style="flex: 1;">
+                                <label style="font-weight: 600; color: #888; font-size: 14px;">Current Age</label>
+                                <input type="number" id="retAge" class="tool-input" value="30">
+                            </div>
+                            <div style="flex: 1;">
+                                <label style="font-weight: 600; color: #888; font-size: 14px;">Retirement Age</label>
+                                <input type="number" id="retTargetAge" class="tool-input" value="65">
+                            </div>
+                        </div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Life Expectancy (Age)</label>
+                        <input type="number" id="retDeath" class="tool-input" value="90" style="width: 100%; margin-bottom: 15px;">
+
+                        <h3>Current Finances</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Current Savings (Nest Egg)</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="retSavings" class="tool-input" value="25000">
+                        </div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Monthly Contribution</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="retMonthly" class="tool-input" value="500">
+                        </div>
                     </div>
-                    <div style="display: flex; gap: 15px; margin-top: 15px;">
-                        <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Current Savings</label><div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="retSavings" class="tool-input" value="10000"></div></div>
-                        <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Monthly Contribution</label><div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="retMonthly" class="tool-input" value="500"></div></div>
-                    </div>
-                    <div style="margin-top: 15px;">
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">Estimated Annual Return (%)</label>
-                        <div class="input-with-symbol right-symbol"><span class="symbol">%</span><input type="number" id="retRate" class="tool-input" value="7"></div>
+
+                    <div class="adv-input-section">
+                        <h3>Economic Assumptions</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Expected Annual Return</label>
+                        <div class="input-with-symbol right-symbol">
+                            <span class="symbol">%</span>
+                            <input type="number" id="retReturn" class="tool-input" value="7" step="0.1">
+                        </div>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Expected Inflation Rate</label>
+                        <div class="input-with-symbol right-symbol">
+                            <span class="symbol">%</span>
+                            <input type="number" id="retInflation" class="tool-input" value="2.5" step="0.1">
+                        </div>
+
+                        <h3 style="margin-top: 15px;">Post-Retirement</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Desired Annual Income</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="retIncome" class="tool-input" value="60000" placeholder="In today's dollars">
+                        </div>
+                        <p style="font-size: 12px; color: #888; margin-top: -10px; line-height: 1.4;">How much money do you want to spend every year in retirement, measured in today's purchasing power?</p>
                     </div>
                 </div>
-                <button onclick="calculateRetirement()" class="calc-action-btn" style="margin-top: 15px;">Calculate Nest Egg <i class="fas fa-piggy-bank"></i></button>
 
-                <div class="fin-result-container" id="resultBoxRet">
-                    <div class="fin-main-result">
-                        <h3>Total at Retirement</h3>
-                        <div class="cal-value" id="resRetTotal">$0</div>
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateRetirement()" class="calc-action-btn">Calculate Retirement Plan <i class="fas fa-piggy-bank"></i></button>
+
+                <div class="fin-result-container" id="resultBox">
+                    <div class="fin-main-result" id="statusResultBox">
+                        <h3 id="statusTitle">Will you have enough?</h3>
+                        <div class="cal-value" id="resNestEgg">$0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Total Projected Nest Egg at Age <span id="outAge">65</span></p>
                     </div>
-                    <div class="fin-grid">
-                        <div class="fin-box"><div class="stat-label">Total Contributions</div><div class="stat-value" id="resRetPrinc">$0</div></div>
-                        <div class="fin-box"><div class="stat-label">Investment Growth</div><div class="stat-value success" id="resRetGrowth">+$0</div></div>
-                    </div>
+
+                    <table class="fin-breakdown-table">
+                        <thead>
+                            <tr><th>Retirement Summary</th><th style="text-align: right;">Amount</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Total Principal Contributed</td><td class="amount" id="resPrinc">$0</td></tr>
+                            <tr><td>Total Investment Growth</td><td class="amount" id="resGrowth" style="color: #2ecc71;">+$0</td></tr>
+                            <tr style="background: rgba(150,150,150,0.05);"><td>Required Nest Egg (To meet goal)</td><td class="amount" id="resRequired">$0</td></tr>
+                            <tr style="border-top: 2px solid rgba(150,150,150,0.2);"><td><strong>Shortfall / Surplus</strong></td><td class="amount" id="resDifference" style="font-weight: 700;">$0</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
             <article class="tool-seo">
-                <h2>Planning for Retirement</h2>
-                <p>The earlier you start saving for retirement, the less you actually have to contribute thanks to compound interest. By investing in index funds (which historically average a 7-10% return), your money grows exponentially over decades.</p>
+                <h2>How to Plan for Retirement</h2>
+                <p>Retirement planning is the process of determining your retirement income goals and the actions necessary to achieve those goals. It involves identifying sources of income, estimating expenses, implementing a savings program, and managing assets. Our advanced Retirement Calculator factors in inflation, life expectancy, and investment returns to help you figure out exactly how much you need to save.</p>
+
+                <h3>The Danger of Inflation</h3>
+                <p>One of the biggest mistakes people make when planning for retirement is ignoring inflation. <strong>Inflation</strong> is the rate at which the cost of goods and services rises over time, meaning your money loses purchasing power. If inflation averages 2.5% per year, an item that costs $60,000 today will cost over $140,000 in 35 years. Our calculator adjusts your "Desired Annual Income" to account for future inflation automatically, ensuring you don't run out of money.</p>
+
+                <h3>The 4% Rule (Safe Withdrawal Rate)</h3>
+                <p>How much money do you actually need to retire? Financial advisors frequently use the "4% Rule." This rule states that you can safely withdraw 4% of your total retirement portfolio in your first year of retirement, adjust for inflation each subsequent year, and have a very high probability of not running out of money for 30 years.</p>
+                <p>To use the 4% rule in reverse to find your target number, simply multiply your desired annual retirement income by 25. For example, if you want $40,000 a year, you need a nest egg of $1,000,000.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. What is a realistic Expected Annual Return?</h4>
+                <p style="margin-bottom: 25px;">If your money is invested heavily in standard US stock market index funds (like the S&P 500), historical data shows an average annual return of about 9% to 10% before inflation. However, many financial planners recommend using a more conservative estimate of 6% or 7% to be safe and account for market volatility.</p>
+
+                <h4 style="color: var(--text-color);">2. Does this calculator account for Social Security?</h4>
+                <p>No. This calculator analyzes your pure investment portfolio. If you expect to receive $1,500 a month in Social Security benefits, you can simply reduce your "Desired Annual Income" input by $18,000 ($1,500 × 12) to see how much your actual investments need to cover.</p>
             </article>
+
         </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Related Tools</h3>
+                <ul>
+                    <li><a href="/compound-interest-calculator"><i class="fas fa-chart-line"></i> Compound Interest</a></li>
+                    <li><a href="/income-tax-calculator"><i class="fas fa-file-invoice-dollar"></i> Income Tax</a></li>
+                    <li><a href="/roi-calculator"><i class="fas fa-chart-pie"></i> ROI Calculator</a></li>
+                </ul>
+            </div>
+        </aside>
+
     </main>
 
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple...</p>
+        <p class="copyright">&copy; 2026 LooLabs.xyz</p>
+    </footer>
+
     <script>
+        const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
         function calculateRetirement() {
             const age = parseInt(document.getElementById('retAge').value);
-            const targetAge = parseInt(document.getElementById('retTarget').value);
+            const targetAge = parseInt(document.getElementById('retTargetAge').value);
+            const deathAge = parseInt(document.getElementById('retDeath').value);
             const savings = parseFloat(document.getElementById('retSavings').value) || 0;
             const monthly = parseFloat(document.getElementById('retMonthly').value) || 0;
-            const rate = parseFloat(document.getElementById('retRate').value) / 100;
+            
+            const r = parseFloat(document.getElementById('retReturn').value) / 100;
+            const inflation = parseFloat(document.getElementById('retInflation').value) / 100;
+            const desiredIncome = parseFloat(document.getElementById('retIncome').value);
 
-            if(isNaN(age) || isNaN(targetAge) || age >= targetAge) return alert("Retirement age must be greater than current age.");
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.style.display = 'none';
 
-            const years = targetAge - age;
+            if(isNaN(age) || isNaN(targetAge) || age >= targetAge) {
+                errorMsg.innerText = "Retirement age must be greater than current age.";
+                errorMsg.style.display = 'block'; return;
+            }
+            if(isNaN(deathAge) || targetAge >= deathAge) {
+                errorMsg.innerText = "Life expectancy must be greater than retirement age.";
+                errorMsg.style.display = 'block'; return;
+            }
+
+            // 1. Calculate Accumulation Phase
+            const yearsToRetire = targetAge - age;
             const n = 12; 
-            const ratePerPeriod = rate / n;
-            const totalPeriods = n * years;
+            const ratePerPeriod = r / n;
+            const totalPeriods = n * yearsToRetire;
 
             const principalGrowth = savings * Math.pow(1 + ratePerPeriod, totalPeriods);
             const contributionGrowth = monthly * ((Math.pow(1 + ratePerPeriod, totalPeriods) - 1) / ratePerPeriod);
             
-            const totalFuture = principalGrowth + contributionGrowth;
+            const nestEgg = principalGrowth + contributionGrowth;
             const totalContributed = savings + (monthly * totalPeriods);
-            const growth = totalFuture - totalContributed;
+            const growth = nestEgg - totalContributed;
 
-            const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            // 2. Calculate Required Nest Egg (Adjusting desired income for inflation by retirement age)
+            const futureIncomeNeeded = desiredIncome * Math.pow(1 + inflation, yearsToRetire);
+            const yearsInRetirement = deathAge - targetAge;
             
-            document.getElementById('resRetTotal').innerText = fmt(totalFuture);
-            document.getElementById('resRetPrinc').innerText = fmt(totalContributed);
-            document.getElementById('resRetGrowth').innerText = "+" + fmt(growth);
-            document.getElementById('resultBoxRet').style.display = 'block';
+            // Present value of a growing annuity formula to find required nest egg
+            // Real Return Rate (Inflation adjusted)
+            const realReturn = (1 + r) / (1 + inflation) - 1;
+            
+            let requiredNestEgg = 0;
+            if (realReturn === 0) {
+                requiredNestEgg = futureIncomeNeeded * yearsInRetirement;
+            } else {
+                requiredNestEgg = futureIncomeNeeded * ((1 - Math.pow(1 + realReturn, -yearsInRetirement)) / realReturn);
+            }
+
+            const difference = nestEgg - requiredNestEgg;
+
+            // Output Handling
+            document.getElementById('outAge').innerText = targetAge;
+            document.getElementById('resNestEgg').innerText = fmt(nestEgg);
+            document.getElementById('resPrinc').innerText = fmt(totalContributed);
+            document.getElementById('resGrowth').innerText = "+" + fmt(growth);
+            document.getElementById('resRequired').innerText = fmt(requiredNestEgg);
+
+            const diffEl = document.getElementById('resDifference');
+            const statusBox = document.getElementById('statusResultBox');
+            
+            if (difference >= 0) {
+                diffEl.innerText = "+" + fmt(difference) + " (Surplus)";
+                diffEl.style.color = "#2ecc71";
+                statusBox.style.background = "#2ecc71";
+                statusBox.style.boxShadow = "0 10px 20px rgba(46, 204, 113, 0.3)";
+                document.getElementById('statusTitle').innerText = "On Track!";
+            } else {
+                diffEl.innerText = fmt(difference) + " (Shortfall)";
+                diffEl.style.color = "#e74c3c";
+                statusBox.style.background = "#e74c3c";
+                statusBox.style.boxShadow = "0 10px 20px rgba(231, 76, 60, 0.3)";
+                document.getElementById('statusTitle').innerText = "Falling Short";
+            }
+
+            document.getElementById('resultBox').style.display = 'block';
         }
+
+        // Theme Logic
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('#theme-toggle i');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
+        });
+        document.querySelector('.mobile-menu-btn').addEventListener('click', () => {
+            document.querySelector('.desktop-nav').classList.toggle('active');
+        });
     </script>
 </body>
 </html>
