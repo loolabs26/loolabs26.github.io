@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Calculator | LooLabs.xyz</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+    </header>
+
+    <main class="container tool-layout">
+        <div class="tool-main">
+            <div class="breadcrumbs"><a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Retirement</div>
+            <h1>Retirement Calculator</h1>
+            <div class="tool-card">
+                <div class="input-group-stack">
+                    <div style="display: flex; gap: 15px;">
+                        <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Current Age</label><input type="number" id="retAge" class="tool-input" value="30"></div>
+                        <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Retirement Age</label><input type="number" id="retTarget" class="tool-input" value="65"></div>
+                    </div>
+                    <div style="display: flex; gap: 15px; margin-top: 15px;">
+                        <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Current Savings</label><div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="retSavings" class="tool-input" value="10000"></div></div>
+                        <div style="flex: 1;"><label style="font-weight: 600; color: #888; font-size: 14px;">Monthly Contribution</label><div class="input-with-symbol"><span class="symbol">$</span><input type="number" id="retMonthly" class="tool-input" value="500"></div></div>
+                    </div>
+                    <div style="margin-top: 15px;">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Estimated Annual Return (%)</label>
+                        <div class="input-with-symbol right-symbol"><span class="symbol">%</span><input type="number" id="retRate" class="tool-input" value="7"></div>
+                    </div>
+                </div>
+                <button onclick="calculateRetirement()" class="calc-action-btn" style="margin-top: 15px;">Calculate Nest Egg <i class="fas fa-piggy-bank"></i></button>
+
+                <div class="fin-result-container" id="resultBoxRet">
+                    <div class="fin-main-result">
+                        <h3>Total at Retirement</h3>
+                        <div class="cal-value" id="resRetTotal">$0</div>
+                    </div>
+                    <div class="fin-grid">
+                        <div class="fin-box"><div class="stat-label">Total Contributions</div><div class="stat-value" id="resRetPrinc">$0</div></div>
+                        <div class="fin-box"><div class="stat-label">Investment Growth</div><div class="stat-value success" id="resRetGrowth">+$0</div></div>
+                    </div>
+                </div>
+            </div>
+            <article class="tool-seo">
+                <h2>Planning for Retirement</h2>
+                <p>The earlier you start saving for retirement, the less you actually have to contribute thanks to compound interest. By investing in index funds (which historically average a 7-10% return), your money grows exponentially over decades.</p>
+            </article>
+        </div>
+    </main>
+
+    <script>
+        function calculateRetirement() {
+            const age = parseInt(document.getElementById('retAge').value);
+            const targetAge = parseInt(document.getElementById('retTarget').value);
+            const savings = parseFloat(document.getElementById('retSavings').value) || 0;
+            const monthly = parseFloat(document.getElementById('retMonthly').value) || 0;
+            const rate = parseFloat(document.getElementById('retRate').value) / 100;
+
+            if(isNaN(age) || isNaN(targetAge) || age >= targetAge) return alert("Retirement age must be greater than current age.");
+
+            const years = targetAge - age;
+            const n = 12; 
+            const ratePerPeriod = rate / n;
+            const totalPeriods = n * years;
+
+            const principalGrowth = savings * Math.pow(1 + ratePerPeriod, totalPeriods);
+            const contributionGrowth = monthly * ((Math.pow(1 + ratePerPeriod, totalPeriods) - 1) / ratePerPeriod);
+            
+            const totalFuture = principalGrowth + contributionGrowth;
+            const totalContributed = savings + (monthly * totalPeriods);
+            const growth = totalFuture - totalContributed;
+
+            const fmt = (num) => '$' + num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+            
+            document.getElementById('resRetTotal').innerText = fmt(totalFuture);
+            document.getElementById('resRetPrinc').innerText = fmt(totalContributed);
+            document.getElementById('resRetGrowth').innerText = "+" + fmt(growth);
+            document.getElementById('resultBoxRet').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
