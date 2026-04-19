@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PPP Salary Calculator | Purchasing Power Parity | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; PPP Calculator
+            </div>
+
+            <h1>Purchasing Power Parity (PPP) Calculator</h1>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span class="live-year-badge" style="background: #3498db; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                    Updated for 2026
+                </span>
+            </div>
+
+            <div class="tool-card">
+                
+                <div class="adv-calc-grid">
+                    <div class="adv-input-section" style="grid-column: 1 / -1;">
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Current Salary / Income Amount</label>
+                        <input type="number" id="pppAmount" class="tool-input" value="100000" style="width: 100%; margin-bottom: 20px; font-size: 24px; font-weight: 700;">
+                        
+                        <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-weight: 600; color: #888; font-size: 14px;">I live in (Source Country)</label>
+                                <select id="pppFrom" class="tool-input" style="width: 100%; cursor: pointer;">
+                                    </select>
+                            </div>
+                            
+                            <button onclick="swapPPP()" style="margin-top: 20px; background: var(--bg-color); border: 2px solid rgba(150,150,150,0.2); border-radius: 50%; width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; color: var(--primary-red); transition: transform 0.2s;"><i class="fas fa-exchange-alt"></i></button>
+                            
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-weight: 600; color: #888; font-size: 14px;">Compare to (Target Country)</label>
+                                <select id="pppTo" class="tool-input" style="width: 100%; cursor: pointer;">
+                                    </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculatePPP()" class="calc-action-btn">Calculate Equivalent Salary <i class="fas fa-globe-americas"></i></button>
+
+                <div class="fin-result-container" id="resultBox">
+                    <div class="fin-main-result">
+                        <h3>Equivalent Standard of Living</h3>
+                        <div class="cal-value" id="resEquivalentTotal" style="font-size: 42px;">0</div>
+                        <p style="font-size: 16px; opacity: 0.9; margin: 10px 0 0 0;" id="resCurrencyName">Target Currency</p>
+                    </div>
+
+                    <div class="fin-grid">
+                        <div class="fin-box">
+                            <div class="stat-label">Cost of Living Difference</div>
+                            <div class="stat-value" id="resColDiff">-</div>
+                        </div>
+                        <div class="fin-box">
+                            <div class="stat-label">PPP Conversion Factor</div>
+                            <div class="stat-value" id="resFactor" style="font-family: monospace; font-size: 18px;">-</div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(150,150,150,0.05); border: 1px solid rgba(150,150,150,0.1); padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px;">
+                        <p style="font-size: 14px; color: var(--text-color); margin: 0; line-height: 1.5;" id="resSummaryText">
+                            To have the exact same purchasing power as <strong>$100,000</strong> in the United States, you would only need to earn <strong>₹2,380,000</strong> in India.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>The Ultimate Guide to Purchasing Power Parity (PPP)</h2>
+                <p>If you earn $100,000 a year in New York City, your lifestyle will look vastly different than if you earned that exact same amount in New Delhi, London, or Buenos Aires. This is because the cost of rent, groceries, transportation, and healthcare varies wildly across the globe. Our <strong>Purchasing Power Parity (PPP) Salary Calculator</strong> helps remote workers, digital nomads, and expats understand exactly how much money they need to earn in a new country to maintain their current standard of living.</p>
+
+                <h3>What is Purchasing Power Parity?</h3>
+                <p>Purchasing Power Parity is an economic theory and measurement tool used to compare the absolute purchasing power of different countries' currencies. Instead of using standard market exchange rates (which fluctuate daily based on stock markets and investor sentiment), PPP measures the price of a specific "basket of goods and services" in different countries.</p>
+                <p>The core concept is that identical goods should theoretically cost the same amount everywhere when exchange rates are factored in. When they don't, PPP reveals the true difference in the cost of living.</p>
+
+                <h3>PPP vs. Standard Exchange Rates</h3>
+                <p>Why shouldn't you just use a standard currency calculator to figure out your international salary? Because market exchange rates do not reflect local reality.</p>
+                <p>For example, 1 US Dollar might equal roughly 83 Indian Rupees on the Forex market. However, a cup of coffee that costs $4.00 in the US does not cost 332 Rupees in India; it is significantly cheaper. Therefore, the <em>purchasing power</em> of your money goes much further. If you negotiate an international salary using only standard exchange rates, you are completely ignoring the local cost of living and could end up either drastically underpaid or pricing yourself out of a remote job.</p>
+                
+                <h3>The "Big Mac Index"</h3>
+                <p>The most famous, simplified example of PPP is <em>The Economist's</em> "Big Mac Index." Because McDonald's makes the exact same Big Mac burger in nearly every country using local ingredients and labor, comparing the price of a Big Mac in Switzerland versus the Philippines gives you a surprisingly accurate snapshot of the PPP between those two nations.</p>
+
+                <h2>How to Use This Calculator for Remote Work</h2>
+                <p>With the rise of global remote work, tech companies often adjust salaries based on the employee's location. If you are moving from the UK to Spain, or the US to Canada, use this calculator to establish a fair baseline.</p>
+                <ul>
+                    <li><strong>Step 1:</strong> Enter your current gross salary.</li>
+                    <li><strong>Step 2:</strong> Select your current country (Source).</li>
+                    <li><strong>Step 3:</strong> Select the country you are moving to or being hired from (Target).</li>
+                    <li><strong>Step 4:</strong> The result is the mathematically equivalent salary. If the result is lower than your current salary, the target country is cheaper. If the result is higher, the target country is more expensive, and you need a raise to maintain your lifestyle!</li>
+                </ul>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Where does this data come from?</h4>
+                <p style="margin-bottom: 25px;">The conversion factors powering this calculator are derived from the International Comparison Program (ICP) governed by the <strong>World Bank</strong>. The World Bank releases comprehensive global PPP data annually, which serves as the gold standard for economists worldwide.</p>
+
+                <h4 style="color: var(--text-color);">2. Does PPP account for taxes?</h4>
+                <p>No. PPP strictly compares the gross cost of goods and services. It does not factor in local income tax brackets, healthcare premiums, or social security deductions. You should always consult a local tax professional when relocating internationally to understand your true net income.</p>
+            </article>
+
+            </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Related Financial Tools</h3>
+                <ul>
+                    <li><a href="/currency-calculator"><i class="fas fa-globe"></i> Currency Exchange</a></li>
+                    <li><a href="/salary-calculator"><i class="fas fa-money-bill-wave"></i> Salary Calculator</a></li>
+                    <li><a href="/income-tax-calculator"><i class="fas fa-file-invoice-dollar"></i> Income Tax</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
