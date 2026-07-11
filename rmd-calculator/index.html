@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RMD Calculator | Required Minimum Distribution | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; RMD Calculator
+            </div>
+
+            <h1>Required Minimum Distribution (RMD) Calculator</h1>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span class="live-year-badge" style="background: #e67e22; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                    Updated for SECURE 2.0 Act
+                </span>
+            </div>
+
+            <div class="tool-card">
+                <div class="adv-calc-grid">
+                    <div class="adv-input-section" style="grid-column: 1 / -1;">
+                        <h3>Retirement Account Details</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Total Account Balance (As of Dec 31 last year)</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="rmdBalance" class="tool-input" value="500000" style="width: 100%; margin-bottom: 20px; font-size: 24px; font-weight: 700;">
+                        </div>
+                        
+                        <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-weight: 600; color: #888; font-size: 14px;">Your Current Age</label>
+                                <input type="number" id="rmdAge" class="tool-input" value="75" style="width: 100%;">
+                            </div>
+                            
+                            <div style="flex: 1; min-width: 150px;">
+                                <label style="font-weight: 600; color: #888; font-size: 14px;">Spouse Beneficiary Status</label>
+                                <select id="rmdSpouse" class="tool-input" style="width: 100%; cursor: pointer;" onchange="toggleSpouseAge()">
+                                    <option value="uniform" selected>Standard (Uniform Lifetime Table)</option>
+                                    <option value="joint">Spouse is sole beneficiary AND 10+ years younger</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="spouseAgeContainer" style="display: none; margin-top: 15px;">
+                            <label style="font-weight: 600; color: #888; font-size: 14px;">Spouse's Current Age</label>
+                            <input type="number" id="rmdSpouseAge" class="tool-input" value="60" style="width: 100%;">
+                            <p style="font-size: 12px; color: var(--primary-red); margin-top: 5px;">*This will switch the calculation to the Joint Life Expectancy Table.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateRMD()" class="calc-action-btn">Calculate Estimated RMD <i class="fas fa-file-invoice-dollar"></i></button>
+
+                <div class="fin-result-container" id="resultBox">
+                    <div class="fin-main-result" id="rmdStatusBox">
+                        <h3 id="rmdStatusTitle">Your Required Minimum Distribution</h3>
+                        <div class="cal-value" id="resRmdAmount" style="font-size: 48px;">$0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 10px 0 0 0;" id="resRmdNote">Must be withdrawn by December 31st</p>
+                    </div>
+
+                    <div class="fin-grid">
+                        <div class="fin-box">
+                            <div class="stat-label">IRS Life Expectancy Factor</div>
+                            <div class="stat-value" id="resFactor" style="font-family: monospace;">-</div>
+                        </div>
+                        <div class="fin-box">
+                            <div class="stat-label">Remaining Balance</div>
+                            <div class="stat-value" id="resRemaining" style="color: #2ecc71;">-</div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(150,150,150,0.05); border: 1px solid rgba(150,150,150,0.1); padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px;">
+                        <p style="font-size: 13px; color: var(--text-color); margin: 0; line-height: 1.5;">
+                            <strong>Disclaimer:</strong> This calculator provides an estimation based on the latest IRS life expectancy tables updated in 2022. RMD calculations carry severe tax penalties if done incorrectly. Always consult a Certified Public Accountant (CPA) or financial advisor before making withdrawals.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>The Ultimate Guide to Required Minimum Distributions (RMDs)</h2>
+                <p>If you have spent decades diligently saving money into a tax-deferred retirement account—such as a Traditional IRA, 401(k), 403(b), or SEP IRA—you have enjoyed years of tax-free compound growth. However, the Internal Revenue Service (IRS) does not allow you to keep those funds shielded from taxes forever. Eventually, the government wants its cut.</p>
+                <p>This is where the <strong>Required Minimum Distribution (RMD)</strong> comes into play. An RMD is the exact minimum amount of money that the IRS legally forces you to withdraw from your retirement accounts every single year once you reach a certain age. Our Advanced RMD Calculator helps you determine exactly how much you need to withdraw this year to avoid massive tax penalties.</p>
+
+                <h3>How Does the SECURE 2.0 Act Change RMDs?</h3>
+                <p>In late 2022, Congress passed the SECURE 2.0 Act, fundamentally rewriting the rules of retirement in the United States. If you are reading older financial advice on the internet, it is likely completely outdated. The two most massive changes regarding RMDs dictate <em>when</em> you have to start taking them, and <em>what happens</em> if you forget.</p>
+
+                <h4>1. The RMD Starting Age Has Increased</h4>
+                <p>For decades, the standard age to begin taking RMDs was 70 ½. The original SECURE Act pushed it to 72. Now, SECURE 2.0 has pushed it even further, giving your money more time to grow tax-free.</p>
+                <table class="fin-breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Your Birth Year</th>
+                            <th>Age You Must Start RMDs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Born in 1950 or earlier</td><td>Age 72 (You should already be taking RMDs)</td></tr>
+                        <tr><td>Born between 1951 and 1959</td><td><strong>Age 73</strong></td></tr>
+                        <tr><td>Born in 1960 or later</td><td><strong>Age 75</strong></td></tr>
+                    </tbody>
+                </table>
+
+                <h4>2. The RMD Penalty Has Been Slashed</h4>
+                <p>Historically, the penalty for forgetting to take your RMD (or taking too little) was one of the most draconian taxes in the entire US tax code: a staggering 50% excise tax on the amount you failed to withdraw. SECURE 2.0 has mercifully reduced these penalties.</p>
+                <ul>
+                    <li><strong>New Standard Penalty:</strong> The penalty has been reduced from 50% down to 25% of the shortfall.</li>
+                    <li><strong>Correction Window Penalty:</strong> If you realize your mistake and correct it in a timely manner (usually within two years) by withdrawing the required funds and submitting an updated tax return, the penalty drops to just 10%.</li>
+                </ul>
+
+                <h3>How is the RMD Calculated? (The Math Formula)</h3>
+                <p>The math behind calculating an RMD is relatively straightforward, but finding the correct variables is where people get confused. The formula is:</p>
+                <div class="formula-box">
+                    <strong>RMD = Account Balance ÷ IRS Life Expectancy Factor</strong>
+                </div>
+                
+                <h4>Step 1: Determine Your Account Balance</h4>
+                <p>You do not use your current account balance. You must use the exact fair market value of your retirement account as of <strong>December 31st of the previous year</strong>. If you are calculating your 2024 RMD, you look at your account statement from December 31, 2023.</p>
+
+                <h4>Step 2: Find Your IRS Distribution Factor</h4>
+                <p>The IRS uses actuarial tables to determine a "Life Expectancy Factor" based on your age. The older you get, the smaller the factor becomes, which forces you to withdraw a larger percentage of your remaining money. The IRS updated these tables in 2022 to reflect longer modern lifespans, which effectively lowered annual RMD amounts.</p>
+                
+                <h3>Which IRS Table Do I Use?</h3>
+                <p>The IRS publishes three different tables, but 99% of retirees will only ever use one of two tables:</p>
+                
+                <table class="fin-breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>IRS Table Name</th>
+                            <th>Who Uses It?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Uniform Lifetime Table</strong></td>
+                            <td>This is the standard table used by the vast majority of unmarried retirement account owners, and married owners whose spouses are not more than 10 years younger.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Joint Life and Last Survivor Table</strong></td>
+                            <td>You <em>must</em> use this table ONLY IF your spouse is the sole beneficiary of your account AND they are strictly more than 10 years younger than you.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Our calculator seamlessly switches between these tables based on your dropdown selection, ensuring perfect mathematical compliance.</p>
+
+                <h3>Do All Accounts Have RMDs?</h3>
+                <p>No! The IRS only requires distributions on accounts where taxes have been deferred. This includes Traditional IRAs, SEP IRAs, SIMPLE IRAs, 401(k)s, 403(b)s, and 457(b) plans.</p>
+                <p><strong>Roth IRAs are exempt from RMDs during the owner's lifetime.</strong> Because you fund a Roth IRA with after-tax money, the IRS has already collected their revenue. You can leave money in a Roth IRA to grow tax-free until the day you die, making it the ultimate estate-planning tool. <em>Note: Starting in 2024, thanks to SECURE 2.0, employer-sponsored Roth 401(k)s are also exempt from lifetime RMDs.</em></p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. When is the deadline to take my RMD?</h4>
+                <p style="margin-bottom: 25px;">For standard years, you must take your RMD by December 31st. However, the IRS gives you a grace period for your very first RMD. You have until April 1st of the year following the year you reach your required starting age (73 or 75). Be warned: if you delay your first RMD until April 1st, you will have to take your <em>second</em> RMD by December 31st of that exact same year, resulting in a massive double tax hit.</p>
+
+                <h4 style="color: var(--text-color);">2. Can I withdraw more than the required minimum?</h4>
+                <p style="margin-bottom: 25px;">Absolutely. The RMD is a legal <em>floor</em>, not a ceiling. You can withdraw 100% of your account balance in a single day if you choose to. However, keep in mind that every dollar you withdraw is added to your taxable income for the year, which could push you into a much higher marginal tax bracket.</p>
+
+                <h4 style="color: var(--text-color);">3. What if I have multiple IRA or 401(k) accounts?</h4>
+                <p style="margin-bottom: 25px;">If you have multiple Traditional IRAs, you must calculate the RMD for each account separately, but you can withdraw the total aggregate amount from just one of the IRAs. However, if you have multiple 401(k)s or 403(b)s, you cannot combine them. You must calculate and withdraw the specific RMD from each individual 401(k) account separately.</p>
+
+                <h4 style="color: var(--text-color);">4. Does an RMD count as taxable income?</h4>
+                <p>Yes. Because Traditional IRAs and 401(k)s are funded with pre-tax dollars, your withdrawals are taxed as ordinary income at both the federal and state levels. The only way to avoid this tax is to make a Qualified Charitable Distribution (QCD), which allows you to send up to $100,000 directly from your IRA to a recognized charity, satisfying your RMD requirement without generating a taxable event.</p>
+            </article>
+
+            </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Retirement Tools</h3>
+                <ul>
+                    <li><a href="/retirement-calculator"><i class="fas fa-piggy-bank"></i> Retirement Calculator</a></li>
+                    <li><a href="/compound-interest-calculator"><i class="fas fa-chart-line"></i> Compound Interest</a></li>
+                    <li><a href="/income-tax-calculator"><i class="fas fa-file-invoice-dollar"></i> Income Tax</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
