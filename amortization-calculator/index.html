@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amortization Schedule Calculator | LooLabs.xyz</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link rel="stylesheet" href="../css/style.css">
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-FRTPM5S88N');
+    </script>
+</head>
+<body>
+
+    <header>
+        <a href="/" style="text-decoration: none;"><div class="logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <nav class="desktop-nav">
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/privacy-policy">Privacy Policy</a>
+            <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
+        </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+    </header>
+
+    <main class="container tool-layout">
+        
+        <div class="tool-main">
+            <div class="breadcrumbs">
+                <a href="/">Home</a> &rsaquo; <a href="/finance">Financial Calculators</a> &rsaquo; Amortization Calculator
+            </div>
+
+            <h1>Amortization Schedule Calculator</h1>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span class="live-year-badge" style="background: #3498db; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                    Updated for 2026
+                </span>
+            </div>
+
+            <div class="tool-card">
+                <div class="adv-calc-grid">
+                    <div class="adv-input-section">
+                        <h3>Loan Details</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Loan Amount</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="amrtPrincipal" class="tool-input" value="300000" step="1000">
+                        </div>
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Loan Term (Years)</label>
+                        <input type="number" id="amrtYears" class="tool-input" value="30" style="width: 100%; margin-bottom: 15px;">
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Interest Rate</label>
+                        <div class="input-with-symbol right-symbol">
+                            <span class="symbol">%</span>
+                            <input type="number" id="amrtRate" class="tool-input" value="6.5" step="0.1">
+                        </div>
+                    </div>
+
+                    <div class="adv-input-section">
+                        <h3>Advanced Options</h3>
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Extra Monthly Payment</label>
+                        <div class="input-with-symbol">
+                            <span class="symbol">$</span>
+                            <input type="number" id="amrtExtra" class="tool-input" value="0" placeholder="Optional">
+                        </div>
+                        <p style="font-size: 12px; color: #888; margin-top: -10px; margin-bottom: 15px; line-height: 1.4;">Adding extra to your monthly payment directly reduces principal and shortens the loan.</p>
+
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Start Date</label>
+                        <input type="month" id="amrtStartDate" class="tool-input" style="width: 100%; cursor: pointer;">
+                    </div>
+                </div>
+
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
+
+                <button onclick="calculateAmortization()" class="calc-action-btn">Generate Schedule <i class="fas fa-table"></i></button>
+
+                <div class="fin-result-container" id="resultBox">
+                    
+                    <div class="fin-main-result">
+                        <h3>Standard Monthly Payment</h3>
+                        <div class="cal-value" id="resMonthlyPayment">$0</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 0;" id="resExtraNote"></p>
+                    </div>
+
+                    <div class="fin-grid">
+                        <div class="fin-box">
+                            <div class="stat-label">Total Principal</div>
+                            <div class="stat-value" id="resTotalPrincipal">$0</div>
+                        </div>
+                        <div class="fin-box">
+                            <div class="stat-label">Total Interest Paid</div>
+                            <div class="stat-value danger" id="resTotalInterest">$0</div>
+                        </div>
+                        <div class="fin-box">
+                            <div class="stat-label">Payoff Date</div>
+                            <div class="stat-value" id="resPayoffDate" style="color: #3498db;">-</div>
+                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 30px; margin-bottom: 10px; color: var(--text-color);">Balance vs Interest Graph</h3>
+                    <div class="chart-container">
+                        <canvas id="amortizationChart"></canvas>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 30px;">
+                        <h3 style="margin: 0; color: var(--text-color);">Amortization Schedule</h3>
+                        <select id="tableViewToggle" class="tool-input" style="width: auto; padding: 5px 10px; cursor: pointer; font-size: 14px;" onchange="renderTable()">
+                            <option value="annual" selected>Annual View</option>
+                            <option value="monthly">Monthly View</option>
+                        </select>
+                    </div>
+                    
+                    <div class="table-responsive">
+                        <table class="amortization-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Payment</th>
+                                    <th>Principal</th>
+                                    <th>Interest</th>
+                                    <th>Total Interest</th>
+                                    <th>Remaining Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody id="scheduleBody">
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <article class="tool-seo">
+                <h2>What is Loan Amortization?</h2>
+                <p>Amortization is the process of spreading out a loan into a series of fixed payments over a specific period. You will encounter amortization most commonly with mortgages, auto loans, and personal loans. While your monthly payment remains exactly the same every month, the <em>composition</em> of that payment changes drastically over the life of the loan.</p>
+                
+                <h3>How the Amortization Schedule Works (Front-Loaded Interest)</h3>
+                <p>When you look at an amortization schedule, you will notice a frustrating reality of banking: <strong>interest is front-loaded.</strong> Because interest is calculated based on your remaining principal balance, your early payments are primarily paying off interest, doing very little to reduce your actual debt.</p>
+                <p>For example, in the first year of a 30-year mortgage, up to 70% or 80% of your monthly payment goes straight to the bank as interest. As the years pass and your principal balance slowly shrinks, the interest charge decreases. By the final years of the loan, almost your entire monthly payment goes directly toward paying off the principal.</p>
+
+                <h3>The Mathematical Formula</h3>
+                <p>The calculation to determine your fixed monthly payment ($M$) is based on the principal amount ($P$), the monthly interest rate ($r$), and the total number of payments ($n$). The mathematical equation is:</p>
+                <div class="formula-box">
+                    $$M = P \frac{r(1+r)^n}{(1+r)^n - 1}$$
+                </div>
+                <p>Because this formula calculates compounding interest across hundreds of periods, calculating an entire schedule by hand is incredibly tedious, which is why financial institutions and consumers rely on calculators like this one.</p>
+
+                <h3>The Secret Power of Extra Payments</h3>
+                <p>One of the most powerful features of our calculator is the <strong>"Extra Monthly Payment"</strong> field. If you add just $100 extra to your monthly mortgage payment, you aren't just paying it off a little faster—you are fundamentally altering the amortization schedule.</p>
+                <p>Any extra money you pay goes <em>100% directly toward the principal balance</em>. Because the principal drops faster, the interest calculated for the following month drops as well. Paying just a fraction extra each month can shave years off your loan term and save you tens of thousands of dollars in interest over the life of the loan.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Should I choose a 15-year or 30-year loan?</h4>
+                <p style="margin-bottom: 25px;">A 15-year loan will have significantly higher monthly payments, but you will pay drastically less in total interest over the life of the loan, and usually secure a lower interest rate. A 30-year loan offers lower, more manageable monthly payments, giving you flexibility, but you will pay a massive amount of interest to the bank over three decades. Many financial advisors recommend taking the 30-year loan for safety, but making extra payments as if it were a 15-year loan.</p>
+
+                <h4 style="color: var(--text-color);">2. Does this calculator include taxes and insurance?</h4>
+                <p>No. This calculator provides a pure amortization schedule for Principal and Interest (P&I) only. If you are calculating a mortgage, remember that your actual monthly bill from the lender will likely include property taxes, homeowners insurance, and potentially Private Mortgage Insurance (PMI) held in escrow.</p>
+            </article>
+
+            </div>
+
+        <aside class="tool-sidebar">
+            <div class="tool-card related-tools">
+                <h3 style="margin-top: 0;">Related Financial Tools</h3>
+                <ul>
+                    <li><a href="/mortgage-calculator"><i class="fas fa-home"></i> Mortgage Calculator</a></li>
+                    <li><a href="/auto-loan-calculator"><i class="fas fa-car"></i> Auto Loan Calculator</a></li>
+                    <li><a href="/compound-interest-calculator"><i class="fas fa-chart-line"></i> Compound Interest</a></li>
+                </ul>
+            </div>
+        </aside>
+
+    </main>
+
+    <footer>
+        <a href="/" style="text-decoration: none;"><div class="footer-logo">LooLabs<span class="domain-ext">.xyz</span></div></a>
+        <p class="footer-desc">At LooLabs, our mission is to make complex math incredibly simple. 
+            We are building a modern, high-speed ecosystem of free online calculators designed to help you crunch numbers instantly in areas like finance, health, math, and development. 
+            Built with a passion for clean design and accurate results, our goal is to be the internet's most convenient utility hub. 
+            Because we believe premium digital tools should be universally accessible, everything on loolabs.xyz is completely free—no paywalls, and no sign-ups ever required.</p>
+        <p class="footer-thanks">Built with passion for students and developers.
+            LooLabs is built on strict testing and continuous improvement. 
+            We strive for 100% accuracy, but if you catch an error, your feedback is highly appreciated! 
+            While most of our tools are universal, please check regional settings for specific finance or academic calculators.</p>
+        <div class="footer-links">
+            <a href="/about">About Us</a> | 
+            <a href="/all-calculators">Sitemap</a> | 
+            <a href="/terms">Terms of Use</a> | 
+            <a href="/privacy-policy">Privacy Policy</a>
+        </div>
+        <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
