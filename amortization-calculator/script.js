@@ -9,7 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const today = new Date();
     const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
     const yyyy = today.getFullYear();
-    document.getElementById('amrtStartDate').value = `${yyyy}-${mm}`;
+    const datePicker = document.getElementById('amrtStartDate');
+    if (datePicker) {
+        datePicker.value = `${yyyy}-${mm}`;
+    }
 });
 
 function calculateAmortization() {
@@ -281,4 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(mobileMenuBtn && desktopNav) {
         mobileMenuBtn.addEventListener('click', () => { desktopNav.classList.toggle('active'); });
     }
+
+    // 4. AUTO-LOAD RESULTS ON PAGE LOAD!
+    calculateAmortization(); 
 });
