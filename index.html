@@ -315,5 +315,108 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <!-- Cookie Consent Banner Container -->
+<div id="cookie-consent-banner" style="
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(150%);
+    width: 90%;
+    max-width: 550px;
+    background: var(--card-bg-color, #1e1e24); /* Falls back to dark if variable isn't set */
+    color: var(--text-color, #ffffff);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+">
+    <div style="display: flex; flex-direction: column; gap: 6px;">
+        <h4 style="margin: 0; font-size: 18px; font-weight: 600; color: var(--text-color, #ffffff); display: flex; align-items: center; gap: 8px;">
+            🍪 Cookie Settings
+        </h4>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; opacity: 0.85;">
+            We use cookies to personalize content, analyze traffic, and serve relevant ads via Google AdSense. You can read our full policies on our 
+            <a href="/privacy-policy" style="color: var(--primary-red, #ff4a57); text-decoration: none; font-weight: 500; border-bottom: 1px dashed;">Privacy Policy</a> page.
+        </p>
+    </div>
+    
+    <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
+        <button id="decline-cookies" style="
+            background: transparent;
+            color: var(--text-color, #ffffff);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        ">Decline</button>
+        
+        <button id="accept-cookies" style="
+            background: var(--primary-red, #ff4a57);
+            color: #ffffff;
+            border: none;
+            padding: 10px 22px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.2);
+            transition: all 0.2s ease;
+        ">Accept All</button>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const banner = document.getElementById("cookie-consent-banner");
+    const acceptBtn = document.getElementById("accept-cookies");
+    const declineBtn = document.getElementById("decline-cookies");
+
+    // Check if user has already made a choice
+    const consentChoice = localStorage.getItem("cookieConsentChoice");
+
+    // If no choice made yet, slide the banner up into view after a brief delay
+    if (!consentChoice) {
+        setTimeout(() => {
+            banner.style.transform = "translateX(-50%) translateY(0)";
+        }, 1200);
+    }
+
+    // Handle Accept Action
+    acceptBtn.addEventListener("click", function () {
+        localStorage.setItem("cookieConsentChoice", "accepted");
+        hideBanner();
+        // Optional: Trigger your Google AdSense tag loader here if you block scripts until consent
+    });
+
+    // Handle Decline Action
+    declineBtn.addEventListener("click", function () {
+        localStorage.setItem("cookieConsentChoice", "declined");
+        hideBanner();
+    });
+
+    // Simple smooth dismiss animation
+    function hideBanner() {
+        banner.style.transform = "translateX(-50%) translateY(150%)";
+        setTimeout(() => {
+            banner.style.display = "none";
+        }, 400);
+    }
+
+    // Button Hover Effects
+    acceptBtn.addEventListener("mouseover", () => acceptBtn.style.opacity = "0.9");
+    acceptBtn.addEventListener("mouseout", () => acceptBtn.style.opacity = "1");
+    declineBtn.addEventListener("mouseover", () => declineBtn.style.background = "rgba(255,255,255,0.05)");
+    declineBtn.addEventListener("mouseout", () => declineBtn.style.background = "transparent");
+});
+</script>
+
 </body>
 </html>
