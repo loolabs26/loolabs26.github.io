@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pregnancy Due Date Calculator | LooLabs.xyz</title>
+    <title>Pregnancy Due Date Calculator | EDD & Gestational Age | LooLabs.xyz</title>
     
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -11,6 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="../css/style.css">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
@@ -30,72 +31,202 @@
             <a href="/contact">Contact</a>
             <a href="/privacy-policy">Privacy Policy</a>
             <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
         </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </header>
 
     <main class="container tool-layout">
+        
         <div class="tool-main">
             <div class="breadcrumbs">
-                <a href="/">Home</a> &rsaquo; <a href="/health">Fitness & Health</a> &rsaquo; Pregnancy Calculator
+                <a href="/">Home</a> &rsaquo; <a href="/health">Health Calculators</a> &rsaquo; Pregnancy Due Date
             </div>
 
             <h1>Pregnancy Due Date Calculator</h1>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span class="live-year-badge" style="background: #a29bfe; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                    Updated for 2026 Clinical Guidelines
+                </span>
+            </div>
 
             <div class="tool-card">
-                <div class="input-group-stack">
-                    <div>
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">First Day of Last Period (LMP)</label>
-                        <input type="date" id="pregLMP" class="tool-input" style="cursor: pointer; width: 100%;">
-                    </div>
-                    <div>
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">Average Cycle Length (Days)</label>
-                        <input type="number" id="pregCycle" class="tool-input" value="28" style="width: 100%;">
+                <div class="adv-calc-grid">
+                    <div class="adv-input-section" style="grid-column: 1 / -1;">
+                        <h3>Pregnancy Details</h3>
+                        
+                        <label style="font-weight: 600; color: #888; font-size: 14px;">Calculation Method</label>
+                        <select id="pregMethod" class="tool-input" style="width: 100%; margin-bottom: 20px; cursor: pointer;" onchange="togglePregnancyInputs()">
+                            <option value="lmp" selected>First Day of Last Menstrual Period (LMP)</option>
+                            <option value="conception">Exact Date of Conception</option>
+                        </select>
+                        
+                        <div style="display: flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 150px;">
+                                <label id="pregDateLabel" style="font-weight: 600; color: #888; font-size: 14px;">First Day of Last Period</label>
+                                <input type="date" id="pregDate" class="tool-input" style="width: 100%; cursor: pointer;">
+                            </div>
+                            
+                            <div style="flex: 1; min-width: 150px;" id="cycleLengthContainer">
+                                <label style="font-weight: 600; color: #888; font-size: 14px;">Average Cycle Length</label>
+                                <input type="number" id="pregCycle" class="tool-input" value="28" min="20" max="45" style="width: 100%;">
+                                <p style="font-size: 11px; color: #888; margin-top: 5px;">Average is 28 days.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div id="errorMsgPreg" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
 
-                <button onclick="calculateDueDate()" class="calc-action-btn">Calculate Due Date <i class="fas fa-baby"></i></button>
+                <button onclick="calculateDueDate()" class="calc-action-btn" style="background-color: #a29bfe;">Calculate Estimated Due Date <i class="fas fa-baby-carriage"></i></button>
 
-                <div class="health-result-container" id="resultBoxPreg">
-                    <div class="health-main-result">
-                        <h3>Estimated Due Date</h3>
-                        <div class="cal-value" id="pregDueDate">-</div>
-                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Congratulations!</p>
+                <div class="health-result-container" id="resultBox">
+                    <div class="health-main-result" style="background-color: #a29bfe; color: #2d3436;">
+                        <h3 style="color: #2d3436;">Estimated Due Date (EDD)</h3>
+                        <div class="cal-value" id="resDueDate" style="font-size: 42px; font-weight: 700; color: #2d3436;">-</div>
+                        <p style="font-size: 15px; font-weight: 600; margin: 10px 0 0 0;" id="resGestationalAge">You are exactly - Weeks and - Days pregnant.</p>
                     </div>
-                    
+
                     <div class="health-grid">
                         <div class="health-box">
+                            <div class="stat-label">Current Trimester</div>
+                            <div class="stat-value" id="resTrimester" style="color: #6c5ce7;">-</div>
+                        </div>
+                        <div class="health-box">
                             <div class="stat-label">Estimated Conception</div>
-                            <div class="stat-value" id="pregConception">-</div>
+                            <div class="stat-value" id="resConception" style="font-size: 20px; color: #00b894;">-</div>
                         </div>
-                        <div class="health-box">
-                            <div class="stat-label">End of First Trimester</div>
-                            <div class="stat-value" id="pregTri1">-</div>
-                        </div>
-                        <div class="health-box">
-                            <div class="stat-label">End of Second Trimester</div>
-                            <div class="stat-value" id="pregTri2">-</div>
-                        </div>
+                    </div>
+
+                    <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--text-color); font-size: 18px; text-align: center;">Important Pregnancy Milestones</h3>
+                    <div class="table-responsive">
+                        <table class="fin-breakdown-table">
+                            <tbody>
+                                <tr>
+                                    <td>End of First Trimester (Week 13)</td>
+                                    <td class="amount" id="resEndT1">-</td>
+                                </tr>
+                                <tr>
+                                    <td>End of Second Trimester (Week 27)</td>
+                                    <td class="amount" id="resEndT2">-</td>
+                                </tr>
+                                <tr>
+                                    <td>Full Term (Week 39)</td>
+                                    <td class="amount" id="resFullTerm" style="color: #00b894; font-weight: 700;">-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="background: rgba(150,150,150,0.05); border: 1px solid rgba(150,150,150,0.1); padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px;">
+                        <p style="font-size: 13px; color: var(--text-color); margin: 0; line-height: 1.5;">
+                            <strong>Disclaimer:</strong> This calculator provides an estimation based on standard clinical algorithms. Only about 5% of babies are born on their exact due date. Always consult your obstetrician or midwife for official medical guidance.
+                        </p>
                     </div>
                 </div>
             </div>
 
             <article class="tool-seo">
-                <h2>How is the Due Date Calculated?</h2>
-                <p>This calculator uses Naegele's rule, the standard medical calculation for pregnancy. It adds 280 days (40 weeks) to the first day of your last menstrual period (LMP). It also adjusts automatically if your cycle is shorter or longer than the standard 28 days.</p>
-                <p>Remember, only about 4% of babies are born on their exact due date. It is an estimation, and your doctor will provide the most accurate timeline using ultrasound measurements.</p>
+                <h2>The Ultimate Guide to Calculating Your Pregnancy Due Date</h2>
+                <p>Discovering that you are pregnant triggers a wave of emotions, questions, and immediate planning. Naturally, the very first question expecting parents ask is, <em>"When is the baby arriving?"</em> Pinpointing the exact date your baby will be born is a cornerstone of prenatal care, allowing doctors to monitor fetal development, schedule crucial ultrasound screenings, and ensure the mother's health is tracking perfectly.</p>
+                <p>Our <strong>Advanced Pregnancy Due Date Calculator</strong> utilizes clinical algorithms approved by the American College of Obstetricians and Gynecologists (ACOG). By accounting for natural variations in menstrual cycle lengths, this tool provides a highly accurate Estimated Due Date (EDD), your current gestational age, and your upcoming trimester milestones.</p>
+
+                <h3>How Do Doctors Actually Calculate Due Dates?</h3>
+                <p>It might surprise you to learn that when a doctor tells you how many weeks pregnant you are, they are not actually telling you the age of the fetus. In clinical obstetrics, a standard pregnancy lasts <strong>280 days (or 40 weeks)</strong>. However, this 280-day clock does not start on the day of conception. It starts on the first day of your Last Menstrual Period (LMP).</p>
+                
+                <h4>The Science Behind Naegele's Rule</h4>
+                <p>The standard formula used globally to calculate an Estimated Due Date (EDD) is known as <strong>Naegele's rule</strong>, named after the German obstetrician Franz Karl Naegele. The traditional formula is incredibly simple:</p>
+                <div class="formula-box">
+                    <strong>EDD = First Day of LMP + 7 Days − 3 Months + 1 Year</strong>
+                </div>
+                <p>Or, mathematically simplified: <strong>EDD = First Day of LMP + 280 Days.</strong></p>
+                
+                <p>Why start the clock at the LMP instead of conception? Because historically, it was impossible to know the exact day a woman ovulated or conceived, but almost all women could easily recall the start date of their last period. Consequently, by the time you actually conceive a child (usually around Day 14 of your cycle), you are already considered medically "two weeks pregnant."</p>
+
+                <h3>Adjusting for Irregular Cycles</h3>
+                <p>Naegele's rule contains a massive biological assumption: it assumes every single woman has a perfect 28-day menstrual cycle, with ovulation occurring exactly on Day 14. If you have a longer or shorter cycle, the standard rule will give you an incorrect due date.</p>
+                <p>Our advanced calculator fixes this flaw. If you input a cycle length longer than 28 days, the calculator automatically adds the extra days to your due date. For example, if you have a 35-day cycle, you likely ovulate on Day 21 (a week later than average). The calculator adjusts your EDD by pushing it back a full 7 days, ensuring your gestational milestones remain clinically accurate.</p>
+
+                <h3>The Three Trimesters of Pregnancy</h3>
+                <p>A standard 40-week pregnancy is divided into three distinct phases called trimesters. Each trimester marks monumental shifts in maternal hormonal changes and fetal development.</p>
+
+                <table class="fin-breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Trimester</th>
+                            <th>Timeline</th>
+                            <th>Fetal Development & Maternal Milestones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>First Trimester</strong></td>
+                            <td>Weeks 1 to 13</td>
+                            <td>The most critical phase for fetal development. The neural tube, heart, and major organs begin forming. The mother often experiences extreme fatigue, breast tenderness, and morning sickness due to surging hCG hormones.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Second Trimester</strong></td>
+                            <td>Weeks 14 to 27</td>
+                            <td>Often called the "honeymoon phase." Morning sickness usually subsides, and energy returns. The baby’s sex can be determined via ultrasound (anatomy scan), and the mother will feel the baby's first movements (quickening).</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Third Trimester</strong></td>
+                            <td>Weeks 28 to Birth</td>
+                            <td>The period of rapid fetal weight gain. The baby’s lungs mature, and they begin practicing breathing motions. The mother may experience physical discomfort, Braxton Hicks contractions, and shortness of breath as the uterus expands.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>What if I Know My Exact Conception Date?</h3>
+                <p>If you used ovulation predictor kits (OPKs), tracked your basal body temperature, or simply know the exact date intercourse resulted in conception, you can select the "Exact Date of Conception" method in our calculator. Because the 280-day LMP rule assumes you conceived on Day 14, using a known conception date simply requires adding <strong>266 days</strong> to your conception date to find your EDD.</p>
+
+                <h3>In Vitro Fertilization (IVF) Due Dates</h3>
+                <p>For mothers undergoing In Vitro Fertilization (IVF), calculating a due date is an exact science, completely removing the guesswork of menstrual cycles. IVF due dates are calculated based on the date of the embryo transfer and the age of the embryo.</p>
+                <ul>
+                    <li><strong>Day 3 Embryo Transfer:</strong> Add 266 days, then subtract 3 days.</li>
+                    <li><strong>Day 5 Embryo Transfer (Blastocyst):</strong> Add 266 days, then subtract 5 days.</li>
+                </ul>
+
+                <h3>The Reality of "Full Term" vs. The Due Date</h3>
+                <p>One of the biggest misconceptions in obstetrics is that your Estimated Due Date is a hard deadline. Statistically, <strong>only about 4% to 5% of babies are born on their exact calculated due date.</strong> Your EDD is merely the center point of a bell curve.</p>
+                <p>In 2013, the American College of Obstetricians and Gynecologists redefined what is considered a "term" pregnancy to help reduce unnecessary early inductions. A baby is now considered:</p>
+                <ul>
+                    <li><strong>Early Term:</strong> Between 37 weeks 0 days and 38 weeks 6 days.</li>
+                    <li><strong>Full Term:</strong> Between 39 weeks 0 days and 40 weeks 6 days. (This is the optimal window for birth).</li>
+                    <li><strong>Late Term:</strong> Between 41 weeks 0 days and 41 weeks 6 days.</li>
+                    <li><strong>Postterm:</strong> 42 weeks 0 days and beyond.</li>
+                </ul>
+                <p>Because it is perfectly normal and healthy for a baby to arrive anywhere within the 37 to 42-week window, doctors prefer the term "Estimated Due Month."</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Can my due date change after my first ultrasound?</h4>
+                <p style="margin-bottom: 25px;">Yes. While LMP provides the baseline estimate, a first-trimester dating ultrasound (usually performed between 7 and 12 weeks) is the most medically accurate way to determine a due date. The technician measures the fetus from the top of the head to the bottom of the buttocks (Crown-Rump Length). If the ultrasound date differs from your LMP date by more than 5 to 7 days, your doctor will officially change your due date to match the ultrasound.</p>
+
+                <h4 style="color: var(--text-color);">2. How is gestational age different from fetal age?</h4>
+                <p style="margin-bottom: 25px;">Gestational age is the clinical measurement doctors use, starting from your last period. Fetal age is the actual age of the growing baby, starting from the moment of conception. Fetal age is inherently two weeks younger than gestational age. When a doctor says you are "8 weeks pregnant" (gestational age), the baby has only been growing for 6 weeks (fetal age).</p>
+
+                <h4 style="color: var(--text-color);">3. Does a longer menstrual cycle mean a longer pregnancy?</h4>
+                <p style="margin-bottom: 25px;">No. The actual time the baby spends developing in the womb (266 days) does not change. A longer menstrual cycle simply means it took your body more days to ovulate and release the egg. Because the clinical clock started ticking on Day 1 of your period, we have to adjust the math to account for the delayed ovulation, which pushes the final due date out further on the calendar.</p>
+
+                <h4 style="color: var(--text-color);">4. What happens if I go past my due date?</h4>
+                <p>Going a few days past 40 weeks is incredibly common, especially for first-time mothers. Your doctor will likely begin performing biophysical profiles and non-stress tests to ensure the placenta is still functioning properly and the amniotic fluid levels are safe. If you approach 41 or 42 weeks, your obstetrician will usually recommend a medical induction to ensure the safe delivery of the baby.</p>
             </article>
-        </div>
+
+            </div>
+
         <aside class="tool-sidebar">
             <div class="tool-card related-tools">
-                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <h3 style="margin-top: 0;">Related Health Tools</h3>
                 <ul>
-                    <li><a href="/age-calculator"><i class="fas fa-birthday-cake"></i> Age Calculator</a></li>
-                    <li><a href="/date-calculator"><i class="far fa-calendar-alt"></i> Date Calculator</a></li>
+                    <li><a href="/period-calculator"><i class="fas fa-calendar-day"></i> Period Calculator</a></li>
+                    <li><a href="/ideal-weight-calculator"><i class="fas fa-weight-scale"></i> Ideal Weight Calculator</a></li>
+                    <li><a href="/body-fat-calculator"><i class="fas fa-child"></i> Body Fat Calculator</a></li>
                 </ul>
             </div>
         </aside>
+
     </main>
 
     <footer>
@@ -117,48 +248,6 @@
         <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
     </footer>
 
-    <script>
-        function calculateDueDate() {
-            const errorMsg = document.getElementById('errorMsgPreg');
-            errorMsg.style.display = 'none';
-
-            const lmpVal = document.getElementById('pregLMP').value;
-            const cycleLength = parseInt(document.getElementById('pregCycle').value);
-
-            if(!lmpVal || isNaN(cycleLength) || cycleLength < 20 || cycleLength > 45) {
-                errorMsg.innerText = "Please select a valid date and cycle length (20-45 days).";
-                errorMsg.style.display = 'block';
-                return;
-            }
-
-            let lmpDate = new Date(lmpVal);
-            // Fix timezone offset
-            lmpDate = new Date(lmpDate.getTime() + lmpDate.getTimezoneOffset() * 60000);
-
-            // Naegele's Rule: +280 days. Adjusted by (cycleLength - 28)
-            const daysToAdd = 280 + (cycleLength - 28);
-            
-            const dueDate = new Date(lmpDate);
-            dueDate.setDate(dueDate.getDate() + daysToAdd);
-
-            const conceptionDate = new Date(lmpDate);
-            conceptionDate.setDate(conceptionDate.getDate() + 14 + (cycleLength - 28));
-
-            const tri1Date = new Date(lmpDate);
-            tri1Date.setDate(tri1Date.getDate() + (12 * 7)); // 12 weeks
-
-            const tri2Date = new Date(lmpDate);
-            tri2Date.setDate(tri2Date.getDate() + (27 * 7)); // 27 weeks
-
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
-            document.getElementById('pregDueDate').innerText = dueDate.toLocaleDateString('en-US', options);
-            document.getElementById('pregConception').innerText = conceptionDate.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-            document.getElementById('pregTri1').innerText = tri1Date.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-            document.getElementById('pregTri2').innerText = tri2Date.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
-
-            document.getElementById('resultBoxPreg').style.display = 'block';
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
