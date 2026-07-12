@@ -316,6 +316,7 @@
 
     <script src="js/script.js"></script>
     <!-- Cookie Consent Banner Container -->
+<!-- Cookie Consent Banner Container (FIXED TEXT COLOR) -->
 <div id="cookie-consent-banner" style="
     position: fixed;
     bottom: 24px;
@@ -323,12 +324,12 @@
     transform: translateX(-50%) translateY(150%);
     width: 90%;
     max-width: 550px;
-    background: var(--card-bg-color, #1e1e24); /* Falls back to dark if variable isn't set */
-    color: var(--text-color, #ffffff);
+    background: #1e1e24; /* Solid, premium dark background */
+    color: #ffffff; /* Forced white text */
     padding: 20px;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     z-index: 999999;
     display: flex;
     flex-direction: column;
@@ -336,20 +337,20 @@
     transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 ">
     <div style="display: flex; flex-direction: column; gap: 6px;">
-        <h4 style="margin: 0; font-size: 18px; font-weight: 600; color: var(--text-color, #ffffff); display: flex; align-items: center; gap: 8px;">
+        <h4 style="margin: 0; font-size: 18px; font-weight: 600; color: #ffffff; display: flex; align-items: center; gap: 8px;">
             🍪 Cookie Settings
         </h4>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5; opacity: 0.85;">
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: rgba(255, 255, 255, 0.85); /* High contrast body text */">
             We use cookies to personalize content, analyze traffic, and serve relevant ads via Google AdSense. You can read our full policies on our 
-            <a href="/privacy-policy" style="color: var(--primary-red, #ff4a57); text-decoration: none; font-weight: 500; border-bottom: 1px dashed;">Privacy Policy</a> page.
+            <a href="/privacy-policy" style="color: #ff4a57; text-decoration: none; font-weight: 500; border-bottom: 1px dashed;">Privacy Policy</a> page.
         </p>
     </div>
     
     <div style="display: flex; gap: 12px; justify-content: flex-end; align-items: center;">
         <button id="decline-cookies" style="
             background: transparent;
-            color: var(--text-color, #ffffff);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             padding: 10px 18px;
             border-radius: 8px;
             font-size: 14px;
@@ -359,7 +360,7 @@
         ">Decline</button>
         
         <button id="accept-cookies" style="
-            background: var(--primary-red, #ff4a57);
+            background: #ff4a57;
             color: #ffffff;
             border: none;
             padding: 10px 22px;
@@ -367,11 +368,12 @@
             font-size: 14px;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 12px rgba(230, 57, 70, 0.2);
+            box-shadow: 0 4px 12px rgba(255, 74, 87, 0.3);
             transition: all 0.2s ease;
         ">Accept All</button>
     </div>
 </div>
+
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
