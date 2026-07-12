@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ideal Weight Calculator | LooLabs.xyz</title>
+    <title>Ideal Weight Calculator | Clinical IBW Formulas | LooLabs.xyz</title>
     
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
@@ -11,6 +11,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <link rel="stylesheet" href="../css/style.css">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-FRTPM5S88N"></script>
@@ -30,86 +31,195 @@
             <a href="/contact">Contact</a>
             <a href="/privacy-policy">Privacy Policy</a>
             <a href="/all-calculators">All Calculators</a>
+            <button id="theme-toggle"><i class="fas fa-moon"></i></button>
         </nav>
+        <button class="mobile-menu-btn"><i class="fas fa-bars"></i></button>
     </header>
 
     <main class="container tool-layout">
+        
         <div class="tool-main">
             <div class="breadcrumbs">
-                <a href="/">Home</a> &rsaquo; <a href="/health">Fitness & Health</a> &rsaquo; Ideal Weight Calculator
+                <a href="/">Home</a> &rsaquo; <a href="/health">Health Calculators</a> &rsaquo; Ideal Weight Calculator
             </div>
 
-            <h1>Ideal Weight Calculator</h1>
+            <h1>Ideal Weight Calculator (IBW)</h1>
+            
+            <div style="text-align: center; margin-bottom: 20px;">
+                <span class="live-year-badge" style="background: #00b894; color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">
+                    Updated for 2026
+                </span>
+            </div>
 
             <div class="tool-card">
                 <div class="unit-toggle">
-                    <button class="unit-btn active" id="btnMetricIW" onclick="switchUnitIW('metric')">Metric (cm)</button>
-                    <button class="unit-btn" id="btnUSIW" onclick="switchUnitIW('us')">US (ft/in)</button>
+                    <button class="unit-btn active" id="btnImperial" onclick="toggleUnits('imperial')">Imperial (US)</button>
+                    <button class="unit-btn" id="btnMetric" onclick="toggleUnits('metric')">Metric</button>
                 </div>
 
-                <div class="input-group-stack">
-                    <label style="font-weight: 600; color: #888; font-size: 14px;">Gender</label>
-                    <div class="gender-toggle">
-                        <label class="gender-label"><input type="radio" name="iwGender" value="male" checked> Male</label>
-                        <label class="gender-label"><input type="radio" name="iwGender" value="female"> Female</label>
-                    </div>
-
-                    <div id="iwMetric" style="display: block;">
-                        <label style="font-weight: 600; color: #888; font-size: 14px;">Height (cm)</label>
-                        <input type="number" id="iwHeightCm" class="tool-input" style="width: 100%;">
-                    </div>
-
-                    <div id="iwUS" style="display: none; gap: 15px;">
-                        <div style="flex: 1;">
-                            <label style="font-weight: 600; color: #888; font-size: 14px;">Height (ft)</label>
-                            <input type="number" id="iwHeightFt" class="tool-input" style="width: 100%;">
+                <div class="adv-calc-grid">
+                    <div class="adv-input-section" style="grid-column: 1 / -1;">
+                        <div class="gender-toggle">
+                            <label class="gender-label">
+                                <input type="radio" name="ibwGender" value="male" checked onchange="calculateIdealWeight()"> Male
+                            </label>
+                            <label class="gender-label">
+                                <input type="radio" name="ibwGender" value="female" onchange="calculateIdealWeight()"> Female
+                            </label>
                         </div>
-                        <div style="flex: 1;">
-                            <label style="font-weight: 600; color: #888; font-size: 14px;">Height (in)</label>
-                            <input type="number" id="iwHeightIn" class="tool-input" style="width: 100%;">
+                        
+                        <label style="font-weight: 600; color: #888; font-size: 14px; margin-top: 15px; display: block;">Height</label>
+                        
+                        <div id="imperialInputs" style="display: flex; gap: 15px;">
+                            <div style="flex: 1;">
+                                <div class="input-with-symbol right-symbol">
+                                    <span class="symbol">ft</span>
+                                    <input type="number" id="ibwFt" class="tool-input" value="5" min="4" max="8">
+                                </div>
+                            </div>
+                            <div style="flex: 1;">
+                                <div class="input-with-symbol right-symbol">
+                                    <span class="symbol">in</span>
+                                    <input type="number" id="ibwIn" class="tool-input" value="9" min="0" max="11">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="metricInputs" style="display: none;">
+                            <div class="input-with-symbol right-symbol">
+                                <span class="symbol">cm</span>
+                                <input type="number" id="ibwCm" class="tool-input" value="175" min="120" max="250">
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="errorMsgIW" style="color: var(--primary-red); text-align: center; font-weight: 600; margin: 15px 0; display: none;"></div>
+                <div id="errorMessage" style="color: var(--primary-red); text-align: center; font-weight: 600; margin-bottom: 15px; display: none;"></div>
 
-                <button onclick="calculateIdealWeight()" class="calc-action-btn">Calculate Ideal Weight <i class="fas fa-weight-scale"></i></button>
+                <button onclick="calculateIdealWeight()" class="calc-action-btn" style="background-color: #00b894;">Calculate Ideal Weight <i class="fas fa-weight"></i></button>
 
-                <div class="health-result-container" id="resultBoxIW">
-                    <div class="health-main-result">
-                        <h3>Your Ideal Weight</h3>
-                        <div class="cal-value" id="iwResultMain">-</div>
-                        <p style="font-size: 14px; opacity: 0.9; margin: 0;">Devine Formula</p>
+                <div class="health-result-container" id="resultBox">
+                    <div class="health-main-result" style="background-color: #00b894;">
+                        <h3>Healthy BMI Weight Range</h3>
+                        <div class="cal-value" id="resBMIRange" style="font-size: 38px;">125.0 - 168.0 lbs</div>
+                        <p style="font-size: 14px; opacity: 0.9; margin: 10px 0 0 0;">Based on World Health Organization (WHO) Guidelines</p>
                     </div>
+
+                    <h3 style="margin-top: 25px; margin-bottom: 15px; color: var(--text-color); font-size: 18px; text-align: center;">Clinical Formula Estimates</h3>
                     
                     <div class="health-grid">
                         <div class="health-box">
-                            <div class="stat-label">Robinson Formula</div>
-                            <div class="stat-value" id="iwRob">-</div>
+                            <div class="stat-label">J.D. Robinson (1983)</div>
+                            <div class="stat-value" id="resRobinson" style="color: #0984e3;">-</div>
                         </div>
                         <div class="health-box">
-                            <div class="stat-label">Miller Formula</div>
-                            <div class="stat-value" id="iwMil">-</div>
+                            <div class="stat-label">D.R. Miller (1983)</div>
+                            <div class="stat-value" id="resMiller" style="color: #6c5ce7;">-</div>
                         </div>
+                        <div class="health-box">
+                            <div class="stat-label">B.J. Devine (1974)</div>
+                            <div class="stat-value" id="resDevine" style="color: #e17055;">-</div>
+                        </div>
+                        <div class="health-box">
+                            <div class="stat-label">G.J. Hamwi (1964)</div>
+                            <div class="stat-value" id="resHamwi" style="color: #d63031;">-</div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(150,150,150,0.05); border: 1px solid rgba(150,150,150,0.1); padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px;">
+                        <p style="font-size: 13px; color: var(--text-color); margin: 0; line-height: 1.5;">
+                            <strong>Disclaimer:</strong> These formulas strictly calculate weight based on height. They do not account for muscle mass, bone density, or overall body composition. Athletes and bodybuilders will often exceed these weights while remaining perfectly healthy.
+                        </p>
                     </div>
                 </div>
             </div>
 
             <article class="tool-seo">
-                <h2>What is the Ideal Weight?</h2>
-                <p>The concept of "Ideal Body Weight" (IBW) was originally created for medical dosing, but has become a standard health metric. Our calculator uses the three most widely recognized medical formulas (Devine, Robinson, and Miller) to give you a precise target.</p>
-                <p>Keep in mind that these formulas are based purely on height and gender. They do not account for muscle mass or bone density. Athletes with high muscle mass will often weigh more than their "ideal" weight while still being perfectly healthy.</p>
+                <h2>Understanding Ideal Body Weight (IBW)</h2>
+                <p>The pursuit of the "perfect" weight is a concept that has dominated health, fitness, and medical discussions for over a century. However, from a clinical standpoint, an <strong>Ideal Body Weight (IBW)</strong> is not about achieving a specific aesthetic standard. Rather, it is an estimated optimal weight range where a person is statistically least likely to develop weight-related health conditions such as type 2 diabetes, cardiovascular disease, and hypertension.</p>
+                <p>Our Advanced IBW Calculator doesn't just rely on one metric. It cross-references your height and biological sex against the four most widely respected clinical formulas developed over the last 60 years, while also providing the modern World Health Organization (WHO) healthy range.</p>
+
+                <h3>How the Four Clinical Formulas Work</h3>
+                <p>Historically, medical professionals needed a quick, standardized way to estimate a patient's ideal weight to accurately dose medications, calculate anesthesia, and plan nutritional therapies. Over the decades, four primary equations emerged as the gold standards in medical practice. All four formulas share a similar structure: they establish a baseline weight for a person who is exactly 5 feet (60 inches) tall, and then add a specific amount of weight for every additional inch of height.</p>
+
+                <table class="fin-breakdown-table">
+                    <thead>
+                        <tr>
+                            <th>Clinical Formula</th>
+                            <th>Year</th>
+                            <th>Methodology & Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>G.J. Hamwi Formula</strong></td>
+                            <td>1964</td>
+                            <td>Originally developed for dietary prescriptions and nutritional planning. It remains one of the most common methods used by dietitians today for estimating basic metabolic needs.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>B.J. Devine Formula</strong></td>
+                            <td>1974</td>
+                            <td>Invented specifically to calculate drug dosages (particularly for the clearance of medications in the kidneys). It is still widely used in pharmacology and intensive care units.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>J.D. Robinson Formula</strong></td>
+                            <td>1983</td>
+                            <td>A modification of the Devine formula designed to correct a flaw that underestimated ideal weight in women. It is considered slightly more accurate for modern populations.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>D.R. Miller Formula</strong></td>
+                            <td>1983</td>
+                            <td>Another modification of the Devine formula. It is often cited as the most balanced mathematical approach, though it tends to suggest slightly lower weights than Robinson.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>The Flaw in the Formulas: Why Height Isn't Everything</h3>
+                <p>While the Robinson, Devine, Miller, and Hamwi equations are incredibly useful in clinical pharmacology, they have a massive limitation when applied to general fitness: <strong>they only use height and biological sex as variables.</strong></p>
+                <p>Because they do not account for age, body frame size, bone density, or muscle mass, these formulas can be wildly inaccurate for certain populations. If you are a professional athlete, a weightlifter, or naturally possess a broad, dense skeletal frame, these formulas will likely suggest an IBW that is biologically impossible or unhealthy for you to reach. This is why our calculator prominently displays the broader WHO BMI range alongside the specific clinical estimates.</p>
+
+                <h3>Body Mass Index (BMI) vs. Ideal Body Weight</h3>
+                <p>The <strong>Body Mass Index (BMI)</strong> is the most widely utilized health screening tool in the world. Rather than calculating a single "ideal" number, BMI calculates the ratio of your weight to your height squared, placing you into a statistical category.</p>
+                <ul>
+                    <li><strong>Underweight:</strong> BMI less than 18.5</li>
+                    <li><strong>Normal (Healthy Range):</strong> BMI between 18.5 and 24.9</li>
+                    <li><strong>Overweight:</strong> BMI between 25.0 and 29.9</li>
+                    <li><strong>Obesity:</strong> BMI of 30.0 or higher</li>
+                </ul>
+                <p>Our calculator determines your exact "Healthy BMI Weight Range" by reverse-engineering the math. It calculates the exact weight you would need to be to hit a BMI of 18.5 (the bottom of the healthy range) and a BMI of 24.9 (the top of the healthy range). For most adults, this provides a realistic, achievable, and flexible 30-to-40-pound window of optimal health.</p>
+
+                <h3>The Importance of Body Composition (Muscle vs. Fat)</h3>
+                <p>If you want a truly accurate picture of your health, you must look beyond the number on the scale. Two individuals can be the exact same height and weight (and therefore have the exact same BMI and IBW), but possess completely different levels of metabolic health.</p>
+                <p>A bodybuilder who weighs 220 lbs at 5'10" might have a body fat percentage of 10%, whereas an untrained individual of the same height and weight might have a body fat percentage of 30%. The untrained individual is at a high risk for cardiovascular disease, while the bodybuilder is perfectly healthy. If you want a more advanced metric, we highly recommend using our <a href="/body-fat-calculator">Body Fat Calculator</a> in conjunction with this tool to measure your Lean Body Mass.</p>
+
+                <h2>Frequently Asked Questions (FAQ)</h2>
+                
+                <h4 style="color: var(--text-color);">1. Should women and men have different ideal weights?</h4>
+                <p style="margin-bottom: 25px;">Yes. From a biological and evolutionary standpoint, males and females have vastly different body compositions. Men naturally produce more testosterone, leading to higher baseline muscle mass and bone density, which are both heavier than fat tissue. Women naturally carry a higher percentage of essential body fat (required for reproductive health and hormonal balance). Consequently, all clinical formulas adjust to allow for a heavier ideal weight in men of the exact same height.</p>
+
+                <h4 style="color: var(--text-color);">2. Does age affect my ideal weight?</h4>
+                <p style="margin-bottom: 25px;">The classic clinical formulas do not account for age, but modern geriatric medicine acknowledges that ideal weight shifts as we get older. Maintaining a slightly higher BMI (between 25 and 27) in your 70s and 80s has been statistically linked to better survival rates and protection against osteoporosis and frailty. A little extra weight in older adulthood can provide critical energy reserves during illness.</p>
+
+                <h4 style="color: var(--text-color);">3. What should I do if my current weight is far above my ideal weight?</h4>
+                <p style="margin-bottom: 25px;">Do not panic, and do not attempt extreme crash diets. Focus on sustainable, long-term changes. Medical studies consistently show that losing just <strong>5% to 10% of your current body weight</strong>—even if that doesn't put you into your "ideal" range—creates massive improvements in blood pressure, cholesterol, and insulin sensitivity. Consult with a registered dietitian or your primary care physician to create a sustainable plan.</p>
+
+                <h4 style="color: var(--text-color);">4. Are these formulas accurate for children?</h4>
+                <p>Absolutely not. None of the formulas in this calculator (nor standard adult BMI ranges) should be applied to children or teenagers under the age of 18. Because children are actively growing and their body proportions change rapidly, pediatricians use highly specific growth charts and age-adjusted percentiles to determine if a child is developing at a healthy weight.</p>
             </article>
-        </div>
+
+            </div>
+
         <aside class="tool-sidebar">
             <div class="tool-card related-tools">
-                <h3 style="margin-top: 0;">Trending Tools</h3>
+                <h3 style="margin-top: 0;">Related Health Tools</h3>
                 <ul>
-                    <li><a href="/bmi-calculator"><i class="fas fa-heartbeat"></i> BMI Calculator</a></li>
                     <li><a href="/body-fat-calculator"><i class="fas fa-child"></i> Body Fat Calculator</a></li>
+                    <li><a href="/period-calculator"><i class="fas fa-calendar-day"></i> Period Calculator</a></li>
+                    <li><a href="/pregnancy-due-date-calculator"><i class="fas fa-baby"></i> Pregnancy Due Date</a></li>
                 </ul>
             </div>
         </aside>
+
     </main>
 
     <footer>
@@ -131,70 +241,6 @@
         <p class="copyright">&copy; 2026 - 2026  <a href="https://loolabs.xyz/">loolabs.xyz</a></p>
     </footer>
 
-    <script>
-        let iwUnit = 'metric';
-
-        function switchUnitIW(unit) {
-            iwUnit = unit;
-            document.getElementById('btnMetricIW').classList.toggle('active', unit === 'metric');
-            document.getElementById('btnUSIW').classList.toggle('active', unit === 'us');
-            
-            document.getElementById('iwMetric').style.display = unit === 'metric' ? 'block' : 'none';
-            document.getElementById('iwUS').style.display = unit === 'us' ? 'flex' : 'none';
-            document.getElementById('resultBoxIW').style.display = 'none';
-        }
-
-        function calculateIdealWeight() {
-            const errorMsg = document.getElementById('errorMsgIW');
-            errorMsg.style.display = 'none';
-
-            const gender = document.querySelector('input[name="iwGender"]:checked').value;
-            let inchesOver5Ft = 0;
-
-            if (iwUnit === 'metric') {
-                const cm = parseFloat(document.getElementById('iwHeightCm').value);
-                if (isNaN(cm) || cm < 140) {
-                    errorMsg.innerText = "Please enter a valid height (Minimum 140cm).";
-                    errorMsg.style.display = 'block';
-                    return;
-                }
-                const totalInches = cm / 2.54;
-                inchesOver5Ft = totalInches - 60;
-            } else {
-                const ft = parseFloat(document.getElementById('iwHeightFt').value) || 0;
-                const inches = parseFloat(document.getElementById('iwHeightIn').value) || 0;
-                const totalInches = (ft * 12) + inches;
-                if (totalInches < 55) {
-                    errorMsg.innerText = "Please enter a valid height (Minimum 4ft 7in).";
-                    errorMsg.style.display = 'block';
-                    return;
-                }
-                inchesOver5Ft = totalInches - 60;
-            }
-
-            // Devine Formula (1974)
-            const devineBase = gender === 'male' ? 50 : 45.5;
-            let devineKg = devineBase + (2.3 * inchesOver5Ft);
-
-            // Robinson Formula (1983)
-            const robBase = gender === 'male' ? 52 : 49;
-            const robMult = gender === 'male' ? 1.9 : 1.7;
-            let robKg = robBase + (robMult * inchesOver5Ft);
-
-            // Miller Formula (1983)
-            const milBase = gender === 'male' ? 56.2 : 53.1;
-            const milMult = gender === 'male' ? 1.41 : 1.36;
-            let milKg = milBase + (milMult * inchesOver5Ft);
-
-            const displayUnit = iwUnit === 'metric' ? 'kg' : 'lbs';
-            const multiplier = iwUnit === 'metric' ? 1 : 2.20462;
-
-            document.getElementById('iwResultMain').innerText = (devineKg * multiplier).toFixed(1) + " " + displayUnit;
-            document.getElementById('iwRob').innerText = (robKg * multiplier).toFixed(1) + " " + displayUnit;
-            document.getElementById('iwMil').innerText = (milKg * multiplier).toFixed(1) + " " + displayUnit;
-
-            document.getElementById('resultBoxIW').style.display = 'block';
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
